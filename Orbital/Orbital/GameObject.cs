@@ -31,6 +31,8 @@ namespace Orbital
 		protected float speed;
 		protected float fps;
 
+		private GameWorld myGameWorld;
+
 		private Random myRandom = new Random();
 
 		public Rectangle Collision
@@ -86,6 +88,20 @@ namespace Orbital
 			}
 		}
 
+		public void SetGameWorld(GameWorld gameWorld)
+		{
+			myGameWorld = gameWorld;
+		}
+
+		public void Instantiate(GameObject gameObject)
+		{
+			myGameWorld.Instantiate(gameObject);
+		}
+
+		public void Destroy(GameObject gameObject)
+		{
+			myGameWorld.DestroyGameObject(gameObject);
+		}
 
 
 	}
