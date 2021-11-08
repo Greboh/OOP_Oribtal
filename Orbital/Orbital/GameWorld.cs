@@ -11,6 +11,12 @@ namespace Orbital
 		private GraphicsDeviceManager myGraphics;
 		private SpriteBatch mySpriteBatch;
 
+		
+		private int screenHeight = 1600;
+		private int screenWidth =1200;
+
+
+
 		public GameWorld()
 		{
 			myGraphics = new GraphicsDeviceManager(this);
@@ -21,6 +27,12 @@ namespace Orbital
 		protected override void Initialize()
 		{
 			// TODO: Add your initialization logic here
+
+			myGraphics.PreferredBackBufferHeight = screenHeight;
+            myGraphics.PreferredBackBufferWidth = screenWidth;
+			myGraphics.ApplyChanges();
+
+			
 
 			base.Initialize();
 		}
