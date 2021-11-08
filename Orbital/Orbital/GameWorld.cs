@@ -20,6 +20,9 @@ namespace Orbital
 		private List<GameObject> listOfObjectsToAdd = new List<GameObject>();
 		private List<GameObject> listOfObjectsToDestroy = new List<GameObject>();
 
+		private Player player = new Player();
+
+
 		public static int ScreenHeight
 		{
 			get { return myGraphics.PreferredBackBufferHeight; }
@@ -49,8 +52,8 @@ namespace Orbital
 			myGraphics.IsFullScreen = false;
 			myGraphics.ApplyChanges();
 
-			
 
+			Instantiate(player);
 
 
 
@@ -73,10 +76,11 @@ namespace Orbital
 
 			// TODO: Add your update logic here
 
+			player.Update(gameTime);
+
 
 			CallInstantiate();
 			CallDestroy();
-			base.Update(gameTime);
 		}
 
 		protected override void Draw(GameTime gameTime)
@@ -84,6 +88,16 @@ namespace Orbital
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			// TODO: Add your drawing code here
+
+			mySpriteBatch.Begin();
+
+			foreach (GameObject obj in listOfCurrentObjects)
+			{
+				obj.Draw(mySpriteBatch);
+			}
+
+			mySpriteBatch.End();
+
 
 			base.Draw(gameTime);
 		}
