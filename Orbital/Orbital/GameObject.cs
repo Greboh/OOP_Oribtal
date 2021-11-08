@@ -21,7 +21,6 @@ namespace Orbital
 
 		protected Color color;
 
-
 		protected int health;
 		protected int damage;
 		private float timeElapsed;
