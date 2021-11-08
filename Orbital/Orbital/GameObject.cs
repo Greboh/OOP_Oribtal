@@ -30,6 +30,11 @@ namespace Orbital
 		protected float scale;
 		protected float speed;
 		protected float animationFPS = 10;
+		protected float rotation;
+		protected const float tangentialVelocity = 5f;
+		protected float friction = 0.1f;
+
+		protected Rectangle spriteRectangle;
 
 		private GameWorld myGameWorld;
 
