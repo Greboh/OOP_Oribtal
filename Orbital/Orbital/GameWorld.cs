@@ -13,10 +13,7 @@ namespace Orbital
 
 		
 		private int screenHeight = 900;
-		private int screenWidth =1200;
-
-        public int ScreenHeight { get => screenHeight; set => screenHeight = value; }
-        public int ScreenWidth { get => screenWidth; set => screenWidth = value; }
+		private int screenWidth = 1200;
 
         public GameWorld()
 		{
