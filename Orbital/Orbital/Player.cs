@@ -79,17 +79,17 @@ namespace Orbital
                 velocity += new Vector2(-1, 0);
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) // Speed boost
+            {
+                this.speed = 350;
+            }
+            else this.speed = 200;
+
             if (velocity != Vector2.Zero) //Normalize movement vector for smoothness
 
             {
                 velocity.Normalize();
             }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) // Speed boost
-            {
-                this.speed = 750;
-            }
-            else this.speed = 500;
 
             Console.WriteLine(velocity);
         }
