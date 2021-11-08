@@ -12,7 +12,7 @@ namespace Orbital
 		private SpriteBatch mySpriteBatch;
 
 		
-		private int screenHeight = 1600;
+		private int screenHeight = 900;
 		private int screenWidth =1200;
 
 
