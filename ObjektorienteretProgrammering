@@ -1,1 +1,88 @@
-<mxfile host="app.diagrams.net" modified="2021-11-08T09:33:44.279Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36" version="15.7.0" etag="JjU16beGsogRsdbrgAyw" type="github"><diagram id="oEp07nUN2xlktAl1vaLG">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2021-11-08T11:41:05.167Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36" etag="OXZLO90MIjJmQKLniSG1" version="15.7.0" type="github">
+  <diagram id="oEp07nUN2xlktAl1vaLG" name="Page-1">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="11" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-3" value="GameWorld" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="20" width="340" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-5" value="- graphics : GraphicsDeviceManager;&#xa;- spriteBatch : spriteBatch;&#xa;- gameObjects[] : GameObject;&#xa;- newObjects[] : GameObject;&#xa;- deleteGameObjects[] : GameObject;&#xa;- collisionTexture : Texture2D;&#xa;&#xa;" style="text;strokeColor=default;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="_-j5xnp7JFlcP8zXpD0h-3">
+          <mxGeometry y="26" width="340" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-6" value="#Initialize() : void&#xa;#LoadContent(): void&#xa;#Update(GameTime : gameTime) : void&#xa;#Draw(GameTime : gameTime) void&#xa;+ Instantiate(GameObject : gameObject) : void&#xa;+ DestroyGameObject(GameObject : gameObject) : void &#xa;- CallDestroy() void&#xa;- DrawCollisionBox(GameObject : gameObject) : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="_-j5xnp7JFlcP8zXpD0h-3">
+          <mxGeometry y="130" width="340" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-7" value="GameObject" style="swimlane;fontStyle=3;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+          <mxGeometry x="530" y="20" width="260" height="331" as="geometry" />
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-13" value="&#xa;#sprite : Texture2D;&#xa;#sprites[] : Texture2D&#xa;#position : Vector2;&#xa;#velocity : Vector2;&#xa;#origin : Vector2;&#xa;#offset : Vector2;&#xa;#color : Color;&#xa;#health : int;&#xa;#damage : int;&#xa;#scale : float:&#xa;#speed : float;&#xa;#randomNumber : Random&#xa; " style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" vertex="1" parent="_-j5xnp7JFlcP8zXpD0h-7">
+          <mxGeometry y="30" width="260" height="201" as="geometry" />
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-8" value="LoadContent(Contentmanager : content) : void&#xa;#Move(GameTime : gameTime) : void&#xa;+Update(GameTime : gameTime) : void&#xa;+Draw(SpriteBatch : spriteBatch) : void&#xa;#Animate(GameTime : gameTime) : void&#xa;#OnCollision(GameObject : object) : void&#xa;#CheckCollision(GameObject : object) : void" style="text;strokeColor=default;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontStyle=0" vertex="1" parent="_-j5xnp7JFlcP8zXpD0h-7">
+          <mxGeometry y="231" width="260" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-16" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;entryX=1.003;entryY=0.238;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.725;exitY=0.1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="_-j5xnp7JFlcP8zXpD0h-18" target="_-j5xnp7JFlcP8zXpD0h-6">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="330" y="320" as="sourcePoint" />
+            <mxPoint x="490" y="320" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="380" y="181" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-17" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="360" y="155" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-18" value="0...*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="500" y="180" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-19" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;Player&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ Player(position : Vector2)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- HandleInput() : void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- ScreenBounds() : void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ LoadContent(ContentManager : content) : void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ DrawContent(SpriteBatch : spriteBatch) : void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ Update(GameTime : gameTime) : void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ OnCollision(GameObject : object) : void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;strokeColor=default;" vertex="1" parent="1">
+          <mxGeometry x="350" y="419" width="270" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-21" value="" style="endArrow=open;endFill=1;endSize=12;html=1;rounded=0;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="_-j5xnp7JFlcP8zXpD0h-19">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="330" y="290" as="sourcePoint" />
+            <mxPoint x="553" y="352" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-112" value="Asteroid" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;strokeColor=default;" vertex="1" parent="1">
+          <mxGeometry x="638" y="418" width="319" height="176" as="geometry" />
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-115" value="" style="text;strokeColor=default;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="_-j5xnp7JFlcP8zXpD0h-112">
+          <mxGeometry y="26" width="319" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-118" value="+ Asteroid(position : Vector2, speed : float, health : int)&#xa;+ LoadContent(ContentManager : content) : void&#xa;+ DrawContent(SpriteBatch : spriteBatch) : void&#xa;+ Update(GameTime : gameTime) : void&#xa;+ OnCollision(GameObject : object) : void" style="text;strokeColor=default;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="_-j5xnp7JFlcP8zXpD0h-112">
+          <mxGeometry y="55" width="319" height="121" as="geometry" />
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-119" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="530" y="397" width="22" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-120" value="" style="endArrow=open;endFill=1;endSize=12;html=1;rounded=0;exitX=0.25;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="_-j5xnp7JFlcP8zXpD0h-112">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="374" y="363" as="sourcePoint" />
+            <mxPoint x="718" y="352" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-121" value="0...*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="583" y="397" width="286" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-122" value="EnemyShip" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;strokeColor=default;" vertex="1" parent="1">
+          <mxGeometry x="869" y="89" width="352" height="132" as="geometry" />
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-125" value="+ EnemyShip(position : Vector2, speed : float, health : int,)&#xa;+ EnemyShip(position : Vector2, speed : float, scale : float)&#xa;+ LoadContent(ContentManager : content) : void&#xa;+ DrawContent(SpriteBatch : spriteBatch) : void&#xa;+ Update(GameTime : gameTime) : void&#xa;+ OnCollision(GameObject : object) : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="_-j5xnp7JFlcP8zXpD0h-122">
+          <mxGeometry y="26" width="352" height="106" as="geometry" />
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-126" value="" style="endArrow=open;endFill=1;endSize=12;html=1;rounded=0;exitX=1.091;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.996;entryY=0.731;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="_-j5xnp7JFlcP8zXpD0h-127" target="_-j5xnp7JFlcP8zXpD0h-13">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="374" y="341" as="sourcePoint" />
+            <mxPoint x="792" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_-j5xnp7JFlcP8zXpD0h-127" value="0...*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="836" y="175" width="33" height="22" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
