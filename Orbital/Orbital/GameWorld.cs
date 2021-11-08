@@ -8,8 +8,33 @@ namespace Orbital
 {
 	public class GameWorld : Game
 	{
-		private GraphicsDeviceManager myGraphics;
+		private static GraphicsDeviceManager myGraphics;
 		private SpriteBatch mySpriteBatch;
+
+		
+		private int screenHeight = 900;
+		private int screenWidth =1200;
+
+
+		private List<GameObject> listOfCurrentObjects = new List<GameObject>();
+		private List<GameObject> listOfObjectsToAdd = new List<GameObject>();
+		private List<GameObject> listOfObjectsToDestroy = new List<GameObject>();
+
+		private Player player = new Player();
+
+
+		public static int ScreenHeight
+		{
+			get { return myGraphics.PreferredBackBufferHeight; }
+			set { myGraphics.PreferredBackBufferHeight = value; }
+		}		
+		public static int ScreenWidth
+		{
+			get { return myGraphics.PreferredBackBufferWidth; }
+			set { myGraphics.PreferredBackBufferWidth = value; }
+		}
+
+
 
 		public GameWorld()
 		{
@@ -21,6 +46,16 @@ namespace Orbital
 		protected override void Initialize()
 		{
 			// TODO: Add your initialization logic here
+
+			myGraphics.PreferredBackBufferHeight = screenHeight;
+            myGraphics.PreferredBackBufferWidth = screenWidth;
+			myGraphics.IsFullScreen = false;
+			myGraphics.ApplyChanges();
+
+
+			Instantiate(player);
+
+
 
 			base.Initialize();
 		}
@@ -41,7 +76,11 @@ namespace Orbital
 
 			// TODO: Add your update logic here
 
-			base.Update(gameTime);
+			player.Update(gameTime);
+
+
+			CallInstantiate();
+			CallDestroy();
 		}
 
 		protected override void Draw(GameTime gameTime)
@@ -50,7 +89,75 @@ namespace Orbital
 
 			// TODO: Add your drawing code here
 
+			mySpriteBatch.Begin();
+
+			foreach (GameObject obj in listOfCurrentObjects)
+			{
+				obj.Draw(mySpriteBatch);
+			}
+
+			mySpriteBatch.End();
+
+
 			base.Draw(gameTime);
 		}
+
+		/// <summary>
+		/// Moves our GameObject to our list of objects to add
+		/// </summary>
+		/// <param name="gameObject"></param>
+		public void Instantiate(GameObject gameObject)
+		{
+			gameObject.SetGameWorld(this);
+			listOfObjectsToAdd.Add(gameObject);
+		}
+
+		/// <summary>
+		/// Moves our Gameobjects to our list of objects to destroy
+		/// </summary>
+		/// <param name="gameObject"></param>
+		/// 
+		public void DestroyGameObject(GameObject gameObject)
+		{
+			listOfObjectsToDestroy.Add(gameObject);
+		}
+
+
+		/// <summary>
+		/// Checks if there is any objects to add from our add list
+		/// If there is it loads their content and adds them to our current objects list
+		/// </summary>
+		private void CallInstantiate()
+		{
+			if (listOfObjectsToAdd.Count > 0)
+			{
+				foreach (GameObject addObj in listOfObjectsToAdd)
+				{
+					addObj.LoadContent(Content);
+					listOfCurrentObjects.Add(addObj);
+				}
+
+				listOfObjectsToAdd.Clear();
+			}
+		}
+
+		/// <summary>
+		/// Checks if there is any objects to destroy from our destroy list
+		/// if there is it removes them from our current objects list
+		/// </summary>
+		private void CallDestroy()
+		{
+			if(listOfObjectsToDestroy.Count > 0)
+			{
+				foreach (GameObject destroyObj in listOfObjectsToDestroy)
+				{
+					listOfCurrentObjects.Remove(destroyObj);
+				}
+			}
+		}
+		
+
+
+
 	}
 }

@@ -12,7 +12,8 @@ namespace Orbital
 	{
 
 		protected Texture2D sprite;
-		protected Texture2D[] sprites = new Texture2D[4];
+		protected Texture2D exhaustSprite;
+		protected Texture2D[] exhaustSprites = new Texture2D[4];
 
 		protected Vector2 position;
 		protected Vector2 velocity;
@@ -28,7 +29,9 @@ namespace Orbital
 
 		protected float scale;
 		protected float speed;
-		protected float fps;
+		protected float animationFPS = 10;
+
+		private GameWorld myGameWorld;
 
 		private Random myRandom = new Random();
 
@@ -47,7 +50,7 @@ namespace Orbital
 
 		public abstract void LoadContent(ContentManager content);
 
-		protected void Move(GameTime gameTime)
+		protected void HandleMovement(GameTime gameTime)
 		{
 			float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 			position += ((velocity * speed) * deltaTime);
@@ -55,20 +58,17 @@ namespace Orbital
 
 		public abstract void Update(GameTime gametime);
 
-		public void Draw(SpriteBatch spriteBatch)
-		{
-			spriteBatch.Draw(sprite, position, null, color, 0, origin, scale, SpriteEffects.None, 0);
+		public abstract void Draw(SpriteBatch spriteBatch);
 
-
-		}
 		protected void Animate(GameTime gametime)
 		{
 			timeElapsed += (float)gametime.ElapsedGameTime.TotalSeconds;
 
-			currentIndex = (int)(timeElapsed * fps);
-			sprite = sprites[currentIndex];
+			currentIndex = (int)(timeElapsed * animationFPS);
 
-			if (currentIndex >= sprites.Length - 1)
+			exhaustSprite = exhaustSprites[currentIndex];
+
+			if (currentIndex >= exhaustSprites.Length - 1)
 			{
 				timeElapsed = 0;
 				currentIndex = 0;
@@ -85,6 +85,20 @@ namespace Orbital
 			}
 		}
 
+		public void SetGameWorld(GameWorld gameWorld)
+		{
+			myGameWorld = gameWorld;
+		}
+
+		public void Instantiate(GameObject gameObject)
+		{
+			myGameWorld.Instantiate(gameObject);
+		}
+
+		public void Destroy(GameObject gameObject)
+		{
+			myGameWorld.DestroyGameObject(gameObject);
+		}
 
 
 	}
