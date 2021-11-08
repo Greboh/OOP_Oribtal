@@ -9,12 +9,5 @@ namespace Orbital
 {
 	class GameObject
 	{
-		// Test adding to masters
-		// Test remove from masters
-
-		// ABC
-
-
-
 	}
 }
