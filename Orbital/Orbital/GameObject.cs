@@ -9,5 +9,6 @@ namespace Orbital
 {
 	class GameObject
 	{
+		//test
 	}
 }
