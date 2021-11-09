@@ -10,6 +10,6 @@ namespace Orbital
 {
 	class Spawner
 	{
-		// Fjern dit lort
+		
 	}
 }
