@@ -14,19 +14,18 @@ namespace Orbital
 
         public Asteroid()
         {
-            this.position = new Vector2(myRandom.Next(0, 30), myRandom.Next(0, 30));
+            this.position = new Vector2(myRandom.Next(0, 1200), myRandom.Next(0, 0));
             this.color = Color.White;
             this.scale = 0.3f;
-            this.speed = myRandom.Next(1, 100);
-            this.velocity.X = myRandom.Next(1, 5);
-            this.velocity.Y = myRandom.Next(1, 5);
+            this.speed = myRandom.Next(20, 50);
+            this.velocity.Y = 1;
         }
         
 
 
         public override void LoadContent(ContentManager content)
         {
-            sprite = content.Load<Texture2D>("Meteor_05");
+            sprite = content.Load<Texture2D>("Meteor_0"+ myRandom.Next(5, 7));
         }
 
         public override void Update(GameTime gametime)

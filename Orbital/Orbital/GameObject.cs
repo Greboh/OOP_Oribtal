@@ -105,6 +105,7 @@ namespace Orbital
 			myGameWorld.DestroyGameObject(gameObject);
 		}
 
+		
 
 	}
 }
