@@ -16,6 +16,7 @@ namespace Orbital
             this.position = new Vector2(500, 500);
             this.color = Color.White;
 			this.scale = 1;
+            
 		} 
 
 

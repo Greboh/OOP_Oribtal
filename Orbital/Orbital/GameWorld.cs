@@ -21,6 +21,7 @@ namespace Orbital
 		private List<GameObject> listOfObjectsToDestroy = new List<GameObject>();
 
 		private Player player = new Player();
+		
 
 
 		public static int ScreenHeight
@@ -54,6 +55,8 @@ namespace Orbital
 
 
 			Instantiate(player);
+			Instantiate(new Asteroid());
+			Instantiate(new Spawner());
 
 
 
@@ -77,7 +80,10 @@ namespace Orbital
 			// TODO: Add your update logic here
 
 			player.Update(gameTime);
-
+			foreach(GameObject obj in listOfCurrentObjects)
+            {
+				obj.Update(gameTime);
+            }
 
 			CallInstantiate();
 			CallDestroy();
@@ -88,7 +94,7 @@ namespace Orbital
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			// TODO: Add your drawing code here
-
+			
 			mySpriteBatch.Begin();
 
 			foreach (GameObject obj in listOfCurrentObjects)
@@ -124,7 +130,7 @@ namespace Orbital
 
 
 		/// <summary>
-		/// Checks if there is any objects to add from our add list
+		/// Checks if there are any objects to add from our add list
 		/// If there is it loads their content and adds them to our current objects list
 		/// </summary>
 		private void CallInstantiate()
@@ -142,7 +148,7 @@ namespace Orbital
 		}
 
 		/// <summary>
-		/// Checks if there is any objects to destroy from our destroy list
+		/// Checks if there are any objects to destroy from our destroy list
 		/// if there is it removes them from our current objects list
 		/// </summary>
 		private void CallDestroy()
