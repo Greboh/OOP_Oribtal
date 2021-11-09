@@ -32,7 +32,7 @@ namespace Orbital
 		protected float animationFPS = 10;
 		protected float rotation;
 		protected const float tangentialVelocity = 5f;
-		protected float friction = 0.07f;
+		protected float friction = 0.1f;
 
 		protected Rectangle spriteRectangle;
 
