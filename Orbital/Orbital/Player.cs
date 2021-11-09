@@ -9,8 +9,14 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Orbital
 {
+   
+
 	class Player : GameObject
 	{
+        float rotation;
+
+        Vector2 distance;
+
         public Player()
         {
             this.position = new Vector2(500, 500);
@@ -30,6 +36,7 @@ namespace Orbital
 			}
 
             sprite = content.Load<Texture2D>("Ship");
+
             exhaustSprite = exhaustSprites[0];
             origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
 
@@ -38,15 +45,25 @@ namespace Orbital
 
 
         public override void Update(GameTime gameTime)
-        {
-            HandleInput();
-            HandleMovement(gameTime);
-            Animate(gameTime);
-            ScreenWarp();
+		{
+			HandleInput();
+			HandleMovement(gameTime);
+			Animate(gameTime);
+			ScreenWarp();
+
+			LookAtMouse();
 
 		}
 
-        private void HandleInput()
+		private void LookAtMouse()
+		{
+			MouseState mouseState = Mouse.GetState(); // This records mouse clicks and mouse posisiton
+			distance.X = mouseState.X - position.X;
+			distance.Y = mouseState.Y - position.Y;
+			rotation = (float)Math.Atan2(distance.Y, distance.X);
+		}
+
+		private void HandleInput()
         {
             int screenOffset = 20;
             velocity = Vector2.Zero;
@@ -91,7 +108,6 @@ namespace Orbital
                 velocity.Normalize();
             }
 
-            Console.WriteLine(velocity);
         }
 
 
@@ -119,8 +135,8 @@ namespace Orbital
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
-            spriteBatch.Draw(sprite, position, null, color, 0, origin, scale, SpriteEffects.None, 0);
-            spriteBatch.Draw(exhaustSprite, position, null, color, 0, new Vector2(38,13), 2, SpriteEffects.None, 0);
+            spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(exhaustSprite, position, null, color, rotation, new Vector2(38,13), 2, SpriteEffects.None, 0);
         }
     }
 }
