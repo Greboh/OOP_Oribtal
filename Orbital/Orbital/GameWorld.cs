@@ -10,7 +10,7 @@ namespace Orbital
 	{
 		private static GraphicsDeviceManager myGraphics;
 		private SpriteBatch mySpriteBatch;
-
+		private static Vector2 screenSize;
 		
 		private int screenHeight = 900;
 		private int screenWidth =1200;
@@ -22,18 +22,9 @@ namespace Orbital
 
 		private Player player = new Player();
 
+		private Texture2D collisionTexture;
 
-		public static int ScreenHeight
-		{
-			get { return myGraphics.PreferredBackBufferHeight; }
-			set { myGraphics.PreferredBackBufferHeight = value; }
-		}		
-		public static int ScreenWidth
-		{
-			get { return myGraphics.PreferredBackBufferWidth; }
-			set { myGraphics.PreferredBackBufferWidth = value; }
-		}
-
+		public static Vector2 Screensize { get => screenSize; set => screenSize = value; }
 
 
 		public GameWorld()
@@ -41,16 +32,20 @@ namespace Orbital
 			myGraphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
 			IsMouseVisible = true;
+
+			myGraphics.PreferredBackBufferHeight = screenHeight;
+			myGraphics.PreferredBackBufferWidth = screenWidth;
+			myGraphics.IsFullScreen = false;
+			myGraphics.ApplyChanges();
+
+			screenSize = new Vector2(myGraphics.PreferredBackBufferWidth, myGraphics.PreferredBackBufferHeight);
 		}
 
 		protected override void Initialize()
 		{
 			// TODO: Add your initialization logic here
 
-			myGraphics.PreferredBackBufferHeight = screenHeight;
-            myGraphics.PreferredBackBufferWidth = screenWidth;
-			myGraphics.IsFullScreen = false;
-			myGraphics.ApplyChanges();
+
 
 
 			Instantiate(player);
@@ -64,6 +59,9 @@ namespace Orbital
 		{
 			mySpriteBatch = new SpriteBatch(GraphicsDevice);
 
+			collisionTexture = Content.Load<Texture2D>("CollisionTexture");
+
+
 			// TODO: use this.Content to load your game content here
 		}
 
@@ -76,7 +74,21 @@ namespace Orbital
 
 			// TODO: Add your update logic here
 
-			player.Update(gameTime);
+			//player.Update(gameTime);
+
+			foreach (GameObject obj in listOfCurrentObjects)
+			{
+				obj.Update(gameTime);
+
+				foreach (GameObject other in listOfCurrentObjects)
+				{
+					if(obj != other)
+					{
+						obj.CheckCollision(other);
+					}
+				}
+
+			}
 
 
 			CallInstantiate();
@@ -89,11 +101,16 @@ namespace Orbital
 
 			// TODO: Add your drawing code here
 
-			mySpriteBatch.Begin();
+			mySpriteBatch.Begin(SpriteSortMode.FrontToBack);
 
 			foreach (GameObject obj in listOfCurrentObjects)
 			{
 				obj.Draw(mySpriteBatch);
+
+				#if DEBUG
+				DrawCollisionBox(obj);
+				#endif
+
 			}
 
 			mySpriteBatch.End();
@@ -155,8 +172,20 @@ namespace Orbital
 				}
 			}
 		}
-		
 
+		private void DrawCollisionBox(GameObject gameObject)
+		{
+
+			Rectangle topLine = new Rectangle(gameObject.Collision.X, gameObject.Collision.Y, gameObject.Collision.Width, 1);
+			Rectangle bottomLine = new Rectangle(gameObject.Collision.X, gameObject.Collision.Y + gameObject.Collision.Height, gameObject.Collision.Width, 1);
+			Rectangle rightLine = new Rectangle(gameObject.Collision.X + gameObject.Collision.Width, gameObject.Collision.Y, 1, gameObject.Collision.Height);
+			Rectangle leftLine = new Rectangle(gameObject.Collision.X, gameObject.Collision.Y, 1, gameObject.Collision.Height);
+
+			mySpriteBatch.Draw(collisionTexture, topLine, Color.Red);
+			mySpriteBatch.Draw(collisionTexture, bottomLine, Color.Red);
+			mySpriteBatch.Draw(collisionTexture, rightLine, Color.Red);
+			mySpriteBatch.Draw(collisionTexture, leftLine, Color.Red);
+		}
 
 
 	}
