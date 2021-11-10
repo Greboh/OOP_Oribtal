@@ -24,17 +24,7 @@ namespace Orbital
 
 		private Texture2D collisionTexture;
 
-		public static int ScreenHeight
-		{
-			get { return myGraphics.PreferredBackBufferHeight; }
-			set { myGraphics.PreferredBackBufferHeight = value; }
-		}		
-		public static int ScreenWidth
-		{
-			get { return myGraphics.PreferredBackBufferWidth; }
-			set { myGraphics.PreferredBackBufferWidth = value; }
-		}
-
+		public static Vector2 ScreenSize { get => screenSize; set => screenSize = value; }
 
 		public GameWorld()
 		{

@@ -46,5 +46,10 @@ namespace Orbital
         {
             
         }
-    }
+
+		public override void Attack(GameTime gameTime)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

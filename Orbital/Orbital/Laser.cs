@@ -38,8 +38,8 @@ namespace Orbital
 			this.position += velocity;
 			HandleMovement(gametime);
 
-			if (position.X > GameWorld.Screensize.X || position.X < GameWorld.Screensize.X - GameWorld.Screensize.X ||
-				position.Y > GameWorld.Screensize.Y || position.Y < GameWorld.Screensize.Y - GameWorld.Screensize.Y   )
+			if (position.X > GameWorld.ScreenSize.X || position.X < GameWorld.ScreenSize.X - GameWorld.ScreenSize.X ||
+				position.Y > GameWorld.ScreenSize.Y || position.Y < GameWorld.ScreenSize.Y - GameWorld.ScreenSize.Y   )
 			{
 				Destroy(this);
 			}

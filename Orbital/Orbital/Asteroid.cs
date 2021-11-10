@@ -16,11 +16,12 @@ namespace Orbital
         {
             this.position = new Vector2(myRandom.Next(0, 1200), myRandom.Next(0, 0));
             this.color = Color.White;
-            this.scale = 0.3f;
+            this.scale = 1;
             this.speed = myRandom.Next(20, 50);
             this.velocity.Y = 1;
+
         }
-        
+
 
 
         public override void LoadContent(ContentManager content)
@@ -42,5 +43,10 @@ namespace Orbital
         {
             
         }
-    }
+
+		public override void Attack(GameTime gameTime)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
