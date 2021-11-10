@@ -46,14 +46,8 @@ namespace Orbital
 		{
 			// TODO: Add your initialization logic here
 
-
-
-
 			Instantiate(player);
-			Instantiate(new Asteroid());
 			Instantiate(new Spawner());
-
-
 
 			base.Initialize();
 		}

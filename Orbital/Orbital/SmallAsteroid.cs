@@ -18,6 +18,10 @@ namespace Orbital
             this.color = Color.White;
             this.speed = 60;
             this.velocity = new Vector2(myRandom.Next(-2, +2), myRandom.Next(-2, +2));
+            if (velocity.X == 0 || velocity.Y == 0)
+            {
+                velocity = new Vector2(1, 0);
+            }
         }
 
         public override void Attack(GameTime gameTime)
@@ -46,11 +50,11 @@ namespace Orbital
         }
         private void ScreenBound()
         {
-            if (position.Y > GameWorld.ScreenSize.X)
+            if (position.X > GameWorld.ScreenSize.X || position.X <0)
             {
                 Destroy(this);
             }
-            else if (position.X > GameWorld.ScreenSize.Y)
+            else if (position.Y > GameWorld.ScreenSize.Y || position.Y < 0)
             {
                 Destroy(this);
             }
