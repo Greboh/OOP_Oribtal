@@ -69,6 +69,7 @@ namespace Orbital
 
 		public override void OnCollision(GameObject obj)
 		{
+			
 		}
 
 
