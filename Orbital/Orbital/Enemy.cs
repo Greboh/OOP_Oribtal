@@ -75,9 +75,6 @@ namespace Orbital
 
         public override void Attack(GameTime gameTime)
         {
-
-
-
             timeSinceLastShot += (float)gameTime.ElapsedGameTime.TotalSeconds; // Gets the game time in seconds (Framerate independent)
 
             if (timeSinceLastShot > 1) // 
