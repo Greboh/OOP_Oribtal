@@ -9,66 +9,90 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Orbital
 {
-	//class Enemy : GameObject
-	//{
 
-        //Random myRandom = new Random();
+        class Enemy : GameObject
+        {
 
+            public Enemy()
+            {
+                //this.position = new Vector2(myRandom.Next(0, (int)GameWorld.ScreenSize.X), 0);
+                this.color = Color.White;
+                this.scale = 1;
+                this.speed = myRandom.Next(100, 100);
+                //this.velocity.Y = 1;
 
-        //public EnemyShip()
-        //{
-        //    int x = myRandom.Next(25, 1895);
-        //    int y = -100;
-        //    position = new Vector2(x, y);
+            }
+            public override void LoadContent(ContentManager content)
+            {
 
-        //    velocity.Y = 1;
-        //    speed = myRandom.Next(500, 1000);
+                sprite = content.Load<Texture2D>("Ship2");
 
+            }
 
-        //}
+            public override void Update(GameTime gametime)
+            {
+                HandleMovement(gametime);
+                ScreenBound();
+                ShipMovement();
+            }
 
-        //public override void LoadContent(ContentManager content)
-        //{
-        //    sprites = new Texture2D[4];
+            public override void Draw(SpriteBatch spriteBatch)
+            {
+                spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, SpriteEffects.None, 0);
+            }
 
-        //    sprites[0] = content.Load<Texture2D>("enemyBlack1");
-        //    sprites[1] = content.Load<Texture2D>("enemyBlue1");
-        //    sprites[2] = content.Load<Texture2D>("enemyGreen1");
-        //    sprites[3] = content.Load<Texture2D>("enemyRed1");
-                
+            public override void OnCollision(GameObject obj)
+            {
+                if (obj is Laser)
+                {
+                    
+                }
+            }
 
-
-        //}
-
-        //public void Respawn()
-        //{
-        //    int index = myRandom.Next(0, 4);
-        //    sprite = sprites[index];
-        //    velocity = new Vector2(0, 1);
-        //    speed = myRandom.Next(50, 150);
-        //    position.X = myRandom.Next(0, (int)GameWorld.Screensize.X - sprite.Width);
-        //    position.Y = 0 - sprite.Height;
-
-
-        //}
-
-        //public override void Update(GameTime gametime)
-        //{
-        //    Move(gametime);
-
-        //    if (position.Y > GameWorld.Screensize.Y)
-        //    {
-        //        Respawn();
-        //    }
-
-        //}
-
-        //public override void OnCollision(GameObject obj)
-        //{
-
+            private void ShipMovement()
+            {
+            bool goingRight = true;
             
 
-        //}
 
-    //}
-}
+
+            if (position.X < GameWorld.ScreenSize.X - sprite.Width && goingRight == true)
+            {
+                this.velocity.X = 1;
+
+                if (position.X > GameWorld.ScreenSize.X - sprite.Width)
+                {
+                    goingRight = false;
+                }
+
+            }
+            else if (position.X > GameWorld.ScreenSize.X - sprite.Width && goingRight == false)
+            {
+                this.velocity.X = -1;
+
+            }
+
+
+            Console.WriteLine(goingRight);
+            }
+
+        private void ScreenBound()
+            {
+                //if (position.Y > GameWorld.ScreenSize.X)
+                //{
+                //    Destroy(this);
+                //}
+                //else if (position.X > GameWorld.ScreenSize.Y)
+                //{
+                //    Destroy(this);
+                //}
+            }
+
+            public override void Attack(GameTime gameTime)
+            {
+                throw new NotImplementedException();
+            }
+        }
+    }
+
+

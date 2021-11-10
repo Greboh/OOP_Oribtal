@@ -11,7 +11,9 @@ namespace Orbital
 {
 	class Spawner : GameObject
 	{
-        float timeElapsed;
+        float timeElapsedAstroid;
+        float timeElapsedEnemy;
+
 
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -30,14 +32,26 @@ namespace Orbital
 
         public void SpawnAsteroid(GameTime gameTime)
         {
-            timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            timeElapsedAstroid += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            timeElapsedEnemy += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (timeElapsed >= 2f)
+            if (timeElapsedAstroid >= 2f)
             {
-                Asteroid spawnedEnemy = new Asteroid();
-                Instantiate(spawnedEnemy);
-                timeElapsed = 0;
+               
+                Asteroid spawnedAstroid = new Asteroid();
+                Instantiate(spawnedAstroid);
+                timeElapsedAstroid = 0;
+
+
+
             }
+            if (timeElapsedEnemy >= 10f)
+            {
+                Enemy spawnedEnemy = new Enemy();
+                Instantiate(spawnedEnemy);
+                timeElapsedEnemy = 0;
+            }
+
         }
 
 
@@ -47,9 +61,9 @@ namespace Orbital
             
         }
 
-		public override void Attack(GameTime gameTime)
-		{
-			throw new NotImplementedException();
-		}
-	}
+        public override void Attack(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
