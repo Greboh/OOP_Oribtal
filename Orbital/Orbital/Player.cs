@@ -16,6 +16,9 @@ namespace Orbital
 
         // Field for shooting cooldown
         private float timeSinceLastShot = 0f;
+        private bool invincible = false;
+        private float timeElapsed = 0;
+
 
 
         public Player()
@@ -24,6 +27,7 @@ namespace Orbital
             this.scale = 1;
             this.layerDepth = 1;
             this.animationFPS = 10;
+            this.health = 100;
         }
 
 
@@ -62,6 +66,9 @@ namespace Orbital
             ScreenWarp();
             LookAtMouse();
             Attack(gameTime);
+            CheckInvisiblity(gameTime);
+
+            
         }
 
         private void LookAtMouse()
@@ -137,10 +144,31 @@ namespace Orbital
             }
         }
 
-        public override void OnCollision(GameObject obj)
-        {
+        public void CheckInvisiblity(GameTime gameTime)
+		{
+			if (invincible)
+			{
+				timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-        }
+				if (timeElapsed > 2)
+				{
+					invincible = false;
+					timeElapsed = 0;
+				}
+			}
+		}
+
+        public override void OnCollision( GameObject obj)
+        {
+			if (obj is Asteroid && !invincible)
+			{
+				Console.WriteLine($"{GetType().Name} collided with Asteroid");
+				this.health -= 20;
+				Console.WriteLine($"Current health is: {this.health}");
+                invincible = true;
+			}
+
+		}
 
         public override void Draw(SpriteBatch spriteBatch)
         {
