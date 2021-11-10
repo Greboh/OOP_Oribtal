@@ -31,14 +31,14 @@ namespace Orbital
 		protected float speed;
 		protected float animationFPS = 10;
 		protected float rotation;
-		protected const float tangentialVelocity = 5f;
+		protected const float tangentialVelocity = 2f;
 		protected float friction = 0.1f;
 
 		protected Rectangle spriteRectangle;
 
 		private GameWorld myGameWorld;
 
-		private Random myRandom = new Random();
+		protected Random myRandom = new Random();
 
 		public Rectangle Collision
 		{
@@ -105,6 +105,7 @@ namespace Orbital
 			myGameWorld.DestroyGameObject(gameObject);
 		}
 
+		
 
 	}
 }
