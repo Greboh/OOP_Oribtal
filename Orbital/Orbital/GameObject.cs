@@ -12,8 +12,9 @@ namespace Orbital
 	{
 
 		protected Texture2D sprite;
-		protected Texture2D exhaustSprite;
-		protected Texture2D[] exhaustSprites = new Texture2D[4];
+		protected Texture2D animationSprite;
+		protected Texture2D[] sprites = new Texture2D[4];
+
 
 		protected Vector2 position;
 		protected Vector2 velocity;
@@ -22,6 +23,8 @@ namespace Orbital
 
 		protected Color color;
 
+		protected Vector2 bulletDirection;
+		protected float rotation;
 
 		protected int health;
 		protected int damage;
@@ -30,22 +33,23 @@ namespace Orbital
 
 		protected float scale;
 		protected float speed;
-		protected float animationFPS = 10;
+		protected float animationFPS;
+		protected float layerDepth;
 
 		private GameWorld myGameWorld;
 
-		private Random myRandom = new Random();
+		protected Random myRandom = new Random();
 
 		public Rectangle Collision
 		{
 			get
 			{
 				return new Rectangle(
-					   (int)(position.X + offset.Y),
-					   (int)(position.Y + offset.X),
-					   sprite.Width,
-					   sprite.Height
-				   );
+					(int)(position.X + offset.Y),
+					(int)(position.Y + offset.X),
+					(sprite != null ? sprite.Width : 0),
+					(sprite != null ? sprite.Height : 0)
+				    );
 			}
 		}
 
@@ -67,9 +71,9 @@ namespace Orbital
 
 			currentIndex = (int)(timeElapsed * animationFPS);
 
-			exhaustSprite = exhaustSprites[currentIndex];
+			animationSprite = sprites[currentIndex];
 
-			if (currentIndex >= exhaustSprites.Length - 1)
+			if (currentIndex >= sprites.Length - 1)
 			{
 				timeElapsed = 0;
 				currentIndex = 0;
@@ -93,14 +97,19 @@ namespace Orbital
 
 		public void Instantiate(GameObject gameObject)
 		{
+			Console.WriteLine(gameObject + " Has been added!");
+
 			myGameWorld.Instantiate(gameObject);
 		}
 
 		public void Destroy(GameObject gameObject)
 		{
+			Console.WriteLine(gameObject + " Has been Destroyed!");
+
 			myGameWorld.DestroyGameObject(gameObject);
 		}
 
+		public abstract void Attack(GameTime gameTime);
 
 	}
 }
