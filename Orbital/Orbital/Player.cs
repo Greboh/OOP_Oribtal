@@ -22,6 +22,7 @@ namespace Orbital
             this.position = new Vector2(500, 500);
             this.color = Color.White;
 			this.scale = 1;
+            
 		} 
 
 
@@ -65,48 +66,84 @@ namespace Orbital
 
 		private void HandleInput()
         {
-            int screenOffset = 20;
-            velocity = Vector2.Zero;
+            ///////////////////////
+            /// New movement method
+            ///////////////////////
 
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            position = velocity + position;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Left)) rotation -= 0.1f;
+            if (Keyboard.GetState().IsKeyDown(Keys.Right)) rotation += 0.1f;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
-                if (position.Y <= GameWorld.ScreenWidth - GameWorld.ScreenWidth) // ScreenHeight 
-                {
-                    velocity = Vector2.Zero;
-                }
-                else velocity += new Vector2(0, -1);
+                velocity.X = (float)Math.Cos(rotation) * tangentialVelocity;
+                velocity.Y = (float)Math.Sin(rotation) * tangentialVelocity;
 
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.S))
+            else if (velocity != Vector2.Zero)
             {
-                if (position.Y >= GameWorld.ScreenHeight - screenOffset)
-                {
-                    velocity = Vector2.Zero;
-                }
-                else velocity += new Vector2(0, 1);
+                float i = velocity.X;
+                float j = velocity.Y;
+
+                velocity.X = i -= friction * i;
+                velocity.Y = j -= friction * j;
 
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
-            {
-                velocity += new Vector2(1, 0);
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                velocity += new Vector2(-1, 0);
-            }
+            ///////////////////////
+            /// old movement method
+            ///////////////////////
 
-            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) // Speed boost
-            {
-                this.speed = 350;
-            }
-            else this.speed = 200;
+            //int screenOffset = 20;
+            //velocity = Vector2.Zero;
 
-            if (velocity != Vector2.Zero) //Normalize movement vector for smoothness
+            //if (Keyboard.GetState().IsKeyDown(Keys.W))
+            //{
+            //    if (position.Y <= GameWorld.ScreenWidth - GameWorld.ScreenWidth) // ScreenHeight 
+            //    {
+            //        velocity = Vector2.Zero;
+            //    }
+            //    else velocity += new Vector2(0, -1);
 
-            {
-                velocity.Normalize();
-            }
+            //}
+            //else if (Keyboard.GetState().IsKeyDown(Keys.S))
+            //{
+            //    if (position.Y >= GameWorld.ScreenHeight - screenOffset)
+            //    {
+            //        velocity = Vector2.Zero;
+            //    }
+            //    else velocity += new Vector2(0, 1);
+
+            //}
+
+            //if (Keyboard.GetState().IsKeyDown(Keys.D))
+            //{
+            //    velocity += new Vector2(1, 0);
+            //}
+            //else if (Keyboard.GetState().IsKeyDown(Keys.A))
+            //{
+            //    velocity += new Vector2(-1, 0);
+            //}
+
+            //if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) // Speed boost
+            //{
+            //    this.speed = 350;
+            //}
+            //else this.speed = 200;
+
+            //if (velocity != Vector2.Zero) //Normalize movement vector for smoothness
+
+            //{
+            //    velocity.Normalize();
+            //}
+
+            //Console.WriteLine(velocity);
+
+
+
+
+
 
         }
 

@@ -22,7 +22,6 @@ namespace Orbital
 
 		protected Color color;
 
-
 		protected int health;
 		protected int damage;
 		private float timeElapsed;
@@ -31,10 +30,15 @@ namespace Orbital
 		protected float scale;
 		protected float speed;
 		protected float animationFPS = 10;
+		protected float rotation;
+		protected const float tangentialVelocity = 2f;
+		protected float friction = 0.1f;
+
+		protected Rectangle spriteRectangle;
 
 		private GameWorld myGameWorld;
 
-		private Random myRandom = new Random();
+		protected Random myRandom = new Random();
 
 		public Rectangle Collision
 		{
@@ -101,6 +105,7 @@ namespace Orbital
 			myGameWorld.DestroyGameObject(gameObject);
 		}
 
+		
 
 	}
 }
