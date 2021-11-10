@@ -23,6 +23,7 @@ namespace Orbital
             this.color = Color.White;
             this.scale = 1;
             this.speed = 3;
+            
         }
         public override void LoadContent(ContentManager content)
         {
@@ -81,10 +82,17 @@ namespace Orbital
 
             if (timeSinceLastShot > 1) // 
             {
-
-               
-                    Instantiate(new Laser(position, shootingPoint, this.rotation ));
+                if (movingRight)
+                {
+                    Instantiate(new Laser(position, shootingPoint, this.rotation + 45));
                     timeSinceLastShot = 0;
+                }
+                else
+                {
+                    Instantiate(new Laser(position, shootingPoint, this.rotation + 90));
+                    timeSinceLastShot = 0;
+                }
+                    
 
                 Console.WriteLine();
             }

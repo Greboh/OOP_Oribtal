@@ -13,7 +13,7 @@ namespace Orbital
 	{
         float timeElapsedAstroid;
         float timeElapsedEnemy;
-
+        int amountOfEnemies = 0;
 
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -37,6 +37,7 @@ namespace Orbital
             timeElapsedAstroid += (float)gameTime.ElapsedGameTime.TotalSeconds;
             timeElapsedEnemy += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+
             if (timeElapsedAstroid >= 2f)
             {
                
@@ -47,13 +48,15 @@ namespace Orbital
 
 
             }
-            if (timeElapsedEnemy >= 5f)
+            if (timeElapsedEnemy >= 5f && amountOfEnemies < 1)
             {
                 Enemy spawnedEnemy = new Enemy();
                 Instantiate(spawnedEnemy);
                 timeElapsedEnemy = 0;
+                amountOfEnemies ++;
 
-                
+                Console.WriteLine(amountOfEnemies);
+
             }
 
         }
