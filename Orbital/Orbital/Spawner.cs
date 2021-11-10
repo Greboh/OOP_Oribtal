@@ -45,11 +45,13 @@ namespace Orbital
 
 
             }
-            if (timeElapsedEnemy >= 10f)
+            if (timeElapsedEnemy >= 5f)
             {
                 Enemy spawnedEnemy = new Enemy();
                 Instantiate(spawnedEnemy);
                 timeElapsedEnemy = 0;
+
+                
             }
 
         }
