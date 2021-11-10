@@ -13,6 +13,10 @@ namespace Orbital
     class Enemy : GameObject
     {
         bool movingRight = true;
+        private Vector2 shootingPoint;
+        private float timeSinceLastShot = 0f;
+
+
         public Enemy()
         {
             //this.position = new Vector2(myRandom.Next(0, (int)GameWorld.ScreenSize.X), 0);
@@ -32,6 +36,7 @@ namespace Orbital
             HandleMovement(gametime);
             ScreenBound();
             ShipMovement();
+            Attack(gametime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -50,8 +55,6 @@ namespace Orbital
         private void ShipMovement()
         {
 
-            
-
             if (movingRight)
             {
                 position.X += speed;
@@ -69,6 +72,28 @@ namespace Orbital
             //Console.WriteLine(GameWorld.ScreenSize.X);
         }
 
+        public override void Attack(GameTime gameTime)
+        {
+
+
+
+            timeSinceLastShot += (float)gameTime.ElapsedGameTime.TotalSeconds; // Gets the game time in seconds (Framerate independent)
+
+            if (timeSinceLastShot > 1) // 
+            {
+
+               
+                    Instantiate(new Laser(position, shootingPoint, this.rotation ));
+                    timeSinceLastShot = 0;
+
+                Console.WriteLine();
+            }
+
+
+
+
+        }
+
         private void ScreenBound()
         {
             //if (position.Y > GameWorld.ScreenSize.X)
@@ -81,10 +106,7 @@ namespace Orbital
             //}
         }
 
-        public override void Attack(GameTime gameTime)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
 
