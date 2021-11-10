@@ -12,6 +12,12 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Content\1turboExhaust.png" />
+    <None Remove="Content\2turboExhaust.png" />
+    <None Remove="Content\3turboExhaust.png" />
+    <None Remove="Content\4turboExhaust.png" />
+  </ItemGroup>
+  <ItemGroup>
     <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
   </ItemGroup>
   <ItemGroup>
