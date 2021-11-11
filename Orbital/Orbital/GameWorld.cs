@@ -102,8 +102,6 @@ namespace Orbital
 
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.CornflowerBlue);
-
 			// TODO: Add your drawing code here
 
 			mySpriteBatch.Begin(SpriteSortMode.FrontToBack);
@@ -115,9 +113,9 @@ namespace Orbital
 			{
 				obj.Draw(mySpriteBatch);
 
-				#if DEBUG
+#if DEBUG
 				DrawCollisionBox(obj);
-				#endif
+#endif
 
 			}
 

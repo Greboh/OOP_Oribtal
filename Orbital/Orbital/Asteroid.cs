@@ -59,14 +59,14 @@ namespace Orbital
 
         private void ScreenBound()
         {
-            if (position.Y > GameWorld.ScreenSize.X)
-            {
-                Destroy(this);
-            }
-            else if (position.X > GameWorld.ScreenSize.Y)
-            {
-                Destroy(this);
-            }
-        }
+			if (position.Y > GameWorld.ScreenSize.X)
+			{
+				Destroy(this);
+			}
+			else if (position.X > GameWorld.ScreenSize.Y)
+			{
+				Destroy(this);
+			}
+		}
 	}
 }

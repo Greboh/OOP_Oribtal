@@ -32,7 +32,7 @@ namespace Orbital
         {
             timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (timeElapsed >= 2f)
+            if (timeElapsed >= 1f)
             {
                 Asteroid spawnedEnemy = new Asteroid();
                 Instantiate(spawnedEnemy);
