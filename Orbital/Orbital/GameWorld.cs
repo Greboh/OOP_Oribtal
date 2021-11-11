@@ -23,6 +23,8 @@ namespace Orbital
 		private Player player = new Player();
 
 		private Texture2D collisionTexture;
+		private Texture2D background;
+
 
 		public static Vector2 ScreenSize { get => screenSize; set => screenSize = value; }
 
@@ -44,14 +46,8 @@ namespace Orbital
 		{
 			// TODO: Add your initialization logic here
 
-
-
-
 			Instantiate(player);
-			Instantiate(new Asteroid());
 			Instantiate(new Spawner());
-
-
 
 			base.Initialize();
 		}
@@ -61,6 +57,8 @@ namespace Orbital
 			mySpriteBatch = new SpriteBatch(GraphicsDevice);
 
 			collisionTexture = Content.Load<Texture2D>("CollisionTexture");
+
+			background = Content.Load<Texture2D>("Background");
 
 
 			// TODO: use this.Content to load your game content here
@@ -98,19 +96,20 @@ namespace Orbital
 
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.CornflowerBlue);
-
 			// TODO: Add your drawing code here
 
 			mySpriteBatch.Begin(SpriteSortMode.FrontToBack);
+
+			mySpriteBatch.Draw(background, new Rectangle(0,0,2000,2000), null, Color.White, 0, new Vector2(0,0), SpriteEffects.None, 0);
+			
 
 			foreach (GameObject obj in listOfCurrentObjects)
 			{
 				obj.Draw(mySpriteBatch);
 
-				#if DEBUG
+#if DEBUG
 				DrawCollisionBox(obj);
-				#endif
+#endif
 
 			}
 

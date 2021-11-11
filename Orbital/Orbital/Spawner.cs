@@ -32,10 +32,23 @@ namespace Orbital
         {
             timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (timeElapsed >= 2f)
+            if (timeElapsed >= 3.5f)
             {
-                Asteroid spawnedEnemy = new Asteroid();
-                Instantiate(spawnedEnemy);
+                
+                
+                List<Asteroid> asteroids = new List<Asteroid>();
+                Asteroid yAsteroid = new Asteroid(new Vector2(0, myRandom.Next(0, (int)GameWorld.ScreenSize.Y)));
+                Asteroid xyAsteroid = new Asteroid(new Vector2((int)GameWorld.ScreenSize.X, myRandom.Next(0, (int)GameWorld.ScreenSize.Y)));
+                Asteroid xAsteroid = new Asteroid(new Vector2(myRandom.Next(0, (int)GameWorld.ScreenSize.X), 0));
+
+                asteroids.Add(xAsteroid);
+                asteroids.Add(yAsteroid);
+                asteroids.Add(xyAsteroid);
+
+                foreach (Asteroid obj in asteroids)
+                {
+                    Instantiate(obj);
+                }
                 timeElapsed = 0;
             }
         }
