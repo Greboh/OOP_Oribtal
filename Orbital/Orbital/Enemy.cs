@@ -49,7 +49,8 @@ namespace Orbital
         {
             if (obj is Laser)
             {
-
+                Destroy(this);
+                Destroy(obj);
             }
         }
 
