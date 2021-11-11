@@ -13,7 +13,10 @@ namespace Orbital
 
 		protected Texture2D sprite;
 		protected Texture2D animationSprite;
+		protected Texture2D animationSprite2;
 		protected Texture2D[] sprites = new Texture2D[4];
+		protected Texture2D[] sprites2 = new Texture2D[10];
+
 
 
 		protected Vector2 position;
@@ -22,6 +25,7 @@ namespace Orbital
 		protected Vector2 origin;
 
 		protected Color color;
+		protected SpriteEffects shipFlip;
 
 		protected Vector2 bulletDirection;
 		protected float rotation;
@@ -72,12 +76,21 @@ namespace Orbital
 			currentIndex = (int)(timeElapsed * animationFPS);
 
 			animationSprite = sprites[currentIndex];
+			animationSprite2 = sprites2[currentIndex];
+
 
 			if (currentIndex >= sprites.Length - 1)
 			{
 				timeElapsed = 0;
 				currentIndex = 0;
 			}
+
+			if (currentIndex >= sprites2.Length - 1)
+			{
+				timeElapsed = 0;
+				currentIndex = 0;
+			}
+
 		}
 
 		public abstract void OnCollision(GameObject obj);
