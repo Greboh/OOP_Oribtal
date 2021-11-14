@@ -33,7 +33,7 @@ namespace Orbital
 
 		protected float scale;
 		protected float speed;
-		protected float animationFPS;
+		protected float animationFps;
 		protected float layerDepth;
 
 		private GameWorld myGameWorld;
@@ -47,11 +47,12 @@ namespace Orbital
 				return new Rectangle(
 					(int)(position.X + offset.Y),
 					(int)(position.Y + offset.X),
-					(sprite != null ? sprite.Width : 0),
-					(sprite != null ? sprite.Height : 0)
+					sprite != null ? sprite.Width : 0,
+					sprite != null ? sprite.Height : 0
 				    );
 			}
 		}
+
 
 		public abstract void LoadContent(ContentManager content);
 
@@ -61,15 +62,15 @@ namespace Orbital
 			position += ((velocity * speed) * deltaTime);
 		}
 
-		public abstract void Update(GameTime gametime);
+		public abstract void Update(GameTime gameTime);
 
 		public abstract void Draw(SpriteBatch spriteBatch);
 
-		protected void Animate(GameTime gametime)
+		protected void Animate(GameTime gameTime)
 		{
-			timeElapsed += (float)gametime.ElapsedGameTime.TotalSeconds;
+			timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-			currentIndex = (int)(timeElapsed * animationFPS);
+			currentIndex = (int)(timeElapsed * animationFps);
 
 			animationSprite = sprites[currentIndex];
 

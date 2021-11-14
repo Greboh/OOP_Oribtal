@@ -10,23 +10,20 @@ namespace Orbital
 	{
 		private static GraphicsDeviceManager myGraphics;
 		private SpriteBatch mySpriteBatch;
-		private static Vector2 screenSize;
-		
-		private int screenHeight = 900;
-		private int screenWidth =1200;
+
+		private readonly int screenHeight = 900;
+		private readonly int screenWidth =1200;
 
 
-		private List<GameObject> listOfCurrentObjects = new List<GameObject>();
-		private List<GameObject> listOfObjectsToAdd = new List<GameObject>();
-		private List<GameObject> listOfObjectsToDestroy = new List<GameObject>();
-
-		private Player player = new Player();
+		private readonly List<GameObject> listOfCurrentObjects = new List<GameObject>();
+		private readonly List<GameObject> listOfObjectsToAdd = new List<GameObject>();
+		private readonly List<GameObject> listOfObjectsToDestroy = new List<GameObject>();
 
 		private Texture2D collisionTexture;
 		private Texture2D background;
 
 
-		public static Vector2 ScreenSize { get => screenSize; set => screenSize = value; }
+		public static Vector2 ScreenSize { get; set; }
 
 		public GameWorld()
 		{
@@ -39,14 +36,14 @@ namespace Orbital
 			myGraphics.IsFullScreen = false;
 			myGraphics.ApplyChanges();
 
-			screenSize = new Vector2(myGraphics.PreferredBackBufferWidth, myGraphics.PreferredBackBufferHeight);
+			ScreenSize = new Vector2(myGraphics.PreferredBackBufferWidth, myGraphics.PreferredBackBufferHeight);
 		}
 
 		protected override void Initialize()
 		{
 			// TODO: Add your initialization logic here
 
-			Instantiate(player);
+			Instantiate(new Player());
 			Instantiate(new Spawner());
 
 			base.Initialize();
