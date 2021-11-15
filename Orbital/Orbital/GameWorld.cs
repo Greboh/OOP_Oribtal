@@ -13,7 +13,6 @@ namespace Orbital
 
 		private readonly int screenHeight = 900;
 		private readonly int screenWidth =1200;
-		private static Vector2 screenSize;
 		
 		private int score;
 		private SpriteFont File;

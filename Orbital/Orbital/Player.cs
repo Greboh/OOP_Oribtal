@@ -29,7 +29,8 @@ namespace Orbital
 		// Fields for taking damage
 		private bool isInvincible = false;
 		private float timeSinceLastHit = 0f; // Timer for invinsibility
-        private Texture2D [] healthBars = new Texture2D[6];
+        private Texture2D[] healthBars = new Texture2D[6];
+        private Texture2D[] currentHealthBars = new Texture2D[1];
         
         
 
@@ -130,7 +131,6 @@ namespace Orbital
 			if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) // Speed boost
 			{
 				this.speed = newSpeed * speedMultiplier;
-				Console.WriteLine($"Using turbo: {this.speed}");
 			}
 			else this.speed = newSpeed;
 
@@ -164,7 +164,7 @@ namespace Orbital
 			{
 				timeSinceLastHit += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-				if (timeSinceLastHit > 0.5)
+				if (timeSinceLastHit > 2)
 				{
 					isInvincible = false;
 					timeSinceLastHit = 0;
@@ -191,16 +191,17 @@ namespace Orbital
 
 			if (obj is HealthPower)
 			{
-				if (this.health == 100)
-                {
-					healthBars[0] = healthBars[0];
-                }
-				else if(this.health < 100 && this.health > 80)
+				if(this.health < 100)
 				{
 					this.health += 20;
-					healthBars[0] = healthBars[1];
+					Console.WriteLine($"Current health is: {this.health}");
+
 				}
+
+				Destroy(obj);
 				Console.WriteLine($"Current health is: {this.health}");
+
+
 			}
 			else if (obj is SpeedPower)
 			{
@@ -217,7 +218,7 @@ namespace Orbital
             
             spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
             spriteBatch.Draw(animationSprite, position, null, color, rotation, exhaustPosition, 2, SpriteEffects.None, layerDepth);
-            spriteBatch.Draw(healthBars[0], new Vector2(0, 850), null, color, 0, Vector2.Zero, 0.5f, SpriteEffects.None, layerDepth);
+            spriteBatch.Draw(currentHealthBars[0], new Vector2(0, 850), null, color, 0, Vector2.Zero, 0.5f, SpriteEffects.None, layerDepth);
         }
 
         public void UpdateHealth(GameTime gameTime)
@@ -226,34 +227,35 @@ namespace Orbital
             {
 				case 100:
                     {
-						healthBars[0] = healthBars[0];
+						currentHealthBars[0] = healthBars[0];
+						//Console.WriteLine("Full Health");
                     }break;
                 case 80:
                     {
-                        healthBars[0] = healthBars[1];
-						Console.WriteLine("100-80");
+                        currentHealthBars[0] = healthBars[1];
+						//Console.WriteLine("80");
                     }break;
                 case 60:
                     {
-                        healthBars[0] = healthBars[2];
-						Console.WriteLine("60-80");
+                        currentHealthBars[0] = healthBars[2];
+						//Console.WriteLine("60");
                     }break;
                 case 40:
                     {
-                        healthBars[0] = healthBars[3];
-						Console.WriteLine("60-40");
+                        currentHealthBars[0] = healthBars[3];
+						//Console.WriteLine("40");
                     }
                     break;
                 case 20:
                     {
-                        healthBars[0] = healthBars[4];
-						Console.WriteLine("40-20");
+                        currentHealthBars[0] = healthBars[4];
+						//Console.WriteLine("20");
                     }
                     break;
                 case 0:
                     {
-                        healthBars[0] = healthBars[5];
-						Console.WriteLine("fucking død");
+                        currentHealthBars[0] = healthBars[5];
+						//Console.WriteLine("0");
                         Destroy(this);
                     }
                     break;
