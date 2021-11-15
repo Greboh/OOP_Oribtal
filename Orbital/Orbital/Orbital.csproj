@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PublishReadyToRun>false</PublishReadyToRun>
     <TieredCompilation>false</TieredCompilation>
@@ -9,7 +9,14 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <StartupObject />
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Content\1turboExhaust.png" />
+    <None Remove="Content\2turboExhaust.png" />
+    <None Remove="Content\3turboExhaust.png" />
+    <None Remove="Content\4turboExhaust.png" />
+  </ItemGroup>
   <ItemGroup>
     <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
   </ItemGroup>
