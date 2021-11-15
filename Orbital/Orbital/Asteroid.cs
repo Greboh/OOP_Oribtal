@@ -12,7 +12,6 @@ namespace Orbital
 	class Asteroid : GameObject
 	{
         
-       
         /// <summary>
         /// Constructor uses position paramater to spawn asteroid on different axis and set movement accordingly
         /// </summary>
@@ -23,6 +22,7 @@ namespace Orbital
             this.color = Color.White;
             this.scale = 1;
             this.speed = myRandom.Next(20, 50);
+
             if (this.position.X == GameWorld.ScreenSize.X)
             {
                 this.velocity.X = -1;
@@ -45,9 +45,9 @@ namespace Orbital
            
         }
 
-        public override void Update(GameTime gametime)
+        public override void Update(GameTime gameTime)
         {
-            HandleMovement(gametime);
+            HandleMovement(gameTime);
             ScreenBound();
         }
         public override void Draw(SpriteBatch spriteBatch)
@@ -76,7 +76,6 @@ namespace Orbital
 
 		public override void Attack(GameTime gameTime)
 		{
-			throw new NotImplementedException();
 		}
 
         /// <summary>

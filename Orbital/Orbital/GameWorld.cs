@@ -10,24 +10,24 @@ namespace Orbital
 	{
 		private static GraphicsDeviceManager myGraphics;
 		private SpriteBatch mySpriteBatch;
+
+		private readonly int screenHeight = 900;
+		private readonly int screenWidth =1200;
 		private static Vector2 screenSize;
 		
-		private int screenHeight = 900;
-		private int screenWidth = 1200;
 		private int score;
 		private SpriteFont File;
 
-		private List<GameObject> listOfCurrentObjects = new List<GameObject>();
-		private List<GameObject> listOfObjectsToAdd = new List<GameObject>();
-		private List<GameObject> listOfObjectsToDestroy = new List<GameObject>();
 
-		private Player player = new Player();
+		private readonly List<GameObject> listOfCurrentObjects = new List<GameObject>();
+		private readonly List<GameObject> listOfObjectsToAdd = new List<GameObject>();
+		private readonly List<GameObject> listOfObjectsToDestroy = new List<GameObject>();
 
 		private Texture2D collisionTexture;
 		private Texture2D background;
 
 
-		public static Vector2 ScreenSize { get => screenSize; set => screenSize = value; }
+		public static Vector2 ScreenSize { get; set; }
         public int Score { get => score; set => score = value; }
 
         public GameWorld()
@@ -41,14 +41,14 @@ namespace Orbital
 			myGraphics.IsFullScreen = false;
 			myGraphics.ApplyChanges();
 
-			screenSize = new Vector2(myGraphics.PreferredBackBufferWidth, myGraphics.PreferredBackBufferHeight);
+			ScreenSize = new Vector2(myGraphics.PreferredBackBufferWidth, myGraphics.PreferredBackBufferHeight);
 		}
 
 		protected override void Initialize()
 		{
 			// TODO: Add your initialization logic here
 
-			Instantiate(player);
+			Instantiate(new Player());
 			Instantiate(new Spawner());
 			
 			base.Initialize();
@@ -98,9 +98,6 @@ namespace Orbital
 
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.CornflowerBlue);
-			
-
 			// TODO: Add your drawing code here
 
 			mySpriteBatch.Begin(SpriteSortMode.FrontToBack);
@@ -112,9 +109,9 @@ namespace Orbital
 			{
 				obj.Draw(mySpriteBatch);
 
-				#if DEBUG
+#if DEBUG
 				DrawCollisionBox(obj);
-				#endif
+#endif
 
 			}
 
