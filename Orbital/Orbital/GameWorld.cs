@@ -13,8 +13,9 @@ namespace Orbital
 		private static Vector2 screenSize;
 		
 		private int screenHeight = 900;
-		private int screenWidth =1200;
-
+		private int screenWidth = 1200;
+		private int score;
+		private SpriteFont File;
 
 		private List<GameObject> listOfCurrentObjects = new List<GameObject>();
 		private List<GameObject> listOfObjectsToAdd = new List<GameObject>();
@@ -27,8 +28,9 @@ namespace Orbital
 
 
 		public static Vector2 ScreenSize { get => screenSize; set => screenSize = value; }
+        public int Score { get => score; set => score = value; }
 
-		public GameWorld()
+        public GameWorld()
 		{
 			myGraphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
@@ -48,7 +50,7 @@ namespace Orbital
 
 			Instantiate(player);
 			Instantiate(new Spawner());
-
+			
 			base.Initialize();
 		}
 
@@ -59,7 +61,7 @@ namespace Orbital
 			collisionTexture = Content.Load<Texture2D>("CollisionTexture");
 
 			background = Content.Load<Texture2D>("Background");
-
+			File = Content.Load<SpriteFont>("File");
 
 			// TODO: use this.Content to load your game content here
 		}
@@ -97,13 +99,14 @@ namespace Orbital
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
+			
 
 			// TODO: Add your drawing code here
 
 			mySpriteBatch.Begin(SpriteSortMode.FrontToBack);
-
-			mySpriteBatch.Draw(background, new Rectangle(0,0,2000,2000), null, Color.White, 0, new Vector2(0,0), SpriteEffects.None, 0);
 			
+			mySpriteBatch.Draw(background, new Rectangle(0,0,2000,2000), null, Color.White, 0, new Vector2(0,0), SpriteEffects.None, 0);
+			mySpriteBatch.DrawString(File, "SCORE: " + score, new Vector2(0, 0), Color.Red);
 
 			foreach (GameObject obj in listOfCurrentObjects)
 			{
@@ -139,6 +142,14 @@ namespace Orbital
 		public void DestroyGameObject(GameObject gameObject)
 		{
 			listOfObjectsToDestroy.Add(gameObject);
+			if (gameObject is SmallAsteroid)
+			{
+				score += 5;
+			}
+			else if (gameObject is Asteroid)
+			{
+				score += 10;
+			}
 		}
 
 
@@ -166,6 +177,7 @@ namespace Orbital
 		/// </summary>
 		private void CallDestroy()
 		{
+			
 			if(listOfObjectsToDestroy.Count > 0)
 			{
 				foreach (GameObject destroyObj in listOfObjectsToDestroy)

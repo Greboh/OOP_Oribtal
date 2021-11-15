@@ -28,7 +28,7 @@ namespace Orbital
 
 		protected int health;
 		protected int damage;
-		private float timeElapsed;
+		protected float timeElapsed;
 		private int currentIndex;
 
 		protected float scale;

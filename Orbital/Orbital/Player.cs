@@ -13,12 +13,14 @@ namespace Orbital
     {
         private Vector2 exhaustPosition; //Vector2 for storing our ship exhausting point
         private Vector2 shootingPoint; // Vector2 for storing our shooting point
-
+        
         // Field for shooting cooldown
         private float timeSinceLastShot = 0f;
         private bool invincible = false;
         private float timeElapsed = 0;
-
+        private Texture2D [] healthBars = new Texture2D[6];
+        
+        
 
 
         public Player()
@@ -39,7 +41,11 @@ namespace Orbital
             {
                 sprites[i] = content.Load<Texture2D>(i + 1 + "exhaust");
             }
-
+            for(int i = 0; i < healthBars.Length; i++)
+            {
+                healthBars[i] = content.Load<Texture2D>(i + 1 + "health");
+            }
+            
 
 
             animationSprite = sprites[0];
@@ -67,7 +73,7 @@ namespace Orbital
             LookAtMouse();
             Attack(gameTime);
             CheckInvisiblity(gameTime);
-
+            UpdateHealth(gameTime);
             
         }
 
@@ -167,13 +173,76 @@ namespace Orbital
 				Console.WriteLine($"Current health is: {this.health}");
                 invincible = true;
 			}
+            if(obj is SmallAsteroid && !invincible)
+            {
+                Console.WriteLine(GetType().Name + " collided with smallAsteroid");
+                this.health -= 20;
+                Console.WriteLine("Current health is: " + this.health);
+                invincible = true;
+            }
 
 		}
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            
             spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
             spriteBatch.Draw(animationSprite, position, null, color, rotation, exhaustPosition, 2, SpriteEffects.None, layerDepth);
+            spriteBatch.Draw(healthBars[0], new Vector2(0, 850), null, color, 0, Vector2.Zero, 0.5f, SpriteEffects.None, layerDepth);
+        }
+
+        float timeSinceLastBugHit = 0;
+        public void UpdateHealth(GameTime gameTime)
+        {
+#if DEBUG
+            timeSinceLastBugHit += (float)gameTime.ElapsedGameTime.TotalSeconds; // Gets the game time in seconds (Framerate independent)
+            if (Keyboard.GetState().IsKeyDown(Keys.Tab))
+            {
+                if (timeSinceLastBugHit >= 0.5f)
+                {
+
+                    health -= 20;
+                    timeSinceLastBugHit = 0;
+                }
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.CapsLock))
+            {
+                if (timeSinceLastBugHit >= 0.5f)
+                {
+
+                    health += 20;
+                    timeSinceLastBugHit = 0;
+                }
+            }
+#endif
+            switch (health)
+            {
+                case 80:
+                    {
+                        healthBars[0] = healthBars[1];
+                    }break;
+                case 60:
+                    {
+                        healthBars[0] = healthBars[2];
+                    }break;
+                case 40:
+                    {
+                        healthBars[0] = healthBars[3];
+                    }
+                    break;
+                case 20:
+                    {
+                        healthBars[0] = healthBars[4];
+                    }
+                    break;
+                case 0:
+                    {
+                        healthBars[0] = healthBars[5];
+                        Destroy(this);
+                    }
+                    break;
+            }
+            
         }
 
         public override void Attack(GameTime gameTime)
@@ -194,12 +263,9 @@ namespace Orbital
                 }
 
             }
-
-
-
-
         }
 
+        
 
 
 

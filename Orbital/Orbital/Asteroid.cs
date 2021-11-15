@@ -50,7 +50,6 @@ namespace Orbital
             HandleMovement(gametime);
             ScreenBound();
         }
-
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, SpriteEffects.None, 0);
@@ -69,9 +68,10 @@ namespace Orbital
                 Destroy(obj);
                 for (int i = 0; i < 4; i++)
                 {
-                    Instantiate(new SmallAsteroid(this.position, this.scale,this.sprite));
+                    Instantiate(new SmallAsteroid(this.position, this.scale, this.sprite));
                 }
             }
+            
         }
 
 		public override void Attack(GameTime gameTime)
