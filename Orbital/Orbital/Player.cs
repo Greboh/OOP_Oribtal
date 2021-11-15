@@ -24,14 +24,20 @@ namespace Orbital
 
 		private int totalShotsFired = 0; //Variable for closing while loop when shooting more than 1 laser
 		private float newSpeed;
-		private float speedMultiplier = 1.5f;
+		
 		
 		// Fields for taking damage
 		private bool isInvincible = false;
 		private float timeSinceLastHit = 0f; // Timer for invinsibility
         private Texture2D [] healthBars = new Texture2D[6];
-        
-        
+		private Texture2D[] currentHealthBar = new Texture2D[1];
+
+		//Fields for speed
+		private Texture2D[] speedBars = new Texture2D[16];
+		private Texture2D[] currentSpeedBar = new Texture2D[1];
+		private float SpeedBar = 0;
+
+
 
 		public Player()
 		{
@@ -55,9 +61,11 @@ namespace Orbital
             {
                 healthBars[i] = content.Load<Texture2D>(i + 1 + "health");
             }
-            
-
-
+			for(int i = 0; i < speedBars.Length; i++)
+            {
+				speedBars[i] = content.Load<Texture2D>(i + 1 + "speedbar");
+            }
+			
 			animationSprite = sprites[0];
 			sprite = content.Load<Texture2D>("Ship");
 
@@ -81,6 +89,7 @@ namespace Orbital
 			Attack(gameTime);
 			ImpactDisable(gameTime);
             UpdateHealth(gameTime);
+			UpdateSpeed(gameTime);
 		}
 
 
@@ -127,11 +136,7 @@ namespace Orbital
 				velocity += new Vector2(-1, 0);
 			}
 
-			if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) // Speed boost
-			{
-				this.speed = newSpeed * speedMultiplier;
-				Console.WriteLine($"Using turbo: {this.speed}");
-			}
+			
 			else this.speed = newSpeed;
 
 			if (velocity != Vector2.Zero) //Normalize movement vector for smoothness
@@ -139,6 +144,16 @@ namespace Orbital
 				velocity.Normalize();
 			}
 
+			if(SpeedBar >0)
+            {
+				if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) // Speed boost
+				{
+					this.speed = 600;
+					Console.WriteLine($"Using turbo: {this.speed}");
+					SpeedBar -= 0.5f;
+				}
+			}
+			
 		}
 
 		private void ScreenWarp()
@@ -204,9 +219,11 @@ namespace Orbital
 			}
 			else if (obj is SpeedPower)
 			{
-				newSpeed += 200;
-				this.speed += newSpeed;
-				Console.WriteLine(this.speed);
+				SpeedBar = 100;
+
+				//newSpeed += 200;
+				//this.speed += newSpeed;
+				//Console.WriteLine(this.speed);
 			}
             
 
@@ -217,48 +234,117 @@ namespace Orbital
             
             spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
             spriteBatch.Draw(animationSprite, position, null, color, rotation, exhaustPosition, 2, SpriteEffects.None, layerDepth);
-            spriteBatch.Draw(healthBars[0], new Vector2(0, 850), null, color, 0, Vector2.Zero, 0.5f, SpriteEffects.None, layerDepth);
-        }
+            spriteBatch.Draw(currentHealthBar[0], new Vector2(0, 850), null, color, 0, Vector2.Zero, 0.5f, SpriteEffects.None, layerDepth);
+			spriteBatch.Draw(currentSpeedBar[0], new Vector2(0, 600), null, color, 0, Vector2.Zero, 0.5f, SpriteEffects.None, layerDepth);
+		}
 
+		/// <summary>
+		/// Updates healthbar according to damage/current health.
+		/// </summary>
+		/// <param name="gameTime"></param>
         public void UpdateHealth(GameTime gameTime)
         {
             switch (health)
             {
 				case 100:
                     {
-						healthBars[0] = healthBars[0];
+						currentHealthBar[0] = healthBars[0];
                     }break;
                 case 80:
                     {
-                        healthBars[0] = healthBars[1];
-						Console.WriteLine("100-80");
+						currentHealthBar[0] = healthBars[1];
+						
                     }break;
                 case 60:
                     {
-                        healthBars[0] = healthBars[2];
-						Console.WriteLine("60-80");
+						currentHealthBar[0] = healthBars[2];
+						
                     }break;
                 case 40:
                     {
-                        healthBars[0] = healthBars[3];
-						Console.WriteLine("60-40");
+						currentHealthBar[0] = healthBars[3];
+						
                     }
                     break;
                 case 20:
                     {
-                        healthBars[0] = healthBars[4];
-						Console.WriteLine("40-20");
+						currentHealthBar[0] = healthBars[4];
+						
                     }
                     break;
                 case 0:
                     {
-                        healthBars[0] = healthBars[5];
-						Console.WriteLine("fucking død");
+						currentHealthBar[0] = healthBars[5];
+						
                         Destroy(this);
                     }
                     break;
             }
             
+        }
+
+		/// <summary>
+		/// updates speedBar according to current amount of speed
+		/// </summary>
+		/// <param name="gameTime"></param>
+		public void UpdateSpeed(GameTime gameTime)
+        {
+			switch(SpeedBar)
+            {
+				case 100:
+                    {
+						currentSpeedBar[0] = speedBars[0];
+                    }break;
+				case 90:
+                    {
+						currentSpeedBar[0] = speedBars[1];
+                    }break;
+				case 80:
+					{
+						currentSpeedBar[0] = speedBars[3];
+					}
+					break;
+				case 70:
+					{
+						currentSpeedBar[0] = speedBars[5];
+					}
+					break;
+				case 60:
+					{
+						currentSpeedBar[0] = speedBars[7];
+					}
+					break;
+				case 50:
+					{
+						currentSpeedBar[0] = speedBars[9];
+					}
+					break;
+				case 40:
+					{
+						currentSpeedBar[0] = speedBars[11];
+					}
+					break;
+				case 30:
+					{
+						currentSpeedBar[0] = speedBars[12];
+					}
+					break;
+				case 20:
+					{
+						currentSpeedBar[0] = speedBars[13];
+					}
+					break;
+				case 10:
+					{
+						currentSpeedBar[0] = speedBars[14];
+					}
+					break;
+				case 0:
+                    {
+						currentSpeedBar[0] = speedBars[15];
+                    }break;
+            }
+
         }
 
         public override void Attack(GameTime gameTime)
