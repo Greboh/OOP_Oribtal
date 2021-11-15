@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Orbital
 {
@@ -16,27 +17,27 @@ namespace Orbital
 		/// <param name="position">The position of our player</param>
 		/// <param name="shootingPoint">The position we want to shoot from</param>
 		/// <param name="rotation">The rotation of our player</param>
-		public Laser(Vector2 position, Vector2 shootingPoint, float rotation)
+		public Laser(Vector2 position, Vector2 shootingPoint, float rotation, float speed)
 		{
 
 			velocity = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation));
-			this.speed = 1000; // Too low and it will cause a bug!
+			this.speed = speed; // Too low and it will cause a bug!
 			this.position = position;
 			this.origin = shootingPoint;
 			this.layerDepth = 0.5f;
 			this.scale = 3;
-			this.animationFPS = 10;
+			this.animationFps = 10;
 			this.rotation = rotation;
 		
 			this.color = Color.White;
 		}
 
-		public override void Update(GameTime gametime)
+		public override void Update(GameTime gameTime)
 		{
-			Animate(gametime);
+			Animate(gameTime);
 
 			this.position += velocity;
-			HandleMovement(gametime);
+			HandleMovement(gameTime);
 
 			if (position.X > GameWorld.ScreenSize.X || position.X < GameWorld.ScreenSize.X - GameWorld.ScreenSize.X ||
 				position.Y > GameWorld.ScreenSize.Y || position.Y < GameWorld.ScreenSize.Y - GameWorld.ScreenSize.Y   )
@@ -71,14 +72,5 @@ namespace Orbital
 		{
 			
 		}
-
-
-
-
-
-
-
-
-
 	}
 }
