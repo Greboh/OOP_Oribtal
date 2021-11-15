@@ -16,15 +16,15 @@ namespace Orbital
 			this.scale = 1;
 			this.speed = myRandom.Next(100, 200);
 
-			if (this.position.X == GameWorld.ScreenSize.X)
-			{
-				this.velocity.X = -1;
-			}
-			else if (this.position.Y == 0)
-			{
-				this.velocity.Y = 1;
-			}
-			else this.velocity.X = 1;
+				if (this.position.X == GameWorld.ScreenSize.X)
+				{
+					this.velocity.X = -1;
+				}
+				else if (this.position.Y == 0)
+				{
+					this.velocity.Y = 1;
+				}
+				else this.velocity.X = 1;
 
 		}
 

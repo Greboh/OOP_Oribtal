@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Orbital.PowerUps;
 
 
 namespace Orbital
@@ -85,44 +86,61 @@ namespace Orbital
 			// Looks like shit, needs fixing for sure!
 			timeSinceLastPower += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-			List<HealthPower> powers = new List<HealthPower>();
+			List<HealthPower> healthPowers = new List<HealthPower>();
+			List<SpeedPower> speedPowers = new List<SpeedPower>();
 			//TODO Add all lists
 
 
 
-			int randomPowerPicker = 1; //myRandom.Next(1, 4); // Used to pick the which power to spawn
-			int randomHealthPowerPos = myRandom.Next(1, 3); // Used to choose position of the picked power
+			int randomPowerPicker = 2; //myRandom.Next(1, 4); // Used to pick the which power to spawn
+			int randomPowerPos = myRandom.Next(1, 3); // Used to choose position of the picked power
 
-			if (timeSinceLastPower >= 20)
+			if (timeSinceLastPower >= 5)
 			{
 				if (randomPowerPicker == 1)
 				{
 
+					HealthPower xPower = new HealthPower(new Vector2(myRandom.Next(0, (int)GameWorld.ScreenSize.X), 0));
 					HealthPower yPower = new HealthPower(new Vector2(0, myRandom.Next(0, (int)GameWorld.ScreenSize.Y)));
 					HealthPower xyPower = new HealthPower(new Vector2((int)GameWorld.ScreenSize.X, myRandom.Next(0, (int)GameWorld.ScreenSize.Y)));
-					HealthPower xPower = new HealthPower(new Vector2(myRandom.Next(0, (int)GameWorld.ScreenSize.X), 0));
 
-					powers.Add(xPower);
-					powers.Add(yPower);
-					powers.Add(xyPower);
-
+					healthPowers.Add(xPower);
+					healthPowers.Add(yPower);
+					healthPowers.Add(xyPower);
 
 
-					if (randomHealthPowerPos == 1)
+
+					if (randomPowerPos == 1)
 					{
-						Instantiate(powers[0]);
+						Instantiate(healthPowers[0]);
 					}
-					else if (randomHealthPowerPos == 2)
+					else if (randomPowerPos == 2)
 					{
-						Instantiate(powers[1]);
+						Instantiate(healthPowers[1]);
 					}
-					else Instantiate(powers[2]);
+					else Instantiate(healthPowers[2]);
 
-					Console.WriteLine("Health spawned!");
 				}
 				else if (randomPowerPicker == 2)
 				{
-					//TODO Add Other Powers
+					SpeedPower xPower = new SpeedPower(new Vector2(0, myRandom.Next(0, (int)GameWorld.ScreenSize.Y)));
+					SpeedPower yPower = new SpeedPower(new Vector2(0, myRandom.Next(0, (int)GameWorld.ScreenSize.Y)));
+					SpeedPower xyPower = new SpeedPower(new Vector2(0, myRandom.Next(0, (int)GameWorld.ScreenSize.Y)));
+
+					speedPowers.Add(xPower);
+					speedPowers.Add(yPower);
+					speedPowers.Add(xyPower);
+
+					if (randomPowerPos == 1)
+					{
+						Instantiate(speedPowers[0]);
+					}
+					else if (randomPowerPos == 2)
+					{
+						Instantiate(speedPowers[1]);
+					}
+					else Instantiate(speedPowers[2]);
+
 				}
 				else if (randomPowerPicker == 3)
 				{

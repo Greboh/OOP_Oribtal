@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Orbital.PowerUps;
+using SharpDX.Direct2D1;
+using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 
 namespace Orbital
@@ -20,7 +23,9 @@ namespace Orbital
 		private float timeSinceLastShot = 0f; //Timer for how fast you can shoot a new laser
 
 		private int totalShotsFired = 0; //Variable for closing while loop when shooting more than 1 laser
-
+		private float newSpeed;
+		private float speedMultiplier = 1.5f;
+		
 		// Fields for taking damage
 		private bool isInvincible = false;
 		private float timeSinceLastHit = 0f; // Timer for invinsibility
@@ -32,6 +37,8 @@ namespace Orbital
 			this.layerDepth = 1;
 			this.animationFps = 10;
 			this.health = 100;
+			this.speed = 200;
+			newSpeed = this.speed;
 		}
 
 		public override void LoadContent(ContentManager content)
@@ -78,9 +85,10 @@ namespace Orbital
 
 		private void HandleInput()
 		{
-			int screenOffset = 20;
-			velocity = Vector2.Zero;
+			int screenOffset = 20; // Offset for the screen so the player cannot fly outside or half outside.
+			velocity = Vector2.Zero; // Variable for the start velocity
 
+			//Get Keyboard input for moving the player up and down
 			if (Keyboard.GetState().IsKeyDown(Keys.W))
 			{
 				if (position.Y <= GameWorld.ScreenSize.X - GameWorld.ScreenSize.X) // ScreenHeight 
@@ -100,6 +108,7 @@ namespace Orbital
 
 			}
 
+			// Get Keyboard input for moving the player left and right
 			if (Keyboard.GetState().IsKeyDown(Keys.D))
 			{
 				velocity += new Vector2(1, 0);
@@ -111,12 +120,12 @@ namespace Orbital
 
 			if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) // Speed boost
 			{
-				this.speed = 350;
+				this.speed = newSpeed * speedMultiplier;
+				Console.WriteLine($"Using turbo: {this.speed}");
 			}
-			this.speed = 200;
+			else this.speed = newSpeed;
 
 			if (velocity != Vector2.Zero) //Normalize movement vector for smoothness
-
 			{
 				velocity.Normalize();
 			}
@@ -171,7 +180,12 @@ namespace Orbital
 					this.health += 20;
 				}
 				Console.WriteLine($"Current health is: {this.health}");
-
+			}
+			else if (obj is SpeedPower)
+			{
+				newSpeed += 200;
+				this.speed += newSpeed;
+				Console.WriteLine(this.speed);
 			}
 
 		}
