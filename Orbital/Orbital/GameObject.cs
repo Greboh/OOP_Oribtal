@@ -98,14 +98,14 @@ namespace Orbital
 
 		public void Instantiate(GameObject gameObject)
 		{
-			Console.WriteLine(gameObject + " Has been added!");
+			//Console.WriteLine(gameObject + " Has been added!");
 
 			myGameWorld.Instantiate(gameObject);
 		}
 
 		public void Destroy(GameObject gameObject)
 		{
-			Console.WriteLine(gameObject + " Has been Destroyed!");
+			//Console.WriteLine(gameObject + " Has been Destroyed!");
 
 			myGameWorld.DestroyGameObject(gameObject);
 		}

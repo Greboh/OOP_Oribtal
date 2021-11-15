@@ -45,7 +45,7 @@ namespace Orbital
 
             if (timeElapsed >= 3.5f)
             {
-				Console.WriteLine("test");
+				
 				List<Asteroid> asteroids = new List<Asteroid>();
 				Asteroid yAsteroid = new Asteroid(new Vector2(0, myRandom.Next(0, (int)GameWorld.ScreenSize.Y)));
 				Asteroid xyAsteroid = new Asteroid(new Vector2((int)GameWorld.ScreenSize.X, myRandom.Next(0, (int)GameWorld.ScreenSize.Y)));
@@ -90,7 +90,7 @@ namespace Orbital
 
 
 
-			int randomPowerPicker = 2; //myRandom.Next(1, 4); // Used to pick the which power to spawn
+			int randomPowerPicker = 1; //myRandom.Next(1, 4); // Used to pick the which power to spawn
 			int randomPowerPos = myRandom.Next(1, 3); // Used to choose position of the picked power
 
 			if (timeSinceLastPower >= 5)

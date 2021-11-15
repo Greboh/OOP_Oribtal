@@ -164,7 +164,7 @@ namespace Orbital
 			{
 				timeSinceLastHit += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-				if (timeSinceLastHit > 2)
+				if (timeSinceLastHit > 0.5)
 				{
 					isInvincible = false;
 					timeSinceLastHit = 0;
@@ -181,12 +181,24 @@ namespace Orbital
 				Console.WriteLine($"Current health is: {this.health}");
 				isInvincible = true;
 			}
+			else if (obj is SmallAsteroid && !isInvincible)
+			{
+				Console.WriteLine(GetType().Name + " collided with smallAsteroid");
+				this.health -= 20;
+				Console.WriteLine("Current health is: " + this.health);
+				isInvincible = true;
+			}
 
 			if (obj is HealthPower)
 			{
-				if (this.health < 100)
+				if (this.health == 100)
+                {
+					healthBars[0] = healthBars[0];
+                }
+				else if(this.health < 100 && this.health > 80)
 				{
 					this.health += 20;
+					healthBars[0] = healthBars[1];
 				}
 				Console.WriteLine($"Current health is: {this.health}");
 			}
@@ -196,13 +208,7 @@ namespace Orbital
 				this.speed += newSpeed;
 				Console.WriteLine(this.speed);
 			}
-            if(obj is SmallAsteroid && !invincible)
-            {
-                Console.WriteLine(GetType().Name + " collided with smallAsteroid");
-                this.health -= 20;
-                Console.WriteLine("Current health is: " + this.health);
-                invincible = true;
-            }
+            
 
 		}
 
@@ -214,53 +220,40 @@ namespace Orbital
             spriteBatch.Draw(healthBars[0], new Vector2(0, 850), null, color, 0, Vector2.Zero, 0.5f, SpriteEffects.None, layerDepth);
         }
 
-        float timeSinceLastBugHit = 0;
         public void UpdateHealth(GameTime gameTime)
         {
-#if DEBUG
-            timeSinceLastBugHit += (float)gameTime.ElapsedGameTime.TotalSeconds; // Gets the game time in seconds (Framerate independent)
-            if (Keyboard.GetState().IsKeyDown(Keys.Tab))
-            {
-                if (timeSinceLastBugHit >= 0.5f)
-                {
-
-                    health -= 20;
-                    timeSinceLastBugHit = 0;
-                }
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.CapsLock))
-            {
-                if (timeSinceLastBugHit >= 0.5f)
-                {
-
-                    health += 20;
-                    timeSinceLastBugHit = 0;
-                }
-            }
-#endif
             switch (health)
             {
+				case 100:
+                    {
+						healthBars[0] = healthBars[0];
+                    }break;
                 case 80:
                     {
                         healthBars[0] = healthBars[1];
+						Console.WriteLine("100-80");
                     }break;
                 case 60:
                     {
                         healthBars[0] = healthBars[2];
+						Console.WriteLine("60-80");
                     }break;
                 case 40:
                     {
                         healthBars[0] = healthBars[3];
+						Console.WriteLine("60-40");
                     }
                     break;
                 case 20:
                     {
                         healthBars[0] = healthBars[4];
+						Console.WriteLine("40-20");
                     }
                     break;
                 case 0:
                     {
                         healthBars[0] = healthBars[5];
+						Console.WriteLine("fucking død");
                         Destroy(this);
                     }
                     break;
@@ -281,7 +274,7 @@ namespace Orbital
 					Instantiate(new Laser(position, shootingPoint, this.rotation, 1000));
 					totalShotsFired++;
 
-					Console.WriteLine(Mouse.GetState());
+					
 					timeSinceLastShot = 0;
 				}
 			}
