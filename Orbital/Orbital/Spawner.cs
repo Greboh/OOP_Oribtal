@@ -18,10 +18,10 @@ namespace Orbital
         private float timeSinceLastPower;
 
 		private float asteroidTimer = 1.5f;
-		private float powerTimer = 30;
+		private float powerTimer = 20;
 
 		private int changeAsteroidDifficultyTimer = 2;
-		private int changePowerDifficultyTimer = 31;
+		private int changePowerDifficultyTimer = 21;
 
 		public override void Draw(SpriteBatch spriteBatch)
         {
@@ -118,7 +118,7 @@ namespace Orbital
 				Console.WriteLine("Timer for power is: " + powerTimer);
 				changePowerDifficultyTimer += 10;
 
-				if (powerTimer != 25f)
+				if (powerTimer != 30f)
 				{
 					powerTimer += 2.5f;
 				}
