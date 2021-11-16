@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Orbital.PowerUps
 {
-	class SpeedPower : GameObject
+	class RateOfFirePower : GameObject
 	{
-		public SpeedPower(Vector2 position)
+		public RateOfFirePower(Vector2 position)
 		{
 			this.position = position;
 			this.color = Color.White;
@@ -27,21 +27,19 @@ namespace Orbital.PowerUps
 			else this.velocity.X = 1;
 
 		}
-		
 
-		public override void LoadContent(ContentManager content)
+		public override void Attack(GameTime gameTime)
 		{
-			this.sprite = content.Load<Texture2D>("SpeedPower");
-		}
-
-		public override void Update(GameTime gameTime)
-		{
-			HandleMovement(gameTime);
 		}
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(this.sprite, position, null, color, 0, Vector2.Zero, scale, SpriteEffects.None, 1);
+		}
+
+		public override void LoadContent(ContentManager content)
+		{
+			this.sprite = content.Load<Texture2D>("RateOfFirePower");
 		}
 
 		public override void OnCollision(GameObject obj)
@@ -52,8 +50,9 @@ namespace Orbital.PowerUps
 			}
 		}
 
-		public override void Attack(GameTime gameTime)
+		public override void Update(GameTime gameTime)
 		{
+			HandleMovement(gameTime);
 		}
 	}
 }

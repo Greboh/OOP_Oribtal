@@ -17,11 +17,11 @@ namespace Orbital
 		private float timeSinceLastAsteroid;
         private float timeSinceLastPower;
 
-		private float asteroidTimer = 1.5f;
-		private float powerTimer = 20;
+		private float asteroidTimer = 1.5f; // How fast asteroids spawn
+		private float powerTimer = 5; // How fast powers spawn
 
 		private int changeAsteroidDifficultyTimer = 2;
-		private int changePowerDifficultyTimer = 21;
+		private int changePowerDifficultyTimer = 16;
 
 		public override void Draw(SpriteBatch spriteBatch)
         {
@@ -103,14 +103,14 @@ namespace Orbital
 
 		private void SpawnPower(GameTime gameTime)
 		{
-			// Looks like shit, needs fixing for sure!
+			//TODO Looks like shit, needs fixing for sure!
 			timeSinceLastPower += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
 			totalTimeElapsed = (float)gameTime.TotalGameTime.TotalSeconds;
 
 			List<HealthPower> healthPowers = new List<HealthPower>();
 			List<SpeedPower> speedPowers = new List<SpeedPower>();
-			//TODO Add all lists
+			List<RateOfFirePower> rateOfFirePowers = new List<RateOfFirePower>();
 
 
 			if (totalTimeElapsed > changePowerDifficultyTimer)
@@ -125,12 +125,12 @@ namespace Orbital
 			}
 
 
-			int randomPowerPicker = myRandom.Next(1, 3); //myRandom.Next(1, 4); // Used to pick the which power to spawn
+			int randomPowerPicker = 3; //myRandom.Next(1, 4); // Used to pick the which power to spawn
 			int randomPowerPos = myRandom.Next(1, 3); // Used to choose position of the picked power
 
 			if (timeSinceLastPower >= powerTimer)
 			{
-				if (randomPowerPicker == 1)
+				if (randomPowerPicker == 1) // HealthPower
 				{
 
 					HealthPower xPower = new HealthPower(new Vector2(myRandom.Next(0, (int)GameWorld.ScreenSize.X), 0));
@@ -154,7 +154,7 @@ namespace Orbital
 					else Instantiate(healthPowers[2]);
 
 				}
-				else if (randomPowerPicker == 2)
+				else if (randomPowerPicker == 2) // Speed Power
 				{
 					SpeedPower xPower = new SpeedPower(new Vector2(0, myRandom.Next(0, (int)GameWorld.ScreenSize.Y)));
 					SpeedPower yPower = new SpeedPower(new Vector2(0, myRandom.Next(0, (int)GameWorld.ScreenSize.Y)));
@@ -175,13 +175,25 @@ namespace Orbital
 					else Instantiate(speedPowers[2]);
 
 				}
-				else if (randomPowerPicker == 3)
+				else if (randomPowerPicker == 3) // Rate of fire Power
 				{
-					//TODO Add Other Powers
-				}
-				else if (randomPowerPicker == 4)
-				{
-					//TODO Add Other Powers
+					RateOfFirePower xPower = new RateOfFirePower(new Vector2(0, myRandom.Next(0, (int)GameWorld.ScreenSize.Y)));
+					RateOfFirePower yPower = new RateOfFirePower(new Vector2(0, myRandom.Next(0, (int)GameWorld.ScreenSize.Y)));
+					RateOfFirePower xyPower = new RateOfFirePower(new Vector2(0, myRandom.Next(0, (int)GameWorld.ScreenSize.Y)));
+
+					rateOfFirePowers.Add(xPower);
+					rateOfFirePowers.Add(yPower);
+					rateOfFirePowers.Add(xyPower);
+
+					if (randomPowerPos == 1)
+					{
+						Instantiate(rateOfFirePowers[0]);
+					}
+					else if (randomPowerPos == 2)
+					{
+						Instantiate(rateOfFirePowers[1]);
+					}
+					else Instantiate(rateOfFirePowers[2]);
 				}
 				timeSinceLastPower = 0;
 			}
