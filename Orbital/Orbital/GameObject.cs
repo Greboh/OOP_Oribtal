@@ -40,6 +40,8 @@ namespace Orbital
 
 		protected Random myRandom = new Random();
 
+		
+
 		public Rectangle Collision
 		{
 			get

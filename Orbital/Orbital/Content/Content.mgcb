@@ -410,6 +410,12 @@
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont
 
+#begin firePower_sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:firePower_sound.wav
+
 #begin gameoverSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -458,7 +464,6 @@
 /processorParam:TextureFormat=Color
 /build:Meteor_06.png
 
-#begin RateOfFirePower.png
 #begin pewpew.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -471,7 +476,7 @@
 /processorParam:Quality=Best
 /build:Player_hit_Effect.wav
 
-#begin Ship.png
+#begin RateOfFirePower.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
