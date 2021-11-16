@@ -26,7 +26,7 @@ namespace Orbital
             this.color = Color.White;
             this.scale = 1;
             this.speed = 3;
-            this.animationFPS = 5;
+            this.animationFps = 5;
             //this.rotation = 1.6f;
 
 
