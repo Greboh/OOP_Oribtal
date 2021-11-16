@@ -19,7 +19,7 @@ namespace Orbital
             this.position = position;
             this.origin = shootingPoint;
             this.layerDepth = 0.5f;
-            this.scale = 1.5f;
+            this.scale = 3;
             this.animationFPS = 10;
             this.rotation = rotation;
             this.color = Color.White;
@@ -44,7 +44,7 @@ namespace Orbital
         {
             for (int i = 0; i < sprites.Length; i++)
             {
-                sprites[i] = content.Load<Texture2D>(i + 1 + "pShoot");
+                sprites[i] = content.Load<Texture2D>(i + 1 + "eShoot");
             }
 
             animationSprite = sprites[0];

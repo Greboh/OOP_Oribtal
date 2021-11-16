@@ -12,7 +12,6 @@ namespace Orbital
 
     class Enemy : GameObject
     {
-        private Vector2 explosionPosition;
         private Vector2 shootingPoint;
 
         bool movingRight = true;
@@ -36,16 +35,7 @@ namespace Orbital
         {
 
             sprite = content.Load<Texture2D>("Ship2fixed");
-            explosionPosition = new Vector2(sprite.Width / 2 - 5, (sprite.Height / 2 + 25));
-
-            for (int i = 0; i < sprites2.Length; i++)
-            {
-                sprites2[i] = content.Load<Texture2D>("Ship2_Explosion_00" + i);
-                Console.WriteLine(sprites2[i]);
-
-            }
-
-            animationSprite2 = sprites2[0];
+            
 
         }
 
@@ -63,8 +53,6 @@ namespace Orbital
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, shipFlip, 0);
-            spriteBatch.Draw(animationSprite2, position, null, color, rotation, explosionPosition, scale, shipFlip, 0);
-
         }
 
         public override void OnCollision(GameObject obj)

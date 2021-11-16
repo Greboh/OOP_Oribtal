@@ -13,9 +13,7 @@ namespace Orbital
 
 		protected Texture2D sprite;
 		protected Texture2D animationSprite;
-		protected Texture2D animationSprite2;
 		protected Texture2D[] sprites = new Texture2D[4];
-		protected Texture2D[] sprites2 = new Texture2D[10];
 
 
 
@@ -76,7 +74,6 @@ namespace Orbital
 			currentIndex = (int)(timeElapsed * animationFPS);
 
 			animationSprite = sprites[currentIndex];
-			animationSprite2 = sprites2[currentIndex];
 
 
 			if (currentIndex >= sprites.Length - 1)
@@ -85,11 +82,7 @@ namespace Orbital
 				currentIndex = 0;
 			}
 
-			if (currentIndex >= sprites2.Length - 1)
-			{
-				timeElapsed = 0;
-				currentIndex = 0;
-			}
+			
 
 		}
 
