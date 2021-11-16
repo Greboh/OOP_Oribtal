@@ -44,10 +44,7 @@ namespace Orbital.PowerUps
 
 		public override void OnCollision(GameObject obj)
 		{
-			if (obj is Player)
-			{
-				Destroy(this);
-			}
+
 		}
 
 		public override void Update(GameTime gameTime)

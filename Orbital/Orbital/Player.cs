@@ -17,8 +17,6 @@ namespace Orbital
 {
 	class Player : GameObject
 	{
-		private float playerLayerDepth = 1; // Float for setting the player layer-depth
-
 		// Field for shooting
 		private Vector2 exhaustPosition; //Vector2 for storing our ship exhausting point
 		private Vector2 shootingPoint; // Vector2 for storing our shooting point
@@ -171,7 +169,7 @@ namespace Orbital
 
 		public void ImpactDisable(GameTime gameTime)
 		{
-			Color playerTransparencyColor= new Color(255, 255, 0); // Transparent color
+			Color playerTransparencyColor= new Color(255, 255, 255, 0); // Transparent color
 
 			if (isInvincible)
 			{
@@ -203,10 +201,14 @@ namespace Orbital
 				{
 					this.health += 20;
 				}
+
+				Destroy(this);
 			}
 			else if (obj is SpeedPower)
 			{
 				speedBar = 100;
+
+				Destroy(obj);
 			}
 			else if (obj is RateOfFirePower)
 			{
@@ -216,11 +218,13 @@ namespace Orbital
 				}
 				else if (rateOfFire < 0.24f) // Catches if rateOfFire is not a whole number
 				{
-					rateOfFire = subtractRateOfFire;
+					rateOfFire = lowestRateOfFire;
 				}
 				else rateOfFire -= subtractRateOfFire;
+				
+				Console.WriteLine(rateOfFire);
 
-
+				Destroy(obj);
 			}
 
 
@@ -228,8 +232,8 @@ namespace Orbital
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-	        spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, SpriteEffects.None, playerLayerDepth);
-            spriteBatch.Draw(animationSprite, position, null, color, rotation, exhaustPosition, 2, SpriteEffects.None, playerLayerDepth);
+	        spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
+            spriteBatch.Draw(animationSprite, position, null, color, rotation, exhaustPosition, 2, SpriteEffects.None, layerDepth);
             spriteBatch.Draw(currentHealthBar, new Vector2(0, 850), null, Color.White, 0, Vector2.Zero, 0.5f, SpriteEffects.None, layerDepth);
 			spriteBatch.Draw(currentSpeedBar, new Vector2(0, 600), null, Color.White, 0, Vector2.Zero, 0.5f, SpriteEffects.None, layerDepth);
 		}
