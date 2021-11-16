@@ -108,10 +108,6 @@ namespace Orbital
                 movingRight = !movingRight;
             }
                 
-
-            //Console.WriteLine(position.X);
-            //Console.WriteLine(movingRight);
-            //Console.WriteLine(GameWorld.ScreenSize.X);
         }
 
         public override void Attack(GameTime gameTime)
