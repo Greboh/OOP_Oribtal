@@ -31,7 +31,7 @@ namespace Orbital.PowerUps
 
 		public override void LoadContent(ContentManager content)
 		{
-			sprite = content.Load<Texture2D>("SpeedPower");
+			this.sprite = content.Load<Texture2D>("SpeedPower");
 		}
 
 		public override void Update(GameTime gameTime)
@@ -41,15 +41,11 @@ namespace Orbital.PowerUps
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(sprite, position, null, color, 0, Vector2.Zero, scale, SpriteEffects.None, 1);
+			spriteBatch.Draw(this.sprite, position, null, color, 0, Vector2.Zero, scale, SpriteEffects.None, 1);
 		}
 
 		public override void OnCollision(GameObject obj)
 		{
-			if (obj is Player)
-			{
-				Destroy(this);
-			}
 		}
 
 		public override void Attack(GameTime gameTime)

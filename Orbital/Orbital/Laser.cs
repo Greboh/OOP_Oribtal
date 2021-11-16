@@ -28,8 +28,8 @@ namespace Orbital
 			this.scale = 3;
 			this.animationFps = 10;
 			this.rotation = rotation;
-		
 			this.color = Color.White;
+
 		}
 
 		public override void Update(GameTime gameTime)
@@ -60,8 +60,7 @@ namespace Orbital
 				sprites[i] = content.Load<Texture2D>(i + 1 + "pShoot");
 			}
 
-			animationSprite = sprites[0];			
-
+			animationSprite = sprites[0];
 		}
 		public override void Draw(SpriteBatch spriteBatch)
 		{
