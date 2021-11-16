@@ -416,6 +416,12 @@
 /processorParam:TextureFormat=Color
 /build:Healthpower.png
 
+#begin healthpowerup_sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:healthpowerup_sound.wav
+
 #begin Meteor_05.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -511,4 +517,10 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SpeedPower.png
+
+#begin turbopowerup_sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:turbopowerup_sound.wav
 

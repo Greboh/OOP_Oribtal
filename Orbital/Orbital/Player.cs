@@ -42,6 +42,8 @@ namespace Orbital
 		private SoundEffect gameOverSound;
 		private SoundEffect LaserSound;
 		private SoundEffect playerHit;
+		private SoundEffect turboPickUp;
+		private SoundEffect healthPickUp;
 
 		public Player()
 		{
@@ -73,6 +75,8 @@ namespace Orbital
 			gameOverSound = content.Load<SoundEffect>("gameoverSound");
 			LaserSound = content.Load<SoundEffect>("pewpew");
 			playerHit = content.Load<SoundEffect>("Player_hit_Effect");
+			turboPickUp = content.Load<SoundEffect>("turbopowerup_sound");
+			healthPickUp = content.Load<SoundEffect>("healthpowerup_sound");
 
 			animationSprite = sprites[0];
 			sprite = content.Load<Texture2D>("Ship");
@@ -216,24 +220,25 @@ namespace Orbital
 
 			if (obj is HealthPower)
 			{
+				healthPickUp.Play();
 				if (this.health == 100)
-                {
+				{
 					healthBars[0] = healthBars[0];
-                }
-				else if(this.health < 100 && this.health > 80)
+				}
+				else if (this.health < 100 && this.health > 80)
 				{
 					this.health += 20;
 					healthBars[0] = healthBars[1];
 				}
+				else this.health += 20; 
+				Destroy(obj);
 				Console.WriteLine($"Current health is: {this.health}");
 			}
-			else if (obj is SpeedPower)
+			if (obj is SpeedPower)
 			{
 				SpeedBar = 100;
-
-				//newSpeed += 200;
-				//this.speed += newSpeed;
-				//Console.WriteLine(this.speed);
+				Destroy(obj);
+				turboPickUp.Play();
 			}
             
 
