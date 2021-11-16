@@ -44,7 +44,7 @@ namespace Orbital
         {
             for (int i = 0; i < sprites.Length; i++)
             {
-                sprites[i] = content.Load<Texture2D>(i + 1 + "eShoot");
+                sprites[i] = content.Load<Texture2D>(i + 1 + "pShoot");
             }
 
             animationSprite = sprites[0];
