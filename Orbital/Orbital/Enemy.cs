@@ -19,7 +19,7 @@ namespace Orbital
 
         private float timeSinceLastShot = 0f;
 
-        int enemyHealth = 2;
+        int enemyHealth = 10;
 
 
         public Enemy()
@@ -72,6 +72,7 @@ namespace Orbital
 
             if (obj is Laser)
             {
+                
                 enemyHealth--;
                 if (enemyHealth == 0)
                 {
