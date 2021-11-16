@@ -125,7 +125,7 @@ namespace Orbital
 			}
 
 
-			int randomPowerPicker = 3; //myRandom.Next(1, 4); // Used to pick the which power to spawn
+			int randomPowerPicker = myRandom.Next(1, 4); // Used to pick the which power to spawn
 			int randomPowerPos = myRandom.Next(1, 3); // Used to choose position of the picked power
 
 			if (timeSinceLastPower >= powerTimer)

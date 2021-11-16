@@ -213,7 +213,7 @@ namespace Orbital
 					this.health += 20;
 				}
 
-				Destroy(this);
+				Destroy(obj);
 			}
 			else if (obj is SpeedPower)
 			{
