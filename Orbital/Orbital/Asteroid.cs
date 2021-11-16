@@ -23,7 +23,7 @@ namespace Orbital
             this.position = position;
             this.color = Color.White;
             this.scale = 1;
-            this.speed = myRandom.Next(20, 50);
+            this.speed = myRandom.Next(200, 300);
 
             if (this.position.X == GameWorld.ScreenSize.X)
             {

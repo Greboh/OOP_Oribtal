@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,26 +18,25 @@ namespace Orbital
 {
 	class Player : GameObject
 	{
+		// Field for shooting
 		private Vector2 exhaustPosition; //Vector2 for storing our ship exhausting point
 		private Vector2 shootingPoint; // Vector2 for storing our shooting point
-
-		// Field for shooting cooldown
 		private float timeSinceLastShot = 0f; //Timer for how fast you can shoot a new laser
+		private float rateOfFire = 1f; // How fast the player initially ís able to fire!
+		private float lowestRateOfFire = 0.2f; // How fast the player is able to fire at lowest
+		private float subtractRateOfFire = 0.2f; // How much the rate of fire decreases after each pickup
 
-		private int totalShotsFired = 0; //Variable for closing while loop when shooting more than 1 laser
-		private float newSpeed;
 		
-		
-		// Fields for taking damage
+		// Fields for health and taking damage
 		private bool isInvincible = false;
-		private float timeSinceLastHit = 0f; // Timer for invinsibility
+		private float timeSinceLastHit = 0f; // Timer for invincibility
         private Texture2D [] healthBars = new Texture2D[6];
-		private Texture2D[] currentHealthBar = new Texture2D[1];
+        private Texture2D currentHealthBar;
 
 		//Fields for speed
 		private Texture2D[] speedBars = new Texture2D[16];
-		private Texture2D[] currentSpeedBar = new Texture2D[1];
-		private float SpeedBar = 0;
+		private Texture2D currentSpeedBar;
+		private float speedBar = 0;
 
 		//Fields for soundeffects
 		private SoundEffect gameOverSound;
@@ -53,7 +53,6 @@ namespace Orbital
 			this.animationFps = 10;
 			this.health = 100;
 			this.speed = 200;
-			newSpeed = this.speed;
 		}
 
 		public override void LoadContent(ContentManager content)
@@ -148,22 +147,18 @@ namespace Orbital
 				velocity += new Vector2(-1, 0);
 			}
 
-			
-			else this.speed = newSpeed;
-
-			if (velocity != Vector2.Zero) //Normalize movement vector for smoothness
+			//Normalize movement vector for smoothness
+			if (velocity != Vector2.Zero) 
 			{
 				velocity.Normalize();
 			}
 
-			if(SpeedBar >0)
+			if(speedBar > 0 && Keyboard.GetState().IsKeyDown((Keys.LeftShift)))
             {
-				if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) // Speed boost
-				{
-					this.speed = 600;
-					Console.WriteLine($"Using turbo: {this.speed}");
-					SpeedBar -= 0.5f;
-				}
+				this.speed = 400;
+				Console.WriteLine($"Using turbo: {this.speed}");
+				speedBar -= 0.5f;
+
 			}
 			
 		}
@@ -187,25 +182,29 @@ namespace Orbital
 
 		public void ImpactDisable(GameTime gameTime)
 		{
+			Color playerTransparencyColor= new Color(255, 255, 255, 0); // Transparent color
+
 			if (isInvincible)
 			{
-				timeSinceLastHit += (float)gameTime.ElapsedGameTime.TotalSeconds;
+				timeSinceLastHit += (float) gameTime.ElapsedGameTime.TotalSeconds;
+				this.color = playerTransparencyColor;
 
-				if (timeSinceLastHit > 0.5)
+				if (timeSinceLastHit > 2)
 				{
 					isInvincible = false;
 					timeSinceLastHit = 0;
+					this.color = Color.White;
 				}
+
+
 			}
 		}
 
 		public override void OnCollision(GameObject obj)
 		{
-			if (obj is Asteroid && !isInvincible)
+			if (obj is Asteroid && !isInvincible || obj is SmallAsteroid && !isInvincible)
 			{
-				Console.WriteLine($"{GetType().Name} collided with Asteroid");
 				this.health -= 20;
-				Console.WriteLine($"Current health is: {this.health}");
 				isInvincible = true;
 				playerHit.Play();
 			}
@@ -220,6 +219,34 @@ namespace Orbital
 
 			if (obj is HealthPower)
 			{
+				if (this.health < 100) // Check if the player is at full health
+				{
+					this.health += 20;
+				}
+
+				Destroy(this);
+			}
+			else if (obj is SpeedPower)
+			{
+				speedBar = 100;
+
+				Destroy(obj);
+			}
+			else if (obj is RateOfFirePower)
+			{
+				if (rateOfFire <= lowestRateOfFire) // Checks if its
+				{
+					rateOfFire = lowestRateOfFire;
+				}
+				else if (rateOfFire < 0.24f) // Catches if rateOfFire is not a whole number
+				{
+					rateOfFire = lowestRateOfFire;
+				}
+				else rateOfFire -= subtractRateOfFire;
+				
+				Console.WriteLine(rateOfFire);
+
+				Destroy(obj);
 				healthPickUp.Play();
 				if (this.health == 100)
 				{
@@ -240,17 +267,16 @@ namespace Orbital
 				Destroy(obj);
 				turboPickUp.Play();
 			}
-            
+
 
 		}
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            
-            spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
+	        spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
             spriteBatch.Draw(animationSprite, position, null, color, rotation, exhaustPosition, 2, SpriteEffects.None, layerDepth);
-            spriteBatch.Draw(currentHealthBar[0], new Vector2(0, 850), null, color, 0, Vector2.Zero, 0.5f, SpriteEffects.None, layerDepth);
-			spriteBatch.Draw(currentSpeedBar[0], new Vector2(0, 600), null, color, 0, Vector2.Zero, 0.5f, SpriteEffects.None, layerDepth);
+            spriteBatch.Draw(currentHealthBar, new Vector2(0, 850), null, Color.White, 0, Vector2.Zero, 0.5f, SpriteEffects.None, layerDepth);
+			spriteBatch.Draw(currentSpeedBar, new Vector2(0, 600), null, Color.White, 0, Vector2.Zero, 0.5f, SpriteEffects.None, layerDepth);
 		}
 
 		/// <summary>
@@ -263,27 +289,27 @@ namespace Orbital
             {
 				case 100:
                     {
-						currentHealthBar[0] = healthBars[0];
+						currentHealthBar = healthBars[0];
                     }break;
                 case 80:
                     {
-						currentHealthBar[0] = healthBars[1];
+						currentHealthBar = healthBars[1];
 						
                     }break;
                 case 60:
                     {
-						currentHealthBar[0] = healthBars[2];
+						currentHealthBar = healthBars[2];
 						
                     }break;
                 case 40:
                     {
-						currentHealthBar[0] = healthBars[3];
+						currentHealthBar = healthBars[3];
 						
                     }
                     break;
                 case 20:
                     {
-						currentHealthBar[0] = healthBars[4];
+						currentHealthBar = healthBars[4];
 						
                     }
                     break;
@@ -301,67 +327,71 @@ namespace Orbital
 		/// <summary>
 		/// updates speedBar according to current amount of speed
 		/// </summary>
-		/// <param name="gameTime"></param>
+		/// <param name="gameTime">Reference to GameTime</param>
 		public void UpdateSpeed(GameTime gameTime)
         {
-			switch(SpeedBar)
+			switch(speedBar)
             {
 				case 100:
                     {
-						currentSpeedBar[0] = speedBars[0];
+						currentSpeedBar = speedBars[0];
                     }break;
 				case 90:
                     {
-						currentSpeedBar[0] = speedBars[1];
+						currentSpeedBar = speedBars[1];
                     }break;
 				case 80:
 					{
-						currentSpeedBar[0] = speedBars[3];
+						currentSpeedBar = speedBars[3];
 					}
 					break;
 				case 70:
 					{
-						currentSpeedBar[0] = speedBars[5];
+						currentSpeedBar = speedBars[5];
 					}
 					break;
 				case 60:
 					{
-						currentSpeedBar[0] = speedBars[7];
+						currentSpeedBar = speedBars[7];
 					}
 					break;
 				case 50:
 					{
-						currentSpeedBar[0] = speedBars[9];
+						currentSpeedBar = speedBars[9];
 					}
 					break;
 				case 40:
 					{
-						currentSpeedBar[0] = speedBars[11];
+						currentSpeedBar = speedBars[11];
 					}
 					break;
 				case 30:
 					{
-						currentSpeedBar[0] = speedBars[12];
+						currentSpeedBar = speedBars[12];
 					}
 					break;
 				case 20:
 					{
-						currentSpeedBar[0] = speedBars[13];
+						currentSpeedBar = speedBars[13];
 					}
 					break;
 				case 10:
 					{
-						currentSpeedBar[0] = speedBars[14];
+						currentSpeedBar = speedBars[14];
 					}
 					break;
 				case 0:
                     {
-						currentSpeedBar[0] = speedBars[15];
+						currentSpeedBar = speedBars[15];
                     }break;
             }
 
         }
 
+		/// <summary>
+		/// Method that makes the player shoot a laser
+		/// </summary>
+		/// <param name="gameTime">Reference to GameTime</param>
         public override void Attack(GameTime gameTime)
         {
             MouseState mouseState = Mouse.GetState(); // This records mouse clicks and mouse posisiton
@@ -370,7 +400,7 @@ namespace Orbital
 
 			if (mouseState.LeftButton == ButtonState.Pressed) // If mouse button is pressed
 			{
-				if (timeSinceLastShot > .5)
+				if (timeSinceLastShot > rateOfFire)
 				{
 					Instantiate(new Laser(position, shootingPoint, this.rotation, 1000));
 					totalShotsFired++;
@@ -378,6 +408,7 @@ namespace Orbital
 					
 					timeSinceLastShot = 0;
 				}
+
 			}
 		}
 	}

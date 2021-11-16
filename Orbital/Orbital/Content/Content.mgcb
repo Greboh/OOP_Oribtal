@@ -85,6 +85,18 @@
 /processorParam:TextureFormat=Color
 /build:15speedbar.png
 
+#begin 16speedbar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:16speedbar.png
+
 #begin 1exhaust.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -446,6 +458,7 @@
 /processorParam:TextureFormat=Color
 /build:Meteor_06.png
 
+#begin RateOfFirePower.png
 #begin pewpew.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -457,6 +470,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Player_hit_Effect.wav
+
+#begin Ship.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:RateOfFirePower.png
 
 #begin Ship.png
 /importer:TextureImporter
@@ -493,18 +518,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:smallMeteor_06.png
-
-#begin speedbar16.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:speedbar16.png
 
 #begin SpeedPower.png
 /importer:TextureImporter
