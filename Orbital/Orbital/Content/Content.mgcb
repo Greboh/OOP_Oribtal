@@ -344,6 +344,18 @@
 /processorParam:TextureFormat=Color
 /build:Ship2fixed.png
 
+#begin Ship2rotated.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Ship2rotated.png
+
 #begin smallMeteor_05.png
 /importer:TextureImporter
 /processor:TextureProcessor

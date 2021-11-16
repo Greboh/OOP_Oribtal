@@ -27,14 +27,12 @@ namespace Orbital
             this.scale = 1;
             this.speed = 3;
             this.animationFps = 5;
-            //this.rotation = 1.6f;
-
 
         }
         public override void LoadContent(ContentManager content)
         {
 
-            sprite = content.Load<Texture2D>("Ship2fixed");
+            sprite = content.Load<Texture2D>("Ship2rotated");
 
 
         }
@@ -93,7 +91,9 @@ namespace Orbital
             {
                 position.X += speed;
                 shipFlip = SpriteEffects.None;
-                shootingPoint = new Vector2(-10, 40);
+                //shootingPoint = new Vector2(-10, 40);
+                shootingPoint = new Vector2(-10, 15);
+
 
             }
             else
