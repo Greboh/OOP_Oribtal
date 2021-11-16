@@ -13,7 +13,9 @@ namespace Orbital
 
 		protected Texture2D sprite;
 		protected Texture2D animationSprite;
-		protected Texture2D[] sprites = new Texture2D[4];
+		protected Texture2D deathSprite;
+		protected Texture2D[] exhaustSprites = new Texture2D[4];
+		protected Texture2D[] deathSprites = new Texture2D[10];
 
 
 		protected Vector2 position;
@@ -23,13 +25,14 @@ namespace Orbital
 
 		protected Color color;
 
-		protected Vector2 bulletDirection;
 		protected float rotation;
 
 		protected int health;
 		protected int damage;
-		protected float timeElapsed;
-		private int currentIndex;
+		protected float exhaustTimeElapsed;
+		protected float deathTimeElapsed;
+		private int exhaustCurrentIndex;
+		private int deathCurrentIndex;
 
 		protected float scale;
 		protected float speed;
@@ -49,7 +52,7 @@ namespace Orbital
 					(int)(position.Y + offset.X),
 					sprite != null ? sprite.Width : 0,
 					sprite != null ? sprite.Height : 0
-				    );
+					);
 			}
 		}
 
@@ -68,17 +71,28 @@ namespace Orbital
 
 		protected void Animate(GameTime gameTime)
 		{
-			timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
+			exhaustTimeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
+			deathTimeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-			currentIndex = (int)(timeElapsed * animationFps);
+			exhaustCurrentIndex = (int)(exhaustTimeElapsed * animationFps);
+			deathCurrentIndex = (int)(deathTimeElapsed * animationFps);
 
-			animationSprite = sprites[currentIndex];
+			animationSprite = exhaustSprites[exhaustCurrentIndex];
+			deathSprite = deathSprites[deathCurrentIndex];
 
-			if (currentIndex >= sprites.Length - 1)
+
+			if (deathCurrentIndex >= deathSprites.Length - 1)
 			{
-				timeElapsed = 0;
-				currentIndex = 0;
+				deathTimeElapsed = 0;
+				deathCurrentIndex = 0;
 			}
+			if (exhaustCurrentIndex >= exhaustSprites.Length - 1)
+			{
+				exhaustTimeElapsed = 0;
+				exhaustCurrentIndex = 0;
+			}
+
+
 		}
 
 		public abstract void OnCollision(GameObject obj);

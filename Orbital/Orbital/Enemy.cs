@@ -29,12 +29,12 @@ namespace Orbital
 
         //public override void LoadContent(ContentManager content)
         //{
-        //    sprites = new Texture2D[4];
+        //    exhaustSprites = new Texture2D[4];
 
-        //    sprites[0] = content.Load<Texture2D>("enemyBlack1");
-        //    sprites[1] = content.Load<Texture2D>("enemyBlue1");
-        //    sprites[2] = content.Load<Texture2D>("enemyGreen1");
-        //    sprites[3] = content.Load<Texture2D>("enemyRed1");
+        //    exhaustSprites[0] = content.Load<Texture2D>("enemyBlack1");
+        //    exhaustSprites[1] = content.Load<Texture2D>("enemyBlue1");
+        //    exhaustSprites[2] = content.Load<Texture2D>("enemyGreen1");
+        //    exhaustSprites[3] = content.Load<Texture2D>("enemyRed1");
                 
 
 
@@ -43,7 +43,7 @@ namespace Orbital
         //public void Respawn()
         //{
         //    int index = myRandom.Next(0, 4);
-        //    sprite = sprites[index];
+        //    sprite = exhaustSprites[index];
         //    velocity = new Vector2(0, 1);
         //    speed = myRandom.Next(50, 150);
         //    position.X = myRandom.Next(0, (int)GameWorld.Screensize.X - sprite.Width);
