@@ -361,6 +361,12 @@
 /processorParam:TextureFormat=Color
 /build:9speedbar.png
 
+#begin Asterioid_destruction_sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Asterioid_destruction_sound.wav
+
 #begin Background.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -391,6 +397,12 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont
+
+#begin gameoverSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:gameoverSound.wav
 
 #begin Healthpower.png
 /importer:TextureImporter
@@ -427,6 +439,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Meteor_06.png
+
+#begin pewpew.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:pewpew.wav
+
+#begin Player_hit_Effect.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Player_hit_Effect.wav
 
 #begin Ship.png
 /importer:TextureImporter

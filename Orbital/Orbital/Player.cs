@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 using Orbital.PowerUps;
 using SharpDX.Direct2D1;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
@@ -37,7 +38,10 @@ namespace Orbital
 		private Texture2D[] currentSpeedBar = new Texture2D[1];
 		private float SpeedBar = 0;
 
-
+		//Fields for soundeffects
+		private SoundEffect gameOverSound;
+		private SoundEffect LaserSound;
+		private SoundEffect playerHit;
 
 		public Player()
 		{
@@ -65,7 +69,11 @@ namespace Orbital
             {
 				speedBars[i] = content.Load<Texture2D>(i + 1 + "speedbar");
             }
-			
+
+			gameOverSound = content.Load<SoundEffect>("gameoverSound");
+			LaserSound = content.Load<SoundEffect>("pewpew");
+			playerHit = content.Load<SoundEffect>("Player_hit_Effect");
+
 			animationSprite = sprites[0];
 			sprite = content.Load<Texture2D>("Ship");
 
@@ -195,6 +203,7 @@ namespace Orbital
 				this.health -= 20;
 				Console.WriteLine($"Current health is: {this.health}");
 				isInvincible = true;
+				playerHit.Play();
 			}
 			else if (obj is SmallAsteroid && !isInvincible)
 			{
@@ -202,6 +211,7 @@ namespace Orbital
 				this.health -= 20;
 				Console.WriteLine("Current health is: " + this.health);
 				isInvincible = true;
+				playerHit.Play();
 			}
 
 			if (obj is HealthPower)
@@ -275,7 +285,7 @@ namespace Orbital
                 case 0:
                     {
 						currentHealthBar[0] = healthBars[5];
-						
+						gameOverSound.Play();
                         Destroy(this);
                     }
                     break;
@@ -359,7 +369,7 @@ namespace Orbital
 				{
 					Instantiate(new Laser(position, shootingPoint, this.rotation, 1000));
 					totalShotsFired++;
-
+					LaserSound.Play();
 					
 					timeSinceLastShot = 0;
 				}

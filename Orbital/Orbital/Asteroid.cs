@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 
 
@@ -11,6 +12,7 @@ namespace Orbital
 {
 	class Asteroid : GameObject
 	{
+        private SoundEffect asteroidDestruction;
         
         /// <summary>
         /// Constructor uses position paramater to spawn asteroid on different axis and set movement accordingly
@@ -42,6 +44,7 @@ namespace Orbital
         {
             
             sprite = content.Load<Texture2D>("Meteor_0"+ myRandom.Next(5, 7));
+            asteroidDestruction = content.Load<SoundEffect>("Asterioid_destruction_sound");
            
         }
 
@@ -66,12 +69,12 @@ namespace Orbital
             {
                 Destroy(this);
                 Destroy(obj);
+                asteroidDestruction.Play();
                 for (int i = 0; i < 4; i++)
                 {
                     Instantiate(new SmallAsteroid(this.position, this.scale, this.sprite));
                 }
             }
-            
         }
 
 		public override void Attack(GameTime gameTime)
