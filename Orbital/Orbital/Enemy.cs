@@ -19,6 +19,9 @@ namespace Orbital
 
         int enemyHealth = 10;
 
+        private Vector2 shootingPoint; // Vector2 for storing our shooting point
+
+
 
         public Enemy()
         {
@@ -34,6 +37,7 @@ namespace Orbital
             sprite = content.Load<Texture2D>("Ship2rotated");
 
 
+            shootingPoint = new Vector2((sprite.Width / 2) - 30, (sprite.Height / 2) - 15);
 
         }
 
@@ -92,7 +96,7 @@ namespace Orbital
                 position.X += speed;
                 shipFlip = SpriteEffects.None;
                 //shootingPoint = new Vector2(-10, 40);
-                shootingPoint = new Vector2(-10, 15);
+                //shootingPoint = new Vector2(-10, 15);
 
 
             }
@@ -100,7 +104,7 @@ namespace Orbital
             {
                 position.X -= speed;
                 shipFlip = SpriteEffects.FlipHorizontally;
-                shootingPoint = new Vector2(-10, 15);
+                //shootingPoint = new Vector2(-10, 15);
 
             }
             if (position.X > GameWorld.ScreenSize.X - this.sprite.Width || position.X < 0)

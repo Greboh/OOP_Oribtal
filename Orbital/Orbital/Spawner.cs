@@ -23,7 +23,6 @@ namespace Orbital
 
 		private int changeAsteroidDifficultyTimer = 2;
 		private int changePowerDifficultyTimer = 16;
-		private int changePowerDifficultyTimer = 31;
 		private int amountOfEnemies;
 
 		public override void Draw(SpriteBatch spriteBatch)
