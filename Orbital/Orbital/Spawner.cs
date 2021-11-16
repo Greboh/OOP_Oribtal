@@ -16,6 +16,7 @@ namespace Orbital
 		private float totalTimeElapsed;
 		private float timeSinceLastAsteroid;
         private float timeSinceLastPower;
+		private float timeElapsedEnemy;
 
 		private float asteroidTimer = 1.5f;
 		private float powerTimer = 30;
@@ -47,13 +48,15 @@ namespace Orbital
 
 	        timeSinceLastAsteroid += (float) gameTime.ElapsedGameTime.TotalSeconds;
 
-            // [IDEA]
-            // Replace with if statement that decides in which of the four sides the asteroid should spawn using random.Next
+			timeElapsedEnemy += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            // Maybe solved now on line 56 - 64
-            // Now it only spawns 1 asteroid at least
+			// [IDEA]
+			// Replace with if statement that decides in which of the four sides the asteroid should spawn using random.Next
 
-            if (totalTimeElapsed > changeAsteroidDifficultyTimer)
+			// Maybe solved now on line 56 - 64
+			// Now it only spawns 1 asteroid at least
+
+			if (totalTimeElapsed > changeAsteroidDifficultyTimer)
             {
 	            changeAsteroidDifficultyTimer += 10;
 				Console.WriteLine("Timer for asteroid is: " + asteroidTimer);
