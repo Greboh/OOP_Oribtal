@@ -15,12 +15,12 @@ namespace Orbital
         {
 
             velocity = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation));
-            this.speed = 1000; // Too low and it will cause a bug!
+            this.speed = 600; // Too low and it will cause a bug!
             this.position = position;
             this.origin = shootingPoint;
             this.layerDepth = 0.5f;
             this.scale = 3;
-            this.animationFPS = 10;
+            this.animationFPS = 7;
             this.rotation = rotation;
             this.color = Color.White;
         }

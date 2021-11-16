@@ -30,12 +30,12 @@ namespace Orbital
 
 		protected int health;
 		protected int damage;
-		private float timeElapsed;
+		protected float timeElapsed;
 		private int currentIndex;
 
 		protected float scale;
 		protected float speed;
-		protected float animationFPS;
+		protected float animationFps;
 		protected float layerDepth;
 
 		private GameWorld myGameWorld;
@@ -49,11 +49,12 @@ namespace Orbital
 				return new Rectangle(
 					(int)(position.X + offset.Y),
 					(int)(position.Y + offset.X),
-					(sprite != null ? sprite.Width : 0),
-					(sprite != null ? sprite.Height : 0)
+					sprite != null ? sprite.Width : 0,
+					sprite != null ? sprite.Height : 0
 				    );
 			}
 		}
+
 
 		public abstract void LoadContent(ContentManager content);
 
@@ -63,15 +64,15 @@ namespace Orbital
 			position += ((velocity * speed) * deltaTime);
 		}
 
-		public abstract void Update(GameTime gametime);
+		public abstract void Update(GameTime gameTime);
 
 		public abstract void Draw(SpriteBatch spriteBatch);
 
-		protected void Animate(GameTime gametime)
+		protected void Animate(GameTime gameTime)
 		{
-			timeElapsed += (float)gametime.ElapsedGameTime.TotalSeconds;
+			timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-			currentIndex = (int)(timeElapsed * animationFPS);
+			currentIndex = (int)(timeElapsed * animationFps);
 
 			animationSprite = sprites[currentIndex];
 
@@ -103,14 +104,14 @@ namespace Orbital
 
 		public void Instantiate(GameObject gameObject)
 		{
-			Console.WriteLine(gameObject + " Has been added!");
+			//Console.WriteLine(gameObject + " Has been added!");
 
 			myGameWorld.Instantiate(gameObject);
 		}
 
 		public void Destroy(GameObject gameObject)
 		{
-			Console.WriteLine(gameObject + " Has been Destroyed!");
+			//Console.WriteLine(gameObject + " Has been Destroyed!");
 
 			myGameWorld.DestroyGameObject(gameObject);
 		}

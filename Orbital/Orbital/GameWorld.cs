@@ -10,23 +10,27 @@ namespace Orbital
 	{
 		private static GraphicsDeviceManager myGraphics;
 		private SpriteBatch mySpriteBatch;
+
+		private readonly int screenHeight = 900;
+		private readonly int screenWidth =1200;
 		private static Vector2 screenSize;
 		
-		private int screenHeight = 900;
-		private int screenWidth =1200;
+		private int score;
+		private SpriteFont File;
 
 
-		private List<GameObject> listOfCurrentObjects = new List<GameObject>();
-		private List<GameObject> listOfObjectsToAdd = new List<GameObject>();
-		private List<GameObject> listOfObjectsToDestroy = new List<GameObject>();
-
-		private Player player = new Player();
+		private readonly List<GameObject> listOfCurrentObjects = new List<GameObject>();
+		private readonly List<GameObject> listOfObjectsToAdd = new List<GameObject>();
+		private readonly List<GameObject> listOfObjectsToDestroy = new List<GameObject>();
 
 		private Texture2D collisionTexture;
+		private Texture2D background;
 
-		public static Vector2 ScreenSize { get => screenSize; set => screenSize = value; }
 
-		public GameWorld()
+		public static Vector2 ScreenSize { get; set; }
+        public int Score { get => score; set => score = value; }
+
+        public GameWorld()
 		{
 			myGraphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
@@ -37,22 +41,16 @@ namespace Orbital
 			myGraphics.IsFullScreen = false;
 			myGraphics.ApplyChanges();
 
-			screenSize = new Vector2(myGraphics.PreferredBackBufferWidth, myGraphics.PreferredBackBufferHeight);
+			ScreenSize = new Vector2(myGraphics.PreferredBackBufferWidth, myGraphics.PreferredBackBufferHeight);
 		}
 
 		protected override void Initialize()
 		{
 			// TODO: Add your initialization logic here
 
-
-
-
-			Instantiate(player);
-			Instantiate(new Asteroid());
+			Instantiate(new Player());
 			Instantiate(new Spawner());
-
-
-
+			
 			base.Initialize();
 		}
 
@@ -62,6 +60,8 @@ namespace Orbital
 
 			collisionTexture = Content.Load<Texture2D>("CollisionTexture");
 
+			background = Content.Load<Texture2D>("Background");
+			File = Content.Load<SpriteFont>("File");
 
 			// TODO: use this.Content to load your game content here
 		}
@@ -98,19 +98,20 @@ namespace Orbital
 
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.CornflowerBlue);
-
 			// TODO: Add your drawing code here
 
 			mySpriteBatch.Begin(SpriteSortMode.FrontToBack);
+			
+			mySpriteBatch.Draw(background, new Rectangle(0,0,2000,2000), null, Color.White, 0, new Vector2(0,0), SpriteEffects.None, 0);
+			mySpriteBatch.DrawString(File, "SCORE: " + score, new Vector2(0, 0), Color.Red);
 
 			foreach (GameObject obj in listOfCurrentObjects)
 			{
 				obj.Draw(mySpriteBatch);
 
-				#if DEBUG
+#if DEBUG
 				DrawCollisionBox(obj);
-				#endif
+#endif
 
 			}
 
@@ -138,6 +139,14 @@ namespace Orbital
 		public void DestroyGameObject(GameObject gameObject)
 		{
 			listOfObjectsToDestroy.Add(gameObject);
+			if (gameObject is SmallAsteroid)
+			{
+				score += 5;
+			}
+			else if (gameObject is Asteroid)
+			{
+				score += 10;
+			}
 		}
 
 
@@ -165,6 +174,7 @@ namespace Orbital
 		/// </summary>
 		private void CallDestroy()
 		{
+			
 			if(listOfObjectsToDestroy.Count > 0)
 			{
 				foreach (GameObject destroyObj in listOfObjectsToDestroy)
