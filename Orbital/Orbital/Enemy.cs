@@ -12,7 +12,6 @@ namespace Orbital
 
     class Enemy : GameObject
     {
-        private Vector2 shootingPoint;
 
         bool movingRight = true;
 
@@ -33,6 +32,7 @@ namespace Orbital
         {
 
             sprite = content.Load<Texture2D>("Ship2rotated");
+
 
 
         }
@@ -123,6 +123,7 @@ namespace Orbital
                 if (movingRight)
                 {
                     Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.6f));
+
                     timeSinceLastShot = 0;
                 }
                 else
