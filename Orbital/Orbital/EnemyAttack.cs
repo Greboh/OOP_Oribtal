@@ -53,7 +53,7 @@ namespace Orbital
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(animationSprite, position, null, color, this.rotation, origin, scale, SpriteEffects.None, layerDepth);
+            spriteBatch.Draw(animationSprite, position, null, color, this.rotation, origin, scale, shipFlip, layerDepth);
 
         }
 
