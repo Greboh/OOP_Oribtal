@@ -19,7 +19,7 @@ namespace Orbital
             this.position = position;
             this.origin = shootingPoint;
             this.layerDepth = 0.5f;
-            this.scale = 1;
+            this.scale = 1.5f;
             this.animationFPS = 10;
             this.rotation = rotation;
             this.color = Color.White;
@@ -42,12 +42,19 @@ namespace Orbital
 
         public override void LoadContent(ContentManager content)
         {
-            
+            for (int i = 0; i < sprites.Length; i++)
+            {
+                sprites[i] = content.Load<Texture2D>(i + 1 + "pShoot");
+            }
+
+            animationSprite = sprites[0];
 
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(animationSprite, position, null, color, this.rotation, origin, scale, SpriteEffects.None, layerDepth);
+
         }
 
         public override void Attack(GameTime gameTime)

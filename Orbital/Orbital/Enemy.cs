@@ -129,7 +129,7 @@ namespace Orbital
         {
             timeSinceLastShot += (float)gameTime.ElapsedGameTime.TotalSeconds; // Gets the game time in seconds (Framerate independent)
 
-            if (timeSinceLastShot > 1) // 
+            if (timeSinceLastShot > 0.7) // 
             {
                 if (movingRight)
                 {
@@ -143,7 +143,6 @@ namespace Orbital
                 }
                     
 
-                Console.WriteLine();
             }
 
 
