@@ -22,7 +22,7 @@ namespace Orbital
 		protected Vector2 origin;
 
 		protected Color color;
-		protected SpriteEffect shipFlip;
+		protected SpriteEffects shipFlip;
 
 		protected Vector2 bulletDirection;
 		protected float rotation;
