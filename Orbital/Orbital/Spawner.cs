@@ -23,6 +23,7 @@ namespace Orbital
 
 		private int changeAsteroidDifficultyTimer = 2;
 		private int changePowerDifficultyTimer = 31;
+		private int amountOfEnemies;
 
 		public override void Draw(SpriteBatch spriteBatch)
         {
@@ -100,7 +101,18 @@ namespace Orbital
 
             }
 
-            
+			if (timeElapsedEnemy >= 5f && amountOfEnemies < 1)
+			{
+				Enemy spawnedEnemy = new Enemy();
+				Instantiate(spawnedEnemy);
+				timeElapsedEnemy = 0;
+				amountOfEnemies++;
+
+				Console.WriteLine(amountOfEnemies);
+
+			}
+
+
 
 		}
 
