@@ -126,14 +126,40 @@ namespace Orbital
             {
                 if (movingRight)
                 {
-                    Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.6f));
+                    Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1f));
 
-                    timeSinceLastShot = 0;
+                    if (timeSinceLastShot > 0.7)
+                    {
+                        Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.5f));
+
+                        
+                        if (timeSinceLastShot > 0.7)
+                        {
+                            Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 2f));
+
+                            timeSinceLastShot = 0;
+
+                        }
+                    }
+
                 }
                 else
                 {
-                    Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.6f));
-                    timeSinceLastShot = 0;
+                    Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.5f));
+
+                    if (timeSinceLastShot > 0.7)
+                    {
+                        Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.6f));
+
+
+                        if (timeSinceLastShot > 0.7)
+                        {
+                            Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.7f));
+
+                            timeSinceLastShot = 0;
+
+                        }
+                    }
                 }
 
 
