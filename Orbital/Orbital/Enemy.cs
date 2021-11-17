@@ -12,16 +12,21 @@ namespace Orbital
 
     class Enemy : GameObject
     {
-
+        //enemy movement and attacks
         bool movingRight = true;
-
         private float timeSinceLastShot = 0f;
-
-        int enemyHealth = 10;
-
         private Vector2 shootingPoint; // Vector2 for storing our shooting point
+        private Texture2D healthbar;
+        private Texture2D healthbarBorder;
+        private Rectangle healthRectangle;
+        private Rectangle borderRectangle;
+        private Vector2 healthbarOrigin;
 
 
+        // Fields for health and taking damage
+        private Texture2D[] healthBars = new Texture2D[6];
+        private Texture2D currentHealthBar;
+        private int remainingHealth;
 
         public Enemy()
         {
@@ -29,15 +34,22 @@ namespace Orbital
             this.scale = 1;
             this.speed = 3;
             this.animationFps = 5;
+            this.health = 60;
 
         }
         public override void LoadContent(ContentManager content)
         {
 
             sprite = content.Load<Texture2D>("Ship2rotated");
-
-
             shootingPoint = new Vector2((sprite.Width / 2) - 30, (sprite.Height / 2) - 15);
+
+            healthbar = content.Load<Texture2D>("healthbar_main_enemy");
+            healthbarBorder = content.Load<Texture2D>("healthbar_border_enemy.png");
+
+            healthRectangle = new Rectangle(0, 0,  60, healthbar.Height );
+            borderRectangle = new Rectangle(0, 0, healthbarBorder.Width , healthbarBorder.Height);
+
+            healthbarOrigin = new Vector2(healthbar.Width / 2 - 15, healthbar.Height / 2 - 90);
 
         }
 
@@ -48,14 +60,21 @@ namespace Orbital
             ScreenBound();
             ShipMovement();
             Attack(gameTime);
-
+            
 
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, shipFlip, 0);
+            spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, SpriteEffects.FlipHorizontally, 0);
+
+            spriteBatch.Draw(healthbarBorder, position, borderRectangle, color, rotation, healthbarOrigin, scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(healthbar, position, healthRectangle, color, rotation, healthbarOrigin, scale, SpriteEffects.None, 0);
+
+
         }
+
+
 
         public override void OnCollision(GameObject obj)
         {
@@ -63,30 +82,22 @@ namespace Orbital
             if (obj is Laser)
             {
 
-                enemyHealth--;
-                if (enemyHealth == 0)
+                this.health -= 20;
+
+                healthRectangle.Width -= 20;
+
+                Destroy(obj);
+                if (this.health < 1)
                 {
-
-
-
-
-
-                    //Destroy(this);
-                    //Destroy(obj);
-                    Console.WriteLine("Enemy ship destroyed");
+                    amountOfEnemies--;
+                    Destroy(this);
                 }
-
-
-                Console.WriteLine(enemyHealth);
+                Console.WriteLine(this.health);
 
             }
         }
 
-        public void Explode(GameTime gameTime)
-        {
-
-
-        }
+      
 
         private void ShipMovement()
         {
@@ -95,17 +106,12 @@ namespace Orbital
             {
                 position.X += speed;
                 shipFlip = SpriteEffects.None;
-                //shootingPoint = new Vector2(-10, 40);
-                //shootingPoint = new Vector2(-10, 15);
-
 
             }
             else
             {
                 position.X -= speed;
                 shipFlip = SpriteEffects.FlipHorizontally;
-                //shootingPoint = new Vector2(-10, 15);
-
             }
             if (position.X > GameWorld.ScreenSize.X - this.sprite.Width || position.X < 0)
             {
@@ -113,10 +119,10 @@ namespace Orbital
             }
 
 
-            //Console.WriteLine(position.X);
-            //Console.WriteLine(movingRight);
-            //Console.WriteLine(GameWorld.ScreenSize.X);
+
         }
+
+        
 
         public override void Attack(GameTime gameTime)
         {
@@ -126,40 +132,43 @@ namespace Orbital
             {
                 if (movingRight)
                 {
-                    Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1f));
+                    Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.5f));
+                   
 
-                    if (timeSinceLastShot > 0.7)
-                    {
-                        Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.5f));
 
-                        
-                        if (timeSinceLastShot > 0.7)
-                        {
-                            Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 2f));
+                    //if (timeSinceLastShot > 0.7)
+                    //{
+                    //    Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.5f));
 
-                            timeSinceLastShot = 0;
 
-                        }
-                    }
+                    //    if (timeSinceLastShot > 0.7)
+                    //    {
+                    //        Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 2f));
 
+
+
+                    //    }
+                    //}
+                    timeSinceLastShot = 0;
                 }
                 else
                 {
                     Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.5f));
 
-                    if (timeSinceLastShot > 0.7)
-                    {
-                        Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.6f));
+                    //if (timeSinceLastShot > 0.7)
+                    //{
+                    //    Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.6f));
 
 
-                        if (timeSinceLastShot > 0.7)
-                        {
-                            Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.7f));
+                    //    if (timeSinceLastShot > 0.7)
+                    //    {
+                    //        Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.7f));
 
-                            timeSinceLastShot = 0;
 
-                        }
-                    }
+                    //    }
+                    //}
+                    timeSinceLastShot = 0;
+
                 }
 
 

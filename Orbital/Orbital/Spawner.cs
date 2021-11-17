@@ -21,9 +21,9 @@ namespace Orbital
 		private float asteroidTimer = 1.5f; // How fast asteroids spawn
 		private float powerTimer = 5; // How fast powers spawn
 
+		
 		private int changeAsteroidDifficultyTimer = 2;
 		private int changePowerDifficultyTimer = 16;
-		private int amountOfEnemies;
 
 		public override void Draw(SpriteBatch spriteBatch)
         {
@@ -35,8 +35,31 @@ namespace Orbital
         }
         public override void Update(GameTime gameTime)
 		{
-			SpawnAsteroid(gameTime);
-			SpawnPower(gameTime);
+            SpawnAsteroid(gameTime);
+            SpawnPower(gameTime);
+            SpawnEnemyShip(gameTime);
+
+
+            
+				
+
+			
+		}
+
+		public void SpawnEnemyShip(GameTime gameTime)
+        {
+			totalTimeElapsed = (float)gameTime.TotalGameTime.TotalSeconds;
+			timeElapsedEnemy += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+			if (timeElapsedEnemy >= 1f && amountOfEnemies < 1)
+			{
+				Enemy spawnedEnemy = new Enemy();
+				Instantiate(spawnedEnemy);
+				amountOfEnemies++;
+
+				Console.WriteLine(amountOfEnemies);
+
+			}
 		}
 
 
@@ -49,7 +72,6 @@ namespace Orbital
 
 	        timeSinceLastAsteroid += (float) gameTime.ElapsedGameTime.TotalSeconds;
 
-			timeElapsedEnemy += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
 			// [IDEA]
 			// Replace with if statement that decides in which of the four sides the asteroid should spawn using random.Next
@@ -69,7 +91,7 @@ namespace Orbital
             }
 
 
-            if (timeSinceLastAsteroid >= asteroidTimer)
+            if (timeSinceLastAsteroid >= 1000)
             {
 				
 				List<Asteroid> asteroids = new List<Asteroid>();
@@ -101,16 +123,7 @@ namespace Orbital
 
             }
 
-			if (timeElapsedEnemy >= 5f && amountOfEnemies < 1)
-			{
-				Enemy spawnedEnemy = new Enemy();
-				Instantiate(spawnedEnemy);
-				timeElapsedEnemy = 0;
-				amountOfEnemies++;
-
-				Console.WriteLine(amountOfEnemies);
-
-			}
+			
 
 
 

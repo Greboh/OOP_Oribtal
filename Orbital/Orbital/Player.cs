@@ -227,6 +227,14 @@ namespace Orbital
 				Destroy(obj);
 			}
 
+			//When player is hit by enemyship attack
+            if (obj is EnemyAttack)
+            {
+				this.health -= 20;
+				isInvincible = true;
+				Destroy(obj);
+            }
+
 
 		}
 
@@ -244,7 +252,7 @@ namespace Orbital
 		/// <param name="gameTime"></param>
         public void UpdateHealth(GameTime gameTime)
         {
-            switch (health)
+            switch (this.health)
             {
 				case 100:
                     {

@@ -15,7 +15,7 @@ namespace Orbital
         {
 
             velocity = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation));
-            this.speed = 1000; // Too low and it will cause a bug!
+            this.speed = 500; // Too low and it will cause a bug!
             this.position = position;
             this.origin = shootingPoint;
             this.layerDepth = 0.5f;
@@ -69,8 +69,9 @@ namespace Orbital
             {
                 // Lower player health here
 
-                Destroy(this);
-                Destroy(obj);
+                Console.WriteLine("Player is hit");
+                //Destroy(this);
+                //Destroy(obj);
 
             }
 
