@@ -23,9 +23,6 @@ namespace Orbital
 
 		private readonly int screenHeight = 900;
 		private readonly int screenWidth =1200;
-		
-		private int score;
-		private SpriteFont File;
 
 
 		private readonly List<GameObject> listOfCurrentObjects = new List<GameObject>();
@@ -36,6 +33,8 @@ namespace Orbital
 		private Texture2D background;
 		private Texture2D menu;
 
+		private static int score;
+		private SpriteFont text;
 		public Gamestate currentGameState;
 
 		public bool playerIsAlive = true;
@@ -44,7 +43,7 @@ namespace Orbital
 		// Properties
 
 		public static Vector2 ScreenSize { get; set; }
-        public int Score { get => score; set => score = value; }
+        public static int Score { get => score; set => score = value; }
 
 
 
@@ -84,6 +83,11 @@ namespace Orbital
 			File = Content.Load<SpriteFont>("File");
 			menu = Content.Load<Texture2D>("menu");
 
+			text = Content.Load<SpriteFont>("File");
+			
+			
+
+			// TODO: use this.Content to load your game content here
 		}
 
 		protected override void Update(GameTime gameTime)
@@ -139,7 +143,7 @@ namespace Orbital
 
 
 			mySpriteBatch.End();
-
+			
 
 			base.Draw(gameTime);
 		}
@@ -162,14 +166,6 @@ namespace Orbital
 		public void DestroyGameObject(GameObject gameObject)
 		{
 			listOfObjectsToDestroy.Add(gameObject);
-			if (gameObject is SmallAsteroid)
-			{
-				score += 5;
-			}
-			else if (gameObject is Asteroid)
-			{
-				score += 10;
-			}
 		}
 
 		/// <summary>

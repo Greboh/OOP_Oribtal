@@ -16,6 +16,7 @@
     <None Remove="Content\2turboExhaust.png" />
     <None Remove="Content\3turboExhaust.png" />
     <None Remove="Content\4turboExhaust.png" />
+    <None Remove="Content\pewpew.m4a" />
   </ItemGroup>
   <ItemGroup>
     <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />

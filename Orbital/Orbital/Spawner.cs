@@ -41,8 +41,8 @@ namespace Orbital
 
 
 		public void SpawnAsteroid(GameTime gameTime)
-		{
-	        int randomAsteroidPos = myRandom.Next(1,3);
+        {
+	        int randomAsteroidPos = myRandom.Next(1,4);
 
 	        totalTimeElapsed = (float) gameTime.TotalGameTime.TotalSeconds;
 

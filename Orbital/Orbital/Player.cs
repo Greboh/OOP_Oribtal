@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 using Orbital.PowerUps;
 using SharpDX.Direct2D1;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
@@ -40,8 +41,14 @@ namespace Orbital
 		private Texture2D currentSpeedBar;
 		private float speedBar = 0;
 
-
-		public Player()
+		//Fields for soundeffects
+		private SoundEffect gameOverSound;
+		private SoundEffect LaserSound;
+		private SoundEffect playerHit;
+		private SoundEffect turboPickUp;
+		private SoundEffect healthPickUp;
+		private SoundEffect firepowerPickUp;
+        public Player()
 		{
 			this.color = Color.White;
 			this.scale = 1;
@@ -53,7 +60,8 @@ namespace Orbital
 
 		public override void LoadContent(ContentManager content)
 		{
-			for (int i = 0; i < exhaustSprites.Length; i++)
+
+            for (int i = 0; i < sprites.Length; i++)
             {
                 exhaustSprites[i] = content.Load<Texture2D>(i + 1 + "exhaust");
             }
@@ -71,6 +79,15 @@ namespace Orbital
 				deathSprites[i] = content.Load<Texture2D>(i + 1 + "PlayerExplosion");
 			}
 
+
+			gameOverSound = content.Load<SoundEffect>("gameoverSound");
+			LaserSound = content.Load<SoundEffect>("pewpew");
+			playerHit = content.Load<SoundEffect>("Player_hit_Effect");
+			turboPickUp = content.Load<SoundEffect>("turbopowerup_sound");
+			healthPickUp = content.Load<SoundEffect>("healthpowerup_sound");
+			firepowerPickUp = content.Load<SoundEffect>("firePower_sound");
+
+			animationSprite = sprites[0];
 			sprite = content.Load<Texture2D>("Ship");
 
 			this.position = new Vector2(GameWorld.ScreenSize.X / 2, GameWorld.ScreenSize.Y / 2);
@@ -205,6 +222,15 @@ namespace Orbital
 			{
 				this.health -= 20;
 				isInvincible = true;
+				playerHit.Play();
+			}
+			else if (obj is SmallAsteroid && !isInvincible)
+			{
+				Console.WriteLine(GetType().Name + " collided with smallAsteroid");
+				this.health -= 20;
+				Console.WriteLine("Current health is: " + this.health);
+				isInvincible = true;
+				playerHit.Play();
 			}
 
 			if (obj is HealthPower)
@@ -212,15 +238,15 @@ namespace Orbital
 				if (this.health < 100) // Check if the player is at full health
 				{
 					this.health += 20;
+					Destroy(obj);
+					healthPickUp.Play();
 				}
-
-				Destroy(obj);
 			}
 			else if (obj is SpeedPower)
 			{
 				speedBar = 100;
-
 				Destroy(obj);
+				turboPickUp.Play();
 			}
 			else if (obj is RateOfFirePower)
 			{
@@ -233,13 +259,11 @@ namespace Orbital
 					rateOfFire = lowestRateOfFire;
 				}
 				else rateOfFire -= subtractRateOfFire;
-				
-				Console.WriteLine(rateOfFire);
 
+				firepowerPickUp.Play();
 				Destroy(obj);
+				Console.WriteLine(rateOfFire);
 			}
-
-
 		}
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -258,7 +282,7 @@ namespace Orbital
 		/// <param name="gameTime"></param>
         public void UpdateHealth(GameTime gameTime)
         {
-	        switch (health)
+            switch (this.health)
             {
 				case 100:
                     {
@@ -289,6 +313,8 @@ namespace Orbital
                 case 0:
                     {
 						currentHealthBar = healthBars[5];
+						gameOverSound.Play();
+                        Destroy(this);
 						sprite = deathSprite;
                     }
                     break;
@@ -378,7 +404,8 @@ namespace Orbital
 				if (timeSinceLastShot > rateOfFire)
 				{
 					Instantiate(new Laser(position, shootingPoint, this.rotation, 1000));
-
+					LaserSound.Play();
+					
 					timeSinceLastShot = 0;
 				}
 
