@@ -85,7 +85,7 @@ namespace Orbital
                 Destroy(obj);
                 if (this.health < 1)
                 {
-                    ScoreManager.UpdateScore(5);
+                    ScoreManager.UpdateScore(250);
                     amountOfEnemies--;
                     Destroy(this);
                 }
