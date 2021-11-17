@@ -24,9 +24,12 @@ namespace Orbital
 		private int changeAsteroidDifficultyTimer = 2;
 		private int changePowerDifficultyTimer = 16;
 
-		private int enemyWave1 = 10;
-		private int enemyWave2 = 20;
-		private int enemyWave3 = 30;
+		private int enemyWave1 = 1000;
+		private int enemyWave2 = 2000;
+		private int enemyWave3 = 4000;
+		private int enemyWave4 = 6000;
+		private int enemyWave5 = 8000;
+		private int enemyWave6 = 10000;
 
 
 
@@ -42,18 +45,18 @@ namespace Orbital
 		{
 			SpawnAsteroid(gameTime);
 			SpawnPower(gameTime);
-			
+			SpawnEnemyShip(gameTime);
+
 		}
-            SpawnAsteroid(gameTime);
-            SpawnPower(gameTime);
-            SpawnEnemyShip(gameTime);
+            
+           
 
 
             
 				
 
 			
-		}
+		
 
 		public void SpawnEnemyShip(GameTime gameTime)
         {
@@ -77,6 +80,24 @@ namespace Orbital
 				Console.WriteLine(amountOfEnemies);
 			}
 			if (GameWorld.Score > enemyWave3 && amountOfEnemies < 3)
+			{
+				Instantiate(spawnedEnemy);
+				amountOfEnemies++;
+				Console.WriteLine(amountOfEnemies);
+			}
+			if (GameWorld.Score > enemyWave4 && amountOfEnemies < 4)
+			{
+				Instantiate(spawnedEnemy);
+				amountOfEnemies++;
+				Console.WriteLine(amountOfEnemies);
+			}
+			if (GameWorld.Score > enemyWave5 && amountOfEnemies < 5)
+			{
+				Instantiate(spawnedEnemy);
+				amountOfEnemies++;
+				Console.WriteLine(amountOfEnemies);
+			}
+			if (GameWorld.Score > enemyWave6 && amountOfEnemies < 6)
 			{
 				Instantiate(spawnedEnemy);
 				amountOfEnemies++;
