@@ -13,9 +13,7 @@ namespace Orbital
 	class Asteroid : GameObject
 	{
         private SoundEffect asteroidDestruction;
-       
-      
-
+        
 
         /// <summary>
         /// Constructor uses position paramater to spawn asteroid on different axis and set movement accordingly
@@ -45,7 +43,7 @@ namespace Orbital
         /// <param name="content"></param>
         public override void LoadContent(ContentManager content)
         {
-           
+            
             sprite = content.Load<Texture2D>("Meteor_0"+ myRandom.Next(5, 7));
             asteroidDestruction = content.Load<SoundEffect>("Asterioid_destruction_sound");
            
@@ -71,7 +69,7 @@ namespace Orbital
         {
             if (obj is Laser)
             {
-                
+                ScoreManager.UpdateScore(10);
                 Destroy(this);
                 Destroy(obj);
                 asteroidDestruction.Play();
@@ -100,11 +98,11 @@ namespace Orbital
             }
             if (position.X > GameWorld.ScreenSize.X)
             {
-                position.X = 0;
+                Destroy(this);
             }
             else if (position.X < 0)
             {
-                position.X = GameWorld.ScreenSize.X;
+                Destroy(this);
             }
         }
 	}

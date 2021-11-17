@@ -11,7 +11,7 @@ namespace Orbital
     class SmallAsteroid : GameObject
     {
         private SoundEffect asteroidDestruction;
-
+        
         public SmallAsteroid(Vector2 position, float scale, Texture2D sprite)
         {
             this.position = position;
@@ -38,6 +38,7 @@ namespace Orbital
 
         public override void LoadContent(ContentManager content)
         {
+            
             sprite = content.Load<Texture2D>("smallMeteor_0" + myRandom.Next(5, 7));
             asteroidDestruction = content.Load<SoundEffect>("Asterioid_destruction_sound");
         }
@@ -46,10 +47,12 @@ namespace Orbital
         {
             if (obj is Laser)
             {
+                ScoreManager.UpdateScore(5);
                 Destroy(this);
                 Destroy(obj);
                 asteroidDestruction.Play();
-
+                
+                
             }
 
         }
