@@ -55,12 +55,12 @@ namespace Orbital
 
 		public override void LoadContent(ContentManager content)
 		{
-			for (int i = 0; i < sprites.Length; i++)
+			for (int i = 0; i < exhaustSprites.Length; i++)
 			{
-				sprites[i] = content.Load<Texture2D>(i + 1 + "pShoot");
+				exhaustSprites[i] = content.Load<Texture2D>(i + 1 + "pShoot");
 			}
 
-			animationSprite = sprites[0];
+			animationSprite = exhaustSprites[0];
 		}
 		public override void Draw(SpriteBatch spriteBatch)
 		{

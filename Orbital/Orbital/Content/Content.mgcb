@@ -13,6 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin 10PlayerExplosion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:10PlayerExplosion.png
+
 #begin 10speedbar.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -133,6 +145,18 @@
 /processorParam:TextureFormat=Color
 /build:1health.png
 
+#begin 1PlayerExplosion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:1PlayerExplosion.png
+
 #begin 1pShoot.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -192,6 +216,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:2health.png
+
+#begin 2PlayerExplosion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:2PlayerExplosion.png
 
 #begin 2pShoot.png
 /importer:TextureImporter
@@ -253,6 +289,18 @@
 /processorParam:TextureFormat=Color
 /build:3health.png
 
+#begin 3PlayerExplosion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:3PlayerExplosion.png
+
 #begin 3pShoot.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -313,6 +361,18 @@
 /processorParam:TextureFormat=Color
 /build:4health.png
 
+#begin 4PlayerExplosion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:4PlayerExplosion.png
+
 #begin 4pShoot.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -349,6 +409,18 @@
 /processorParam:TextureFormat=Color
 /build:5health.png
 
+#begin 5PlayerExplosion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:5PlayerExplosion.png
+
 #begin 5speedbar.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -373,6 +445,18 @@
 /processorParam:TextureFormat=Color
 /build:6health.png
 
+#begin 6PlayerExplosion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:6PlayerExplosion.png
+
 #begin 6speedbar.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -384,6 +468,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:6speedbar.png
+
+#begin 7PlayerExplosion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:7PlayerExplosion.png
 
 #begin 7speedbar.png
 /importer:TextureImporter
@@ -397,6 +493,18 @@
 /processorParam:TextureFormat=Color
 /build:7speedbar.png
 
+#begin 8PlayerExplosion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:8PlayerExplosion.png
+
 #begin 8speedbar.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -409,6 +517,18 @@
 /processorParam:TextureFormat=Color
 /build:8speedbar.png
 
+#begin 9PlayerExplosion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:9PlayerExplosion.png
+
 #begin 9speedbar.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -420,12 +540,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:9speedbar.png
-
-#begin Asterioid_destruction_sound.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Asterioid_destruction_sound.wav
 
 #begin Background.png
 /importer:TextureImporter
@@ -451,24 +565,24 @@
 /processorParam:TextureFormat=Color
 /build:CollisionTexture.png
 
+#begin DeathScreen.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:DeathScreen.png
+
 #begin File.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont
-
-#begin firePower_sound.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:firePower_sound.wav
-
-#begin gameoverSound.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:gameoverSound.wav
 
 #begin Healthpower.png
 #begin healthbar_border_enemy.png.png
@@ -483,11 +597,24 @@
 /processorParam:TextureFormat=Color
 /build:healthbar_border_enemy.png.png
 
-#begin healthpowerup_sound.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:healthpowerup_sound.wav
+#begin HighScoreFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:HighScoreFont.spritefont
+
+#begin Menu.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Menu.png
 
 #begin healthbar_main_enemy.png
 /importer:TextureImporter
@@ -524,18 +651,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Meteor_06.png
-
-#begin pewpew.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:pewpew.wav
-
-#begin Player_hit_Effect.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Player_hit_Effect.wav
 
 #begin RateOfFirePower.png
 /importer:TextureImporter
@@ -620,10 +735,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SpeedPower.png
-
-#begin turbopowerup_sound.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:turbopowerup_sound.wav
 

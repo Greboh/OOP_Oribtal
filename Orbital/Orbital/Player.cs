@@ -26,12 +26,15 @@ namespace Orbital
 		private float lowestRateOfFire = 0.2f; // How fast the player is able to fire at lowest
 		private float subtractRateOfFire = 0.2f; // How much the rate of fire decreases after each pickup
 
+		private Gamestate currenGamestate;
+
 		
 		// Fields for health and taking damage
 		private bool isInvincible = false;
 		private float timeSinceLastHit = 0f; // Timer for invincibility
         private Texture2D [] healthBars = new Texture2D[6];
         private Texture2D currentHealthBar;
+
 
 		//Fields for speed
 		private Texture2D[] speedBars = new Texture2D[16];
@@ -45,6 +48,8 @@ namespace Orbital
 		private SoundEffect turboPickUp;
 		private SoundEffect healthPickUp;
 		private SoundEffect firepowerPickUp;
+
+
         public Player()
 		{
 			this.color = Color.White;
@@ -57,10 +62,10 @@ namespace Orbital
 
 		public override void LoadContent(ContentManager content)
 		{
-			
-			for (int i = 0; i < sprites.Length; i++)
+
+            for (int i = 0; i < exhaustSprites.Length; i++)
             {
-                sprites[i] = content.Load<Texture2D>(i + 1 + "exhaust");
+                exhaustSprites[i] = content.Load<Texture2D>(i + 1 + "exhaust");
             }
             for(int i = 0; i < healthBars.Length; i++)
             {
@@ -71,6 +76,12 @@ namespace Orbital
 				speedBars[i] = content.Load<Texture2D>(i + 1 + "speedbar");
             }
 
+			for (int i = 0; i < deathSprites.Length; i++)
+			{
+				deathSprites[i] = content.Load<Texture2D>(i + 1 + "PlayerExplosion");
+			}
+
+
 			gameOverSound = content.Load<SoundEffect>("gameoverSound");
 			LaserSound = content.Load<SoundEffect>("pewpew");
 			playerHit = content.Load<SoundEffect>("Player_hit_Effect");
@@ -78,7 +89,7 @@ namespace Orbital
 			healthPickUp = content.Load<SoundEffect>("healthpowerup_sound");
 			firepowerPickUp = content.Load<SoundEffect>("firePower_sound");
 
-			animationSprite = sprites[0];
+			animationSprite = exhaustSprites[0];
 			sprite = content.Load<Texture2D>("Ship");
 
 			this.position = new Vector2(GameWorld.ScreenSize.X / 2, GameWorld.ScreenSize.Y / 2);
@@ -102,6 +113,7 @@ namespace Orbital
 			ImpactDisable(gameTime);
             UpdateHealth(gameTime);
 			UpdateSpeed(gameTime);
+			OnDeath(this.health);
 		}
 
 
@@ -118,48 +130,53 @@ namespace Orbital
 			int screenOffset = 20; // Offset for the screen so the player cannot fly outside or half outside.
 			velocity = Vector2.Zero; // Variable for the start velocity
 
-			//Get Keyboard input for moving the player up and down
-			if (Keyboard.GetState().IsKeyDown(Keys.W))
+
+
+			if (this.health >= 1) 
 			{
-				if (position.Y <= GameWorld.ScreenSize.X - GameWorld.ScreenSize.X) // ScreenHeight 
+				//Get Keyboard input for moving the player up and down
+				if (Keyboard.GetState().IsKeyDown(Keys.W))
 				{
-					velocity = Vector2.Zero;
-				}
-				else velocity += new Vector2(0, -1);
+					if (position.Y <= GameWorld.ScreenSize.X - GameWorld.ScreenSize.X) // ScreenHeight 
+					{
+						velocity = Vector2.Zero;
+					}
+					else velocity += new Vector2(0, -1);
 
-			}
-			else if (Keyboard.GetState().IsKeyDown(Keys.S))
-			{
-				if (position.Y >= GameWorld.ScreenSize.Y - screenOffset)
+				}
+				else if (Keyboard.GetState().IsKeyDown(Keys.S))
 				{
-					velocity = Vector2.Zero;
+					if (position.Y >= GameWorld.ScreenSize.Y - screenOffset)
+					{
+						velocity = Vector2.Zero;
+					}
+					else velocity += new Vector2(0, 1);
+
 				}
-				else velocity += new Vector2(0, 1);
 
-			}
+				// Get Keyboard input for moving the player left and right
+				if (Keyboard.GetState().IsKeyDown(Keys.D))
+				{
+					velocity += new Vector2(1, 0);
+				}
+				else if (Keyboard.GetState().IsKeyDown(Keys.A))
+				{
+					velocity += new Vector2(-1, 0);
+				}
 
-			// Get Keyboard input for moving the player left and right
-			if (Keyboard.GetState().IsKeyDown(Keys.D))
-			{
-				velocity += new Vector2(1, 0);
-			}
-			else if (Keyboard.GetState().IsKeyDown(Keys.A))
-			{
-				velocity += new Vector2(-1, 0);
-			}
+				//Normalize movement vector for smoothness
+				if (velocity != Vector2.Zero)
+				{
+					velocity.Normalize();
+				}
 
-			//Normalize movement vector for smoothness
-			if (velocity != Vector2.Zero) 
-			{
-				velocity.Normalize();
-			}
+				if (speedBar > 0 && Keyboard.GetState().IsKeyDown((Keys.LeftShift)))
+				{
+					this.speed = 400;
+					Console.WriteLine($"Using turbo: {this.speed}");
+					speedBar -= 0.5f;
 
-			if(speedBar > 0 && Keyboard.GetState().IsKeyDown((Keys.LeftShift)))
-            {
-				this.speed = 400;
-				Console.WriteLine($"Using turbo: {this.speed}");
-				speedBar -= 0.5f;
-
+				} 
 			}
 			
 		}
@@ -263,10 +280,11 @@ namespace Orbital
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-			
-			spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
-            spriteBatch.Draw(animationSprite, position, null, color, rotation, exhaustPosition, 2, SpriteEffects.None, layerDepth);
-            spriteBatch.Draw(currentHealthBar, new Vector2(0, 850), null, Color.White, 0, Vector2.Zero, 0.5f, SpriteEffects.None, layerDepth);
+	        spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
+
+			spriteBatch.Draw(animationSprite, position, null, color, rotation, exhaustPosition, 2, SpriteEffects.None, layerDepth);
+
+			spriteBatch.Draw(currentHealthBar, new Vector2(0, 850), null, Color.White, 0, Vector2.Zero, 0.5f, SpriteEffects.None, layerDepth);
 			spriteBatch.Draw(currentSpeedBar, new Vector2(0, 600), null, Color.White, 0, Vector2.Zero, 0.5f, SpriteEffects.None, layerDepth);
 		}
 
@@ -307,12 +325,14 @@ namespace Orbital
                 case 0:
                     {
 						currentHealthBar = healthBars[5];
-						gameOverSound.Play();
-                        Destroy(this);
+						sprite = deathSprite;
                     }
                     break;
             }
-            
+
+
+
+
         }
 
 		/// <summary>
@@ -401,5 +421,24 @@ namespace Orbital
 
 			}
 		}
+
+		private void OnDeath(int playerHealth)
+		{
+			if (Keyboard.GetState().IsKeyDown(Keys.G))
+			{
+				this.health = 0;
+			}
+
+			if (health <= 1)
+			{
+				if (deathSprite == deathSprites[9])
+				{
+					gameOverSound.Play();
+					Destroy(this);
+					myGameWorld.currentGameState = Gamestate.DeathScreen;
+				}
+			}
+		}
+
 	}
 }

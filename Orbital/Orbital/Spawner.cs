@@ -40,6 +40,10 @@ namespace Orbital
         }
         public override void Update(GameTime gameTime)
 		{
+			SpawnAsteroid(gameTime);
+			SpawnPower(gameTime);
+			
+		}
             SpawnAsteroid(gameTime);
             SpawnPower(gameTime);
             SpawnEnemyShip(gameTime);
@@ -90,14 +94,13 @@ namespace Orbital
 
 	        timeSinceLastAsteroid += (float) gameTime.ElapsedGameTime.TotalSeconds;
 
+            // [IDEA]
+            // Replace with if statement that decides in which of the four sides the asteroid should spawn using random.Next
 
-			// [IDEA]
-			// Replace with if statement that decides in which of the four sides the asteroid should spawn using random.Next
+            // Maybe solved now on line 56 - 64
+            // Now it only spawns 1 asteroid at least
 
-			// Maybe solved now on line 56 - 64
-			// Now it only spawns 1 asteroid at least
-
-			if (totalTimeElapsed > changeAsteroidDifficultyTimer)
+            if (totalTimeElapsed > changeAsteroidDifficultyTimer)
             {
 	            changeAsteroidDifficultyTimer += 10;
 				Console.WriteLine("Timer for asteroid is: " + asteroidTimer);
@@ -141,9 +144,7 @@ namespace Orbital
 
             }
 
-			
-
-
+            
 
 		}
 
@@ -172,7 +173,7 @@ namespace Orbital
 
 
 			int randomPowerPicker = myRandom.Next(1, 4); // Used to pick the which power to spawn
-			int randomPowerPos = myRandom.Next(1, 4); // Used to choose position of the picked power
+			int randomPowerPos = myRandom.Next(1, 3); // Used to choose position of the picked power
 
 			if (timeSinceLastPower >= powerTimer)
 			{
@@ -253,7 +254,14 @@ namespace Orbital
         }
 		public override void Attack(GameTime gameTime)
 		{
-			throw new NotImplementedException();
+		}
+
+		private void OnDeath()
+		{
+			if (myGameWorld.currentGameState == Gamestate.DeathScreen)
+			{
+				Destroy(this);
+			}
 		}
 	}
 }
