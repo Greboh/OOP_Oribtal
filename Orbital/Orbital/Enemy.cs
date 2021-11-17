@@ -15,18 +15,15 @@ namespace Orbital
         //enemy movement and attacks
         bool movingRight = true;
         private float timeSinceLastShot = 0f;
-        private Vector2 shootingPoint; // Vector2 for storing our shooting point
-        private Texture2D healthbar;
-        private Texture2D healthbarBorder;
-        private Rectangle healthRectangle;
+        private Vector2 shootingPoint;          // Vector2 for storing our shooting point
+        private Texture2D healthbar;            // red healthbar sprite
+        private Texture2D healthbarBorder;      // black border for healthbar
+        private Rectangle healthRectangle;      
         private Rectangle borderRectangle;
         private Vector2 healthbarOrigin;
 
 
-        // Fields for health and taking damage
-        private Texture2D[] healthBars = new Texture2D[6];
-        private Texture2D currentHealthBar;
-        private int remainingHealth;
+        
 
         public Enemy()
         {
@@ -104,17 +101,20 @@ namespace Orbital
 
             if (movingRight)
             {
+                //Sprite starts moving right adding to position with speed
                 position.X += speed;
                 shipFlip = SpriteEffects.None;
 
             }
             else
             {
+                //When the sprite reaches end of width, the sprite is flipped and it starts subtracting speed from 
                 position.X -= speed;
                 shipFlip = SpriteEffects.FlipHorizontally;
             }
             if (position.X > GameWorld.ScreenSize.X - this.sprite.Width || position.X < 0)
             {
+                //When the sprite reaches end of width is changes movingRight bool to false
                 movingRight = !movingRight;
             }
 
