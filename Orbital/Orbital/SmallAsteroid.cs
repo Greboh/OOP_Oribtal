@@ -47,7 +47,7 @@ namespace Orbital
         {
             if (obj is Laser)
             {
-                ScoreManager.UpdateScore(5);
+                ScoreManager.UpdateScore(50);
                 Destroy(this);
                 Destroy(obj);
                 asteroidDestruction.Play();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms.VisualStyles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -32,13 +33,15 @@ namespace Orbital
 		private Texture2D collisionTexture;
 		private Texture2D background;
 		private Texture2D menu;
+		private Texture2D deathScreen;
 
 		private static int score;
+		private int highScore;
 		private SpriteFont text;
+		private SpriteFont highScoreFont;
 		public Gamestate currentGameState;
 
-		public bool playerIsAlive = true;
-
+		private Color scoreColor = new Color(169, 169, 169, 100);
 
 		// Properties
 
@@ -80,12 +83,13 @@ namespace Orbital
 			collisionTexture = Content.Load<Texture2D>("CollisionTexture");
 
 			background = Content.Load<Texture2D>("Background");
-			File = Content.Load<SpriteFont>("File");
 			menu = Content.Load<Texture2D>("menu");
+			deathScreen = Content.Load<Texture2D>("DeathScreen");
 
 			text = Content.Load<SpriteFont>("File");
-			
-			
+			highScoreFont = Content.Load<SpriteFont>("HighScoreFont");
+
+
 
 			// TODO: use this.Content to load your game content here
 		}
@@ -107,13 +111,14 @@ namespace Orbital
 			if (currentGameState == Gamestate.Menu)
 			{
 				mySpriteBatch.Draw(menu, new Rectangle(0, -10, (0 + (int) ScreenSize.X), (35 + (int)ScreenSize.Y)), Color.White);
-				mySpriteBatch.DrawString(File, "SCORE: " + score, new Vector2((ScreenSize.X / 2), 800), Color.Red);
+				mySpriteBatch.DrawString(highScoreFont, highScore.ToString(), new Vector2(450, 650), scoreColor);
+
 
 			}
 			else if (currentGameState == Gamestate.Ingame)
 			{
 				mySpriteBatch.Draw(background, new Rectangle(0, 0, 2000, 2000), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
-				mySpriteBatch.DrawString(File, "SCORE: " + score, new Vector2(0, 0), Color.Red);
+				mySpriteBatch.DrawString(text, "SCORE: " + score, new Vector2(0, 0), scoreColor);
 
 				foreach (GameObject obj in listOfCurrentObjects)
 				{
@@ -129,10 +134,18 @@ namespace Orbital
 			{
 				//TODO Show Highscore
 
-				mySpriteBatch.Draw(background, new Rectangle(0, 0, 2000, 2000), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+				ScoreManager.SaveScore(score);
+
+				highScore = ScoreManager.ListOfScores.Max();
+
+				mySpriteBatch.Draw(deathScreen, new Rectangle(0, 0, 1200, 900), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+				mySpriteBatch.DrawString(text, score.ToString(), new Vector2(285, 645), scoreColor, 0, Vector2.Zero, 2.5f, SpriteEffects.None, 1);
+				mySpriteBatch.DrawString(text, highScore.ToString(), new Vector2(990, 645), scoreColor, 0, Vector2.Zero, 2.5f, SpriteEffects.None, 1);
+
 
 				if (Keyboard.GetState().IsKeyDown(Keys.Enter))
 				{
+					score = 0;
 					listOfCurrentObjects.Clear();
 					Instantiate(new Player());
 					Instantiate(new Spawner());

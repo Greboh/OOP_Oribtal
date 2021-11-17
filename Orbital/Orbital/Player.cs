@@ -48,6 +48,8 @@ namespace Orbital
 		private SoundEffect turboPickUp;
 		private SoundEffect healthPickUp;
 		private SoundEffect firepowerPickUp;
+
+
         public Player()
 		{
 			this.color = Color.White;
@@ -61,7 +63,7 @@ namespace Orbital
 		public override void LoadContent(ContentManager content)
 		{
 
-            for (int i = 0; i < sprites.Length; i++)
+            for (int i = 0; i < exhaustSprites.Length; i++)
             {
                 exhaustSprites[i] = content.Load<Texture2D>(i + 1 + "exhaust");
             }
@@ -87,7 +89,7 @@ namespace Orbital
 			healthPickUp = content.Load<SoundEffect>("healthpowerup_sound");
 			firepowerPickUp = content.Load<SoundEffect>("firePower_sound");
 
-			animationSprite = sprites[0];
+			animationSprite = exhaustSprites[0];
 			sprite = content.Load<Texture2D>("Ship");
 
 			this.position = new Vector2(GameWorld.ScreenSize.X / 2, GameWorld.ScreenSize.Y / 2);
@@ -313,8 +315,6 @@ namespace Orbital
                 case 0:
                     {
 						currentHealthBar = healthBars[5];
-						gameOverSound.Play();
-                        Destroy(this);
 						sprite = deathSprite;
                     }
                     break;
@@ -423,6 +423,7 @@ namespace Orbital
 			{
 				if (deathSprite == deathSprites[9])
 				{
+					gameOverSound.Play();
 					Destroy(this);
 					myGameWorld.currentGameState = Gamestate.DeathScreen;
 				}
