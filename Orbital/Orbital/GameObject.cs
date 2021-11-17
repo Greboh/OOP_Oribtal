@@ -37,10 +37,13 @@ namespace Orbital
 		protected float speed;
 		protected float animationFps;
 		protected float layerDepth;
+	
 
 		private GameWorld myGameWorld;
 
 		protected Random myRandom = new Random();
+
+		
 
 		public Rectangle Collision
 		{
@@ -110,9 +113,13 @@ namespace Orbital
 			//Console.WriteLine(gameObject + " Has been Destroyed!");
 
 			myGameWorld.DestroyGameObject(gameObject);
+
+		
 		}
 
 		public abstract void Attack(GameTime gameTime);
+
+		
 
 	}
 }

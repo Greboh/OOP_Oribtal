@@ -13,9 +13,6 @@ namespace Orbital
 
 		private readonly int screenHeight = 900;
 		private readonly int screenWidth =1200;
-		
-		private int score;
-		private SpriteFont File;
 
 
 		private readonly List<GameObject> listOfCurrentObjects = new List<GameObject>();
@@ -25,9 +22,11 @@ namespace Orbital
 		private Texture2D collisionTexture;
 		private Texture2D background;
 
+		private static int score;
+		private SpriteFont text;
 
 		public static Vector2 ScreenSize { get; set; }
-        public int Score { get => score; set => score = value; }
+        public static int Score { get => score; set => score = value; }
 
         public GameWorld()
 		{
@@ -60,7 +59,10 @@ namespace Orbital
 			collisionTexture = Content.Load<Texture2D>("CollisionTexture");
 
 			background = Content.Load<Texture2D>("Background");
-			File = Content.Load<SpriteFont>("File");
+
+			text = Content.Load<SpriteFont>("File");
+			
+			
 
 			// TODO: use this.Content to load your game content here
 		}
@@ -99,23 +101,21 @@ namespace Orbital
 		{
 			// TODO: Add your drawing code here
 
-			mySpriteBatch.Begin(SpriteSortMode.FrontToBack);
 			
+			mySpriteBatch.Begin(SpriteSortMode.FrontToBack);
 			mySpriteBatch.Draw(background, new Rectangle(0,0,2000,2000), null, Color.White, 0, new Vector2(0,0), SpriteEffects.None, 0);
-			mySpriteBatch.DrawString(File, "SCORE: " + score, new Vector2(0, 0), Color.Red);
 
+			mySpriteBatch.DrawString(text, "SCORE: " + score, new Vector2(0, 0), Color.Yellow);
 			foreach (GameObject obj in listOfCurrentObjects)
 			{
 				obj.Draw(mySpriteBatch);
-
 #if DEBUG
 				DrawCollisionBox(obj);
 #endif
-
 			}
-
+			
 			mySpriteBatch.End();
-
+			
 
 			base.Draw(gameTime);
 		}
@@ -138,14 +138,6 @@ namespace Orbital
 		public void DestroyGameObject(GameObject gameObject)
 		{
 			listOfObjectsToDestroy.Add(gameObject);
-			if (gameObject is SmallAsteroid)
-			{
-				score += 5;
-			}
-			else if (gameObject is Asteroid)
-			{
-				score += 10;
-			}
 		}
 
 

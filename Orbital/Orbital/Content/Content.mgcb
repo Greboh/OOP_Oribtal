@@ -421,6 +421,12 @@
 /processorParam:TextureFormat=Color
 /build:9speedbar.png
 
+#begin Asterioid_destruction_sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Asterioid_destruction_sound.wav
+
 #begin Background.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -452,6 +458,19 @@
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont
 
+#begin firePower_sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:firePower_sound.wav
+
+#begin gameoverSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:gameoverSound.wav
+
+#begin Healthpower.png
 #begin healthbar_border_enemy.png.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -463,6 +482,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:healthbar_border_enemy.png.png
+
+#begin healthpowerup_sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:healthpowerup_sound.wav
 
 #begin healthbar_main_enemy.png
 /importer:TextureImporter
@@ -499,6 +524,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Meteor_06.png
+
+#begin pewpew.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:pewpew.wav
+
+#begin Player_hit_Effect.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Player_hit_Effect.wav
 
 #begin RateOfFirePower.png
 /importer:TextureImporter
@@ -583,4 +620,10 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SpeedPower.png
+
+#begin turbopowerup_sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:turbopowerup_sound.wav
 
