@@ -129,7 +129,7 @@ namespace Orbital
 		{
 			int screenOffset = 20; // Offset for the screen so the player cannot fly outside or half outside.
 			velocity = Vector2.Zero; // Variable for the start velocity
-
+			this.speed = 200;
 
 
 			if (this.health >= 1) 
@@ -266,6 +266,16 @@ namespace Orbital
 				Destroy(obj);
 				Console.WriteLine(rateOfFire);
 			}
+
+			//When player is hit by enemyship attack
+            if (obj is EnemyAttack)
+            {
+				this.health -= 20;
+				isInvincible = true;
+				Destroy(obj);
+            }
+
+
 		}
 
         public override void Draw(SpriteBatch spriteBatch)

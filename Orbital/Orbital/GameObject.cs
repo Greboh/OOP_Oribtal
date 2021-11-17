@@ -24,6 +24,7 @@ namespace Orbital
 		protected Vector2 origin;
 
 		protected Color color;
+		protected SpriteEffects shipFlip;
 
 		protected float rotation;
 
@@ -33,7 +34,10 @@ namespace Orbital
 		protected float deathTimeElapsed;
 		private int exhaustCurrentIndex;
 		private int deathCurrentIndex;
+		protected int amountOfEnemies;
+		private int currentIndex;
 
+		protected float timeElapsed;
 		protected float scale;
 		protected float speed;
 		protected float animationFps;

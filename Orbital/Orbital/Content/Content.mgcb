@@ -109,6 +109,18 @@
 /processorParam:TextureFormat=Color
 /build:16speedbar.png
 
+#begin 1eShoot.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:1eShoot.png
+
 #begin 1exhaust.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -168,6 +180,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:1speedbar.png
+
+#begin 2eShoot.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:2eShoot.png
 
 #begin 2exhaust.png
 /importer:TextureImporter
@@ -229,6 +253,18 @@
 /processorParam:TextureFormat=Color
 /build:2speedbar.png
 
+#begin 3eShoot.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:3eShoot.png
+
 #begin 3exhaust.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -288,6 +324,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:3speedbar.png
+
+#begin 4eShoot.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:4eShoot.png
 
 #begin 4exhaust.png
 /importer:TextureImporter
@@ -536,7 +584,7 @@
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont
 
-#begin Healthpower.png
+#begin healthbar_border_enemy.png.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -546,7 +594,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Healthpower.png
+/build:healthbar_border_enemy.png.png
+
+#begin healthbar_main_enemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:healthbar_main_enemy.png
 
 #begin HighScoreFont.spritefont
 /importer:FontDescriptionImporter
@@ -591,6 +651,12 @@
 /processorParam:TextureFormat=Color
 /build:Meteor_06.png
 
+#begin Orbital.Soundtrack.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Orbital.Soundtrack.mp3
+
 #begin RateOfFirePower.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -614,6 +680,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Ship.png
+
+#begin Ship2fixed.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Ship2fixed.png
+
+#begin Ship2rotated.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Ship2rotated.png
 
 #begin smallMeteor_05.png
 /importer:TextureImporter
