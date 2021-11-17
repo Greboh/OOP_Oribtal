@@ -464,6 +464,12 @@
 /processorParam:TextureFormat=Color
 /build:Meteor_06.png
 
+#begin Orbital.Soundtrack.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Orbital.Soundtrack.mp3
+
 #begin pewpew.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

@@ -45,6 +45,8 @@ namespace Orbital
 		private SoundEffect turboPickUp;
 		private SoundEffect healthPickUp;
 		private SoundEffect firepowerPickUp;
+		
+
         public Player()
 		{
 			this.color = Color.White;
@@ -77,6 +79,7 @@ namespace Orbital
 			turboPickUp = content.Load<SoundEffect>("turbopowerup_sound");
 			healthPickUp = content.Load<SoundEffect>("healthpowerup_sound");
 			firepowerPickUp = content.Load<SoundEffect>("firePower_sound");
+			
 
 			animationSprite = sprites[0];
 			sprite = content.Load<Texture2D>("Ship");
@@ -117,7 +120,7 @@ namespace Orbital
 		{
 			int screenOffset = 20; // Offset for the screen so the player cannot fly outside or half outside.
 			velocity = Vector2.Zero; // Variable for the start velocity
-
+			this.speed = 200;
 			//Get Keyboard input for moving the player up and down
 			if (Keyboard.GetState().IsKeyDown(Keys.W))
 			{
@@ -159,7 +162,7 @@ namespace Orbital
 				this.speed = 400;
 				Console.WriteLine($"Using turbo: {this.speed}");
 				speedBar -= 0.5f;
-
+				
 			}
 			
 		}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace Orbital
 {
@@ -14,7 +15,6 @@ namespace Orbital
 		private readonly int screenHeight = 900;
 		private readonly int screenWidth =1200;
 
-
 		private readonly List<GameObject> listOfCurrentObjects = new List<GameObject>();
 		private readonly List<GameObject> listOfObjectsToAdd = new List<GameObject>();
 		private readonly List<GameObject> listOfObjectsToDestroy = new List<GameObject>();
@@ -22,9 +22,11 @@ namespace Orbital
 		private Texture2D collisionTexture;
 		private Texture2D background;
 
+		private Song backgroundMusic;
+
 		private static int score;
 		private SpriteFont text;
-
+		
 		public static Vector2 ScreenSize { get; set; }
         public static int Score { get => score; set => score = value; }
 
@@ -61,7 +63,8 @@ namespace Orbital
 			background = Content.Load<Texture2D>("Background");
 
 			text = Content.Load<SpriteFont>("File");
-			
+			backgroundMusic = Content.Load<Song>("Orbital.Soundtrack");
+			MediaPlayer.Play(backgroundMusic);
 			
 
 			// TODO: use this.Content to load your game content here
@@ -103,8 +106,8 @@ namespace Orbital
 
 			
 			mySpriteBatch.Begin(SpriteSortMode.FrontToBack);
+			
 			mySpriteBatch.Draw(background, new Rectangle(0,0,2000,2000), null, Color.White, 0, new Vector2(0,0), SpriteEffects.None, 0);
-
 			mySpriteBatch.DrawString(text, "SCORE: " + score, new Vector2(0, 0), Color.Yellow);
 			foreach (GameObject obj in listOfCurrentObjects)
 			{
