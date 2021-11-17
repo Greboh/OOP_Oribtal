@@ -5,6 +5,7 @@ using System.Windows.Forms.VisualStyles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace Orbital
 {
@@ -34,6 +35,8 @@ namespace Orbital
 		private Texture2D background;
 		private Texture2D menu;
 		private Texture2D deathScreen;
+		private Song backgroundMusic;
+		
 
 		private static int score;
 		private int highScore;
@@ -88,6 +91,9 @@ namespace Orbital
 
 			text = Content.Load<SpriteFont>("File");
 			highScoreFont = Content.Load<SpriteFont>("HighScoreFont");
+
+			backgroundMusic = Content.Load<Song>("Orbital.Soundtrack");
+			MediaPlayer.Play(backgroundMusic);
 
 
 

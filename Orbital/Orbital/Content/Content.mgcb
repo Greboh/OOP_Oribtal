@@ -584,7 +584,6 @@
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont
 
-#begin Healthpower.png
 #begin healthbar_border_enemy.png.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -596,6 +595,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:healthbar_border_enemy.png.png
+
+#begin healthbar_main_enemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:healthbar_main_enemy.png
 
 #begin HighScoreFont.spritefont
 /importer:FontDescriptionImporter
@@ -615,18 +626,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Menu.png
-
-#begin healthbar_main_enemy.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:healthbar_main_enemy.png
 
 #begin Meteor_05.png
 /importer:TextureImporter
@@ -651,6 +650,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Meteor_06.png
+
+#begin Orbital.Soundtrack.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Orbital.Soundtrack.mp3
 
 #begin RateOfFirePower.png
 /importer:TextureImporter
