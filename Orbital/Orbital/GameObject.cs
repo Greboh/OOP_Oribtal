@@ -29,9 +29,10 @@ namespace Orbital
 
 		protected int health;
 		protected int damage;
-		protected float timeElapsed;
+		protected int amountOfEnemies;
 		private int currentIndex;
 
+		protected float timeElapsed;
 		protected float scale;
 		protected float speed;
 		protected float animationFps;
