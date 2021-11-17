@@ -35,6 +35,7 @@ namespace Orbital
 		{
 			SpawnAsteroid(gameTime);
 			SpawnPower(gameTime);
+			
 		}
 
 
@@ -126,7 +127,7 @@ namespace Orbital
 
 
 			int randomPowerPicker = myRandom.Next(1, 4); // Used to pick the which power to spawn
-			int randomPowerPos = myRandom.Next(1, 4); // Used to choose position of the picked power
+			int randomPowerPos = myRandom.Next(1, 3); // Used to choose position of the picked power
 
 			if (timeSinceLastPower >= powerTimer)
 			{
@@ -207,7 +208,14 @@ namespace Orbital
         }
 		public override void Attack(GameTime gameTime)
 		{
-			throw new NotImplementedException();
+		}
+
+		private void OnDeath()
+		{
+			if (myGameWorld.currentGameState == Gamestate.DeathScreen)
+			{
+				Destroy(this);
+			}
 		}
 	}
 }

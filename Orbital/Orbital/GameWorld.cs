@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms.VisualStyles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -7,8 +9,17 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Orbital
 {
+	public enum Gamestate
+	{
+		Menu,
+		Ingame,
+		DeathScreen,
+	}
+
 	public class GameWorld : Game
 	{
+
+
 		private static GraphicsDeviceManager myGraphics;
 		private SpriteBatch mySpriteBatch;
 
@@ -21,14 +32,26 @@ namespace Orbital
 
 		private Texture2D collisionTexture;
 		private Texture2D background;
+		private Texture2D menu;
+		private Texture2D deathScreen;
 
 		private Song backgroundMusic;
 
 		private static int score;
+		private int highScore;
 		private SpriteFont text;
-		
+		private SpriteFont highScoreFont;
+		public Gamestate currentGameState;
+
+		private Color scoreColor = new Color(169, 169, 169, 100);
+
+		// Properties
+
 		public static Vector2 ScreenSize { get; set; }
         public static int Score { get => score; set => score = value; }
+
+
+
 
         public GameWorld()
 		{
@@ -42,16 +65,17 @@ namespace Orbital
 			myGraphics.ApplyChanges();
 
 			ScreenSize = new Vector2(myGraphics.PreferredBackBufferWidth, myGraphics.PreferredBackBufferHeight);
+
+
 		}
 
 		protected override void Initialize()
 		{
-			// TODO: Add your initialization logic here
-
 			Instantiate(new Player());
 			Instantiate(new Spawner());
-			
+
 			base.Initialize();
+			currentGameState = Gamestate.Menu;
 		}
 
 		protected override void LoadContent()
@@ -61,40 +85,49 @@ namespace Orbital
 			collisionTexture = Content.Load<Texture2D>("CollisionTexture");
 
 			background = Content.Load<Texture2D>("Background");
+			menu = Content.Load<Texture2D>("menu");
+			deathScreen = Content.Load<Texture2D>("DeathScreen");
 
 			text = Content.Load<SpriteFont>("File");
 			backgroundMusic = Content.Load<Song>("Orbital.Soundtrack");
 			MediaPlayer.Play(backgroundMusic);
 			
+			highScoreFont = Content.Load<SpriteFont>("HighScoreFont");
+
+
 
 			// TODO: use this.Content to load your game content here
 		}
 
 		protected override void Update(GameTime gameTime)
 		{
-			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+			MenuControls();
+			UpdateGameObjects(gameTime);
+
+			CallInstantiate();
+			CallDestroy();
+		}
+
+
+		protected override void Draw(GameTime gameTime)
+		{
+			mySpriteBatch.Begin(SpriteSortMode.FrontToBack);
+
+			if (currentGameState == Gamestate.Menu)
 			{
-				Exit();
+				mySpriteBatch.Draw(menu, new Rectangle(0, -10, (0 + (int) ScreenSize.X), (35 + (int)ScreenSize.Y)), Color.White);
+				mySpriteBatch.DrawString(highScoreFont, highScore.ToString(), new Vector2(450, 650), scoreColor);
+
+
 			}
-
-			// TODO: Add your update logic here
-
-			//player.Update(gameTime);
-
-			foreach (GameObject obj in listOfCurrentObjects)
+			else if (currentGameState == Gamestate.Ingame)
 			{
-				obj.Update(gameTime);
+				mySpriteBatch.Draw(background, new Rectangle(0, 0, 2000, 2000), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+				mySpriteBatch.DrawString(text, "SCORE: " + score, new Vector2(0, 0), scoreColor);
 
-				foreach (GameObject other in listOfCurrentObjects)
+				foreach (GameObject obj in listOfCurrentObjects)
 				{
-					if(obj != other)
-					{
-						obj.CheckCollision(other);
-					}
-				}
-
-			}
-
+					obj.Draw(mySpriteBatch);
 
 			CallInstantiate();
 			CallDestroy();
@@ -113,10 +146,36 @@ namespace Orbital
 			{
 				obj.Draw(mySpriteBatch);
 #if DEBUG
-				DrawCollisionBox(obj);
+					DrawCollisionBox(obj);
 #endif
+
+				}
 			}
-			
+			else if (currentGameState == Gamestate.DeathScreen)
+			{
+				//TODO Show Highscore
+
+				ScoreManager.SaveScore(score);
+
+				highScore = ScoreManager.ListOfScores.Max();
+
+				mySpriteBatch.Draw(deathScreen, new Rectangle(0, 0, 1200, 900), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
+				mySpriteBatch.DrawString(text, score.ToString(), new Vector2(285, 645), scoreColor, 0, Vector2.Zero, 2.5f, SpriteEffects.None, 1);
+				mySpriteBatch.DrawString(text, highScore.ToString(), new Vector2(990, 645), scoreColor, 0, Vector2.Zero, 2.5f, SpriteEffects.None, 1);
+
+
+				if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+				{
+					score = 0;
+					listOfCurrentObjects.Clear();
+					Instantiate(new Player());
+					Instantiate(new Spawner());
+					currentGameState = Gamestate.Menu;
+
+				}
+			}
+
+
 			mySpriteBatch.End();
 			
 
@@ -143,6 +202,43 @@ namespace Orbital
 			listOfObjectsToDestroy.Add(gameObject);
 		}
 
+		/// <summary>
+		/// If we are ingame then update all GameObjects in listOfCurrentObjects
+		/// </summary>
+		/// <param name="gameTime"></param>
+		private void UpdateGameObjects(GameTime gameTime)
+		{
+			if (currentGameState == Gamestate.Ingame)
+			{
+				foreach (GameObject obj in listOfCurrentObjects)
+				{
+					obj.Update(gameTime);
+
+					foreach (GameObject other in listOfCurrentObjects)
+					{
+						if (obj != other)
+						{
+							obj.CheckCollision(other);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Checks for user input to navigate the menu
+		/// </summary>
+		private void MenuControls()
+		{
+			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+			{
+				Exit();
+			}
+			else if (Keyboard.GetState().IsKeyDown(Keys.Space) && currentGameState == Gamestate.Menu)
+			{
+				currentGameState = Gamestate.Ingame;
+			}
+		}
 
 		/// <summary>
 		/// Checks if there are any objects to add from our add list
