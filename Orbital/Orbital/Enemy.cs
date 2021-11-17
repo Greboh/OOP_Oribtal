@@ -82,9 +82,8 @@ namespace Orbital
             if (obj is Laser)
             {
 
-                this.health -= 20;
-
-                healthRectangle.Width -= 20;
+                this.health -= 20;           //   damage from hit
+                healthRectangle.Width -= 20; // ^ lowering health bar accordingly
 
                 Destroy(obj);
                 if (this.health < 1)

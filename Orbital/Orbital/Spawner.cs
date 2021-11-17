@@ -21,7 +21,7 @@ namespace Orbital
 		private float asteroidTimer = 1.5f; // How fast asteroids spawn
 		private float powerTimer = 5; // How fast powers spawn
 
-		
+		private int enemyDifficulty = 5;
 		private int changeAsteroidDifficultyTimer = 2;
 		private int changePowerDifficultyTimer = 16;
 
