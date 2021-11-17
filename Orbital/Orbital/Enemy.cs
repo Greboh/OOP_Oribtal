@@ -52,7 +52,8 @@ namespace Orbital
             healthbarOrigin = new Vector2(healthbar.Width / 2 - 15, healthbar.Height / 2 - 90);
 
             enemyDestruction = content.Load<SoundEffect>("Asterioid_destruction_sound");
-            enemyLaserSound = content.Load<SoundEffect>("pewpew");
+            enemyLaserSound = content.Load<SoundEffect>("enemyLaser");
+
 
         }
 
