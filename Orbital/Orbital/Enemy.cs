@@ -22,6 +22,8 @@ namespace Orbital
         private Rectangle borderRectangle;
         private Vector2 healthbarOrigin;
         private SoundEffect enemyDestruction;
+        private SoundEffect enemyLaserSound;
+
 
 
 
@@ -50,6 +52,7 @@ namespace Orbital
             healthbarOrigin = new Vector2(healthbar.Width / 2 - 15, healthbar.Height / 2 - 90);
 
             enemyDestruction = content.Load<SoundEffect>("Asterioid_destruction_sound");
+            enemyLaserSound = content.Load<SoundEffect>("pewpew");
 
         }
 
@@ -136,7 +139,7 @@ namespace Orbital
                 if (movingRight)
                 {
                     Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.5f));
-                   
+                    enemyLaserSound.Play();
 
 
                     //if (timeSinceLastShot > 0.7)
@@ -157,6 +160,7 @@ namespace Orbital
                 else
                 {
                     Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.5f));
+                    enemyLaserSound.Play();
 
                     //if (timeSinceLastShot > 0.7)
                     //{
