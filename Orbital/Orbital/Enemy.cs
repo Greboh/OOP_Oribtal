@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -9,7 +10,6 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Orbital
 {
-
     class Enemy : GameObject
     {
         //enemy movement and attacks
@@ -21,9 +21,10 @@ namespace Orbital
         private Rectangle healthRectangle;      
         private Rectangle borderRectangle;
         private Vector2 healthbarOrigin;
+        private SoundEffect enemyDestruction;
 
 
-        
+
 
         public Enemy()
         {
@@ -48,13 +49,14 @@ namespace Orbital
 
             healthbarOrigin = new Vector2(healthbar.Width / 2 - 15, healthbar.Height / 2 - 90);
 
+            enemyDestruction = content.Load<SoundEffect>("Asterioid_destruction_sound");
+
         }
 
         public override void Update(GameTime gameTime)
         {
             Animate(gameTime);
             HandleMovement(gameTime);
-            ScreenBound();
             ShipMovement();
             Attack(gameTime);
             
@@ -87,6 +89,7 @@ namespace Orbital
                 {
                     ScoreManager.UpdateScore(250);
                     amountOfEnemies--;
+                    enemyDestruction.Play();
                     Destroy(this);
                 }
                 Console.WriteLine(this.health);
