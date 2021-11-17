@@ -19,7 +19,7 @@ namespace Orbital
 		private float timeElapsedEnemy;
 
 		private float asteroidTimer = 1.5f; // How fast asteroids spawn
-		private float powerTimer = 5; // How fast powers spawn
+		private float powerTimer = 1; // How fast powers spawn
 
 		private int changeAsteroidDifficultyTimer = 2;
 		private int changePowerDifficultyTimer = 16;
@@ -193,7 +193,7 @@ namespace Orbital
 			}
 
 
-			int randomPowerPicker = 1;//myRandom.Next(1, 4); // Used to pick the which power to spawn
+			int randomPowerPicker = myRandom.Next(1, 4); // Used to pick the which power to spawn
 			int randomPowerPos = myRandom.Next(1, 3); // Used to choose position of the picked power
 
 			if (timeSinceLastPower >= powerTimer)

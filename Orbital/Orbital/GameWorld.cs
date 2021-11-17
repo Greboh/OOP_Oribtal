@@ -64,6 +64,7 @@ namespace Orbital
 			myGraphics.ApplyChanges();
 
 			ScreenSize = new Vector2(myGraphics.PreferredBackBufferWidth, myGraphics.PreferredBackBufferHeight);
+			Console.WriteLine(ScoreManager.filePath);
 
 
 		}
