@@ -129,7 +129,7 @@ namespace Orbital
 		{
 			int screenOffset = 20; // Offset for the screen so the player cannot fly outside or half outside.
 			velocity = Vector2.Zero; // Variable for the start velocity
-
+			this.speed = 200;
 
 
 			if (this.health >= 1) 

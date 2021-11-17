@@ -18,8 +18,6 @@ namespace Orbital
 
 	public class GameWorld : Game
 	{
-
-
 		private static GraphicsDeviceManager myGraphics;
 		private SpriteBatch mySpriteBatch;
 
