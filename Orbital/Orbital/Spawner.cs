@@ -91,7 +91,7 @@ namespace Orbital
             }
 
 
-            if (timeSinceLastAsteroid >= 1000)
+            if (timeSinceLastAsteroid >= asteroidTimer)
             {
 				
 				List<Asteroid> asteroids = new List<Asteroid>();
