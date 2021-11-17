@@ -25,13 +25,14 @@ namespace Orbital
 		private float lowestRateOfFire = 0.2f; // How fast the player is able to fire at lowest
 		private float subtractRateOfFire = 0.2f; // How much the rate of fire decreases after each pickup
 
+		private Gamestate currenGamestate;
+
 		
 		// Fields for health and taking damage
 		private bool isInvincible = false;
 		private float timeSinceLastHit = 0f; // Timer for invincibility
         private Texture2D [] healthBars = new Texture2D[6];
         private Texture2D currentHealthBar;
-		private float timeSinceDeath = 0;
 
 
 		//Fields for speed
@@ -386,11 +387,17 @@ namespace Orbital
 
 		private void OnDeath(int playerHealth)
 		{
+			if (Keyboard.GetState().IsKeyDown(Keys.G))
+			{
+				this.health = 0;
+			}
+
 			if (health <= 1)
 			{
 				if (deathSprite == deathSprites[9])
 				{
 					Destroy(this);
+					myGameWorld.currentGameState = Gamestate.DeathScreen;
 				}
 			}
 		}

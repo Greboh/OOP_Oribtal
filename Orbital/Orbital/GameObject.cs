@@ -39,7 +39,7 @@ namespace Orbital
 		protected float animationFps;
 		protected float layerDepth;
 
-		private GameWorld myGameWorld;
+		protected GameWorld myGameWorld;
 
 		protected Random myRandom = new Random();
 

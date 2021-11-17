@@ -35,6 +35,7 @@ namespace Orbital
 		{
 			SpawnAsteroid(gameTime);
 			SpawnPower(gameTime);
+			
 		}
 
 
@@ -207,7 +208,14 @@ namespace Orbital
         }
 		public override void Attack(GameTime gameTime)
 		{
-			throw new NotImplementedException();
+		}
+
+		private void OnDeath()
+		{
+			if (myGameWorld.currentGameState == Gamestate.DeathScreen)
+			{
+				Destroy(this);
+			}
 		}
 	}
 }
