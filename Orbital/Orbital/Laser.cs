@@ -15,8 +15,10 @@ namespace Orbital
 		/// <param name="rotation">The rotation of our player</param>
 		public Laser(Vector2 position, Vector2 shootingPoint, float rotation, float speed)
 		{
+			// Cos(rotation) is used to determine what velocity.x is between -1 and 1 based on rotations angle
+			// Sin(rotation) is used to determine what velocity.y is between -1 and 1 based on rotations angle
 			velocity = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation));
-			this.speed = speed; // Too low and it will cause a bug!
+			this.speed = speed;
 			this.position = position;
 			this.origin = shootingPoint;
 			this.layerDepth = 0.5f;
