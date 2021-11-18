@@ -33,7 +33,7 @@ namespace Orbital
 		private Texture2D background;
 		private Texture2D menu;
 		private Texture2D deathScreen;
-		private Song backgroundMusic;
+		private Song backgroundMusic; //Soundtrack for game
 		
 
 		private static int score;
@@ -93,8 +93,8 @@ namespace Orbital
 			text = Content.Load<SpriteFont>("File");
 			highScoreFont = Content.Load<SpriteFont>("HighScoreFont");
 
-			backgroundMusic = Content.Load<Song>("Orbital.Soundtrack");
-			MediaPlayer.Play(backgroundMusic);
+			backgroundMusic = Content.Load<Song>("Orbital.Soundtrack"); //Loads in the banger soundtrack
+			MediaPlayer.Play(backgroundMusic); //soundtrack is played during
 
 
 

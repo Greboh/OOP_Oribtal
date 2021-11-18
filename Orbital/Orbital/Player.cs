@@ -29,22 +29,22 @@ namespace Orbital
 		// Fields for health and taking damage
 		private bool isInvincible = false;
 		private float timeSinceLastHit = 0f; // Timer for invincibility
-        private Texture2D [] healthBars = new Texture2D[6];
-        private Texture2D currentHealthBar;
+        private Texture2D [] healthBars = new Texture2D[6]; //sprites indicating different amounts of health 
+        private Texture2D currentHealthBar; //sprie used to show the current amount of player health
 
 
 		//Fields for speed
-		private Texture2D[] speedBars = new Texture2D[16];
-		private Texture2D currentSpeedBar;
-		private float speedBar = 0;
+		private Texture2D[] speedBars = new Texture2D[16]; //sprites indicating different amounts of speed
+		private Texture2D currentSpeedBar; //sprite used to show the current amount of speed available for player
+		private float speedBar = 0; //Player starts out with zero turbo
 
 		//Fields for Sound Effects
-		private SoundEffect gameOverSound;
-		private SoundEffect laserSound;
-		private SoundEffect playerHit;
-		private SoundEffect turboPickUp;
-		private SoundEffect healthPickUp;
-		private SoundEffect firepowerPickUp;
+		private SoundEffect gameOverSound; //plays when player dies
+		private SoundEffect laserSound; //plays when laser is fired
+		private SoundEffect playerHit; //plays when player takes any damage
+		private SoundEffect turboPickUp; //plays when SpeedPower is picked up by player
+		private SoundEffect healthPickUp;//plays when HealhtPower is picked up by player
+		private SoundEffect firepowerPickUp; //plays when RateOfFirePower is picked up by player
 
 
         public Player()
@@ -64,10 +64,12 @@ namespace Orbital
             {
                 exhaustSprites[i] = content.Load<Texture2D>(i + 1 + "exhaust");
             }
+			//loads all healthbars
             for(int i = 0; i < healthBars.Length; i++)
             {
                 healthBars[i] = content.Load<Texture2D>(i + 1 + "health");
             }
+			//loads all speedbars
 			for(int i = 0; i < speedBars.Length; i++)
             {
 				speedBars[i] = content.Load<Texture2D>(i + 1 + "speedbar");
@@ -78,7 +80,7 @@ namespace Orbital
 				deathSprites[i] = content.Load<Texture2D>(i + 1 + "PlayerExplosion");
 			}
 
-
+			//Loads all soundeffects
 			gameOverSound = content.Load<SoundEffect>("gameoverSound");
 			laserSound = content.Load<SoundEffect>("pewpew");
 			playerHit = content.Load<SoundEffect>("Player_hit_Effect");
@@ -167,11 +169,12 @@ namespace Orbital
 					velocity.Normalize();
 				}
 
+				//If Player has any SpeedPower available, get Keyboard input for implementing speed power
 				if (speedBar > 0 && Keyboard.GetState().IsKeyDown((Keys.LeftShift)))
 				{
-					this.speed = 400;
+					this.speed = 400; //adjusts Players speed to 400
 					Console.WriteLine($"Using turbo: {this.speed}");
-					speedBar -= 0.5f;
+					speedBar -= 0.5f; //subtracts from Players current amount of speed
 
 				} 
 			}
@@ -236,15 +239,15 @@ namespace Orbital
 			{
 				if (this.health < 100) // Check if the player is at full health
 				{
-					this.health += 20;
-					Destroy(obj);
+					this.health += 20; //adds 20 to health
+					Destroy(obj); 
 					healthPickUp.Play();
 				}
 				else Destroy(obj);
 			}
 			else if (obj is SpeedPower)
 			{
-				speedBar = 100;
+				speedBar = 100; //gives player full speed
 				Destroy(obj);
 				turboPickUp.Play();
 			}
@@ -287,7 +290,7 @@ namespace Orbital
 		}
 
 		/// <summary>
-		/// Updates healthbar according to damage/current health.
+		/// Updates currentHealthBar according to damage/current health.
 		/// </summary>
 		/// <param name="gameTime"></param>
         public void UpdateHealth(GameTime gameTime)
@@ -296,11 +299,11 @@ namespace Orbital
             {
 				case 100:
                     {
-						currentHealthBar = healthBars[0];
+						currentHealthBar = healthBars[0]; //sets current healthbar to 100% capacity
                     }break;
                 case 80:
                     {
-						currentHealthBar = healthBars[1];
+						currentHealthBar = healthBars[1]; //sets currentHealthbar to 80% capacity
 						
                     }break;
                 case 60:
@@ -322,7 +325,7 @@ namespace Orbital
                     break;
                 case 0:
                     {
-						currentHealthBar = healthBars[5];
+						currentHealthBar = healthBars[5]; //sets currentHealthBar to 0% capacity
 						sprite = deathSprite;
                     }
                     break;
@@ -334,7 +337,7 @@ namespace Orbital
         }
 
 		/// <summary>
-		/// updates speedBar according to current amount of speed
+		/// updates currentspeedBar sprite according to current amount of speed
 		/// </summary>
 		/// <param name="gameTime">Reference to GameTime</param>
 		public void UpdateSpeed(GameTime gameTime)
@@ -343,11 +346,11 @@ namespace Orbital
             {
 				case 100:
                     {
-						currentSpeedBar = speedBars[0];
+						currentSpeedBar = speedBars[0]; //sets currentspeedbar to 100% capacity
                     }break;
 				case 90:
                     {
-						currentSpeedBar = speedBars[1];
+						currentSpeedBar = speedBars[1]; //sets currentspeedbar to ca. 90% capacity
                     }break;
 				case 80:
 					{
@@ -391,7 +394,7 @@ namespace Orbital
 					break;
 				case 0:
                     {
-						currentSpeedBar = speedBars[15];
+						currentSpeedBar = speedBars[15]; //sets currentSpeedBar to 0% capacity
                     }break;
             }
 

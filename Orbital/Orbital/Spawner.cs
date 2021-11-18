@@ -73,7 +73,7 @@ namespace Orbital
 
 		public void SpawnAsteroid(GameTime gameTime)
         {
-	        int randomAsteroidPos = myRandom.Next(1,4);
+	        int randomAsteroidPos = myRandom.Next(1,4); //used to determine which asteroid to spawn
 
 	        totalTimeElapsed = (float) gameTime.TotalGameTime.TotalSeconds;
 
@@ -93,15 +93,17 @@ namespace Orbital
             if (timeSinceLastAsteroid >= asteroidTimer)
             {
 				
-				List<Asteroid> asteroids = new List<Asteroid>();
-				Asteroid yAsteroid = new Asteroid(new Vector2(0, myRandom.Next(0, (int)GameWorld.ScreenSize.Y)));
-				Asteroid xyAsteroid = new Asteroid(new Vector2((int)GameWorld.ScreenSize.X, myRandom.Next(0, (int)GameWorld.ScreenSize.Y)));
-				Asteroid xAsteroid = new Asteroid(new Vector2(myRandom.Next(0, (int)GameWorld.ScreenSize.X), 0));
+				List<Asteroid> asteroids = new List<Asteroid>();//list used to instantiate asteroids
+				Asteroid yAsteroid = new Asteroid(new Vector2(0, myRandom.Next(0, (int)GameWorld.ScreenSize.Y))); //asteroid spawns from the left side of the screen
+				Asteroid xyAsteroid = new Asteroid(new Vector2((int)GameWorld.ScreenSize.X, myRandom.Next(0, (int)GameWorld.ScreenSize.Y))); //asteroid spawns from the right side of the screen
+				Asteroid xAsteroid = new Asteroid(new Vector2(myRandom.Next(0, (int)GameWorld.ScreenSize.X), 0)); //asteroid spawns from the top of the screen
 
+				//add the three asteroids to the list
 				asteroids.Add(xAsteroid);
 				asteroids.Add(yAsteroid);
 				asteroids.Add(xyAsteroid);
 
+				//Spawns asteroid based on randomAsteroidPos random number.
 				if (randomAsteroidPos == 1) 
 				{
                     Instantiate(asteroids[0]);
