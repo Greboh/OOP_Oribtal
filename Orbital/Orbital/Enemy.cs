@@ -13,7 +13,7 @@ namespace Orbital
     class Enemy : GameObject
     {
         //enemy movement and attacks
-        bool movingRight = true;
+        private bool movingRight = true;
         private float timeSinceLastShot = 0f;
         private Vector2 shootingPoint;          // Vector2 for storing our shooting point
         private Texture2D healthbar;            // red healthbar sprite
@@ -164,17 +164,7 @@ namespace Orbital
 
         }
 
-        private void ScreenBound()
-        {
-            //if (position.Y > GameWorld.ScreenSize.X)
-            //{
-            //    Destroy(this);
-            //}
-            //else if (position.X > GameWorld.ScreenSize.Y)
-            //{
-            //    Destroy(this);
-            //}
-        }
+       
 
 
     }
