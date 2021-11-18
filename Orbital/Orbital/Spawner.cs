@@ -50,14 +50,6 @@ namespace Orbital
 		}
             
            
-
-
-            
-				
-
-			
-		
-
 		public void SpawnEnemyShip(GameTime gameTime)
         {
 			totalTimeElapsed = (float)gameTime.TotalGameTime.TotalSeconds;

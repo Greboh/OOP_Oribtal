@@ -43,7 +43,7 @@ namespace Orbital
 
 		//Fields for soundeffects
 		private SoundEffect gameOverSound;
-		private SoundEffect LaserSound;
+		private SoundEffect laserSound;
 		private SoundEffect playerHit;
 		private SoundEffect turboPickUp;
 		private SoundEffect healthPickUp;
@@ -83,7 +83,7 @@ namespace Orbital
 
 
 			gameOverSound = content.Load<SoundEffect>("gameoverSound");
-			LaserSound = content.Load<SoundEffect>("pewpew");
+			laserSound = content.Load<SoundEffect>("pewpew");
 			playerHit = content.Load<SoundEffect>("Player_hit_Effect");
 			turboPickUp = content.Load<SoundEffect>("turbopowerup_sound");
 			healthPickUp = content.Load<SoundEffect>("healthpowerup_sound");
@@ -414,7 +414,7 @@ namespace Orbital
 				if (timeSinceLastShot > rateOfFire)
 				{
 					Instantiate(new Laser(position, shootingPoint, this.rotation, 1000));
-					LaserSound.Play();
+					laserSound.Play();
 					
 					timeSinceLastShot = 0;
 				}

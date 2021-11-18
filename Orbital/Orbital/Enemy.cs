@@ -13,7 +13,7 @@ namespace Orbital
     class Enemy : GameObject
     {
         //enemy movement and attacks
-        bool movingRight = true;
+        private bool movingRight = true;
         private float timeSinceLastShot = 0f;
         private Vector2 shootingPoint;          // Vector2 for storing our shooting point
         private Texture2D healthbar;            // red healthbar sprite
