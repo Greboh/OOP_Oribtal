@@ -13,8 +13,8 @@ namespace Orbital
 		private float totalTimeElapsed; // Tracks the total amount of game time 
 		private float timeSinceLastAsteroid; // Tracks the time between the last asteroid and now
         private float timeSinceLastPower; // Tracks the time between the last power and now
-        private float asteroidTimer = 1.5f; // How fast asteroids spawn
-		private float powerTimer = 1; // How fast powers spawn
+        private float asteroidTimer = 2; // How fast asteroids spawn
+		private float powerTimer = 5; // How fast powers spawn
 
 		private int changeAsteroidDifficultyTimer = 2; // The interval in which to increase the difficult for the asteroids
 		private int changePowerDifficultyTimer = 16; // The interval in which to increase the difficult for the powers
@@ -124,8 +124,6 @@ namespace Orbital
 		/// <param name="gameTime"></param>
 		private void SpawnPower(GameTime gameTime)
 		{
-			int randomPowerPicker = myRandom.Next(1, 4); // Used to pick the which power to spawn
-			int randomPowerPos = myRandom.Next(1, 3); // Used to choose position of the picked power
 
 			timeSinceLastPower += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -150,6 +148,9 @@ namespace Orbital
 			// If the total time is bigger than the AsteroidDifficultyTimer
 			if (timeSinceLastPower >= powerTimer)
 			{
+				int randomPowerPicker = myRandom.Next(1, 4); // Used to pick the which power to spawn
+				int randomPowerPos = myRandom.Next(1, 3); // Used to choose position of the picked power
+
 				if (randomPowerPicker == 1)
 				{
 					HealthPower xPower = new HealthPower(new Vector2(myRandom.Next(0, (int)GameWorld.ScreenSize.X), 0)); // Powers spawns from the left side of the screen
