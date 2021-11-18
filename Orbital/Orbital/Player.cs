@@ -130,8 +130,8 @@ namespace Orbital
 		/// </summary>
 		private void LookAtMouse()
 		{
-			MouseState mouseState = Mouse.GetState(); // This records mouse clicks and mouse posisiton
-			Vector2 mousePosition = new Vector2(mouseState.X, mouseState.Y); // Gets the X and Y posistions of the mouse and stores it in a vector2
+			MouseState mouseState = Mouse.GetState(); // This records mouse clicks and mouse position
+			Vector2 mousePosition = new Vector2(mouseState.X, mouseState.Y); // Gets the X and Y positions of the mouse and stores it in a vector2
 			Vector2 targetedAngle = mousePosition - position; // Gets the position at which we are aiming
 			rotation = (float)Math.Atan2(targetedAngle.Y, targetedAngle.X); // Returns the angle between 2 coordinates in radians
 		}

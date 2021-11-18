@@ -9,9 +9,9 @@ namespace Orbital
     {
 	    #region  Fields
 
-	    private static List<int> listOfScores = new List<int>(); // Creates a list to store the highscore 
-	    public static string filePath = Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location).FullName; // Finds the folder where the assembly is located ie gamefolder
-	    private static string fileName = Path.Combine(filePath, "OrbitalHighscores.txt"); // Combines filepath and the string "OribitalHighscore.txt"
+	    private static List<int> listOfScores = new List<int>(); // Creates a list to store the highScore 
+	    public static string filePath = Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location).FullName; // Finds the folder where the assembly is located ie game folder
+	    private static string fileName = Path.Combine(filePath, "OrbitalHighScores.txt"); // Combines filepath and the string "OribitalHighScore.txt"
 
 		#endregion
 
@@ -70,8 +70,6 @@ namespace Orbital
 					File.WriteAllText(fileName, createHighscoreTxt); // Write all text to the file in the path
 				}
 			}
-
-
 		}
 
 		/// <summary>

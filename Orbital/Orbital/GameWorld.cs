@@ -114,8 +114,8 @@ namespace Orbital
 
 			if (currentGameState == Gamestate.Menu)
 			{
-				// Makes sure that the the array of scores has something in it
-				// Makes sure that the max value in the array is not lower than the highscore
+				// Makes sure that the list of scores has something in it
+				// Makes sure that the max value in the list is not lower than the highscore
 				if (ScoreManager.ListOfScores.Count != 0 && ScoreManager.ListOfScores.Max() > highScore)
 				{
 					highScore = ScoreManager.ListOfScores.Max(); // Sets the highscore to the max value in the array
@@ -123,8 +123,6 @@ namespace Orbital
 
 				mySpriteBatch.Draw(menu, new Rectangle(0, -10, (0 + (int) ScreenSize.X), (35 + (int)ScreenSize.Y)), Color.White);
 				mySpriteBatch.DrawString(highScoreFont, highScore.ToString(), new Vector2(450, 650), scoreColor);
-
-
 			}
 			else if (currentGameState == Gamestate.Ingame)
 			{
