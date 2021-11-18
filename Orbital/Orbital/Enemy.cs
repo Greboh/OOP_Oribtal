@@ -96,7 +96,7 @@ namespace Orbital
                     enemyDestruction.Play();
                     Destroy(this);
                 }
-                Console.WriteLine(this.health);
+                Console.WriteLine("Enemy health: " + this.health);
 
             }
         }
