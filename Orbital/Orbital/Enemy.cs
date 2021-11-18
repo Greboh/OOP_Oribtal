@@ -143,19 +143,7 @@ namespace Orbital
                     enemyLaserSound.Play();
 
 
-                    //if (timeSinceLastShot > 0.7)
-                    //{
-                    //    Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.5f));
-
-
-                    //    if (timeSinceLastShot > 0.7)
-                    //    {
-                    //        Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 2f));
-
-
-
-                    //    }
-                    //}
+                   
                     timeSinceLastShot = 0;
                 }
                 else
@@ -163,18 +151,7 @@ namespace Orbital
                     Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.5f));
                     enemyLaserSound.Play();
 
-                    //if (timeSinceLastShot > 0.7)
-                    //{
-                    //    Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.6f));
-
-
-                    //    if (timeSinceLastShot > 0.7)
-                    //    {
-                    //        Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.7f));
-
-
-                    //    }
-                    //}
+                   
                     timeSinceLastShot = 0;
 
                 }
