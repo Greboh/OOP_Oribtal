@@ -460,11 +460,6 @@ namespace Orbital
 		/// <param name="playerHealth"></param>
 		private void OnDeath(int playerHealth)
 		{
-			if (Keyboard.GetState().IsKeyDown(Keys.G))
-			{
-				this.health = 0;
-			}
-
 			// If health drops to 0 or less
 			if (health <= 0)
 			{

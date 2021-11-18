@@ -10,8 +10,7 @@ namespace Orbital
 {
     public class EnemyAttack : GameObject
     {
-
-        public EnemyAttack(Vector2 position, Vector2 shootingPoint, float rotation)
+	    public EnemyAttack(Vector2 position, Vector2 shootingPoint, float rotation)
         {
 
             velocity = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation));
@@ -25,7 +24,7 @@ namespace Orbital
             this.color = Color.White;
         }
 
-        #region
+        #region Methods
         /// <summary>
         /// Handles movement of enemy laser, and makes sure to remove them when the go off screen
         /// </summary>
