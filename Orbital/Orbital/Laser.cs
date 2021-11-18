@@ -19,7 +19,6 @@ namespace Orbital
 		/// <param name="rotation">The rotation of our player</param>
 		public Laser(Vector2 position, Vector2 shootingPoint, float rotation, float speed)
 		{
-
 			velocity = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation));
 			this.speed = speed; // Too low and it will cause a bug!
 			this.position = position;
@@ -29,29 +28,25 @@ namespace Orbital
 			this.animationFps = 10;
 			this.rotation = rotation;
 			this.color = Color.White;
-
 		}
 
-		public override void Update(GameTime gameTime)
+		#region Methods
+
+		/// <summary>
+		/// Calculated the screenbounds and destroys the laser if it exceeds
+		/// </summary>
+		private void ScreenBounds()
 		{
-			Animate(gameTime);
-
-			this.position += velocity;
-			HandleMovement(gameTime);
-
 			if (position.X > GameWorld.ScreenSize.X || position.X < GameWorld.ScreenSize.X - GameWorld.ScreenSize.X ||
-				position.Y > GameWorld.ScreenSize.Y || position.Y < GameWorld.ScreenSize.Y - GameWorld.ScreenSize.Y   )
+			    position.Y > GameWorld.ScreenSize.Y || position.Y < GameWorld.ScreenSize.Y - GameWorld.ScreenSize.Y)
 			{
 				Destroy(this);
 			}
-
 		}
 
-		
 		public override void Attack(GameTime gameTime)
 		{
 		}
-
 
 		public override void LoadContent(ContentManager content)
 		{
@@ -62,6 +57,7 @@ namespace Orbital
 
 			animationSprite = exhaustSprites[0];
 		}
+
 		public override void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(animationSprite, position, null, color, this.rotation, origin, scale, SpriteEffects.None, layerDepth);
@@ -73,5 +69,14 @@ namespace Orbital
            
 
 		}
+		public override void Update(GameTime gameTime)
+		{
+			Animate(gameTime);
+			HandleMovement(gameTime);
+			ScreenBounds();
+
+		}
+
+		#endregion
 	}
 }

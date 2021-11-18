@@ -12,8 +12,11 @@ namespace Orbital
 {
 	class Asteroid : GameObject
 	{
+        #region Fields
+
         private SoundEffect asteroidDestruction;
-        
+
+        #endregion
 
         /// <summary>
         /// Constructor for Asteroid. Takes Position as parameter
@@ -37,6 +40,8 @@ namespace Orbital
             }
             else this.velocity.X = 1;
         }
+
+        #region Methods
 
         /// <summary>
         /// Loads Random Asteroid Sprite texture. 
@@ -110,5 +115,7 @@ namespace Orbital
                 Destroy(this);
             }
         }
+
+        #endregion
 	}
 }

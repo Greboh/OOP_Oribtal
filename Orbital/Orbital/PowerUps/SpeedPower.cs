@@ -9,6 +9,7 @@ namespace Orbital.PowerUps
 {
 	class SpeedPower : GameObject
 	{
+		#region Methods
 		public SpeedPower(Vector2 position)
 		{
 			this.position = position;
@@ -28,7 +29,6 @@ namespace Orbital.PowerUps
 
 		}
 		
-
 		public override void LoadContent(ContentManager content)
 		{
 			this.sprite = content.Load<Texture2D>("SpeedPower");
@@ -51,5 +51,7 @@ namespace Orbital.PowerUps
 		public override void Attack(GameTime gameTime)
 		{
 		}
+
+		#endregion
 	}
 }

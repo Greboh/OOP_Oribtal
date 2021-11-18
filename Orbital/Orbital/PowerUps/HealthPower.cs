@@ -9,6 +9,7 @@ namespace Orbital
 {
 	class HealthPower : GameObject
 	{
+		#region Methods
 		public HealthPower(Vector2 position)
 		{
 			this.position = position;
@@ -27,11 +28,6 @@ namespace Orbital
 				else this.velocity.X = 1;
 
 		}
-
-		public override void Attack(GameTime gameTime)
-		{
-		}
-
 		public override void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(this.sprite, position, null, color, 0, Vector2.Zero, scale, SpriteEffects.None, 1);
@@ -42,6 +38,11 @@ namespace Orbital
 			this.sprite = content.Load<Texture2D>("Healthpower");
 		}
 
+		public override void Attack(GameTime gameTime)
+		{
+		}
+
+
 		public override void OnCollision(GameObject obj)
 		{
 		}
@@ -51,10 +52,6 @@ namespace Orbital
 			HandleMovement(gameTime);
 		}
 
-
-
-
-
-
+		#endregion
 	}
 }

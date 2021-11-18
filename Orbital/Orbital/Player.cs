@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using Orbital.PowerUps;
-using SharpDX.Direct2D1;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 
@@ -18,6 +12,8 @@ namespace Orbital
 {
 	class Player : GameObject
 	{
+		#region  Fields
+
 		// Field for shooting
 		private Vector2 exhaustPosition; //Vector2 for storing our ship exhausting point
 		private Vector2 shootingPoint; // Vector2 for storing our shooting point
@@ -29,9 +25,8 @@ namespace Orbital
 		// Fields for health and taking damage
 		private bool isInvincible = false;
 		private float timeSinceLastHit = 0f; // Timer for invincibility
-        private Texture2D [] healthBars = new Texture2D[6]; //sprites indicating different amounts of health 
-        private Texture2D currentHealthBar; //sprie used to show the current amount of player health
-
+		private Texture2D[] healthBars = new Texture2D[6]; //sprites indicating different amounts of health 
+		private Texture2D currentHealthBar; //sprie used to show the current amount of player health
 
 		//Fields for speed
 		private Texture2D[] speedBars = new Texture2D[16]; //sprites indicating different amounts of speed
@@ -46,8 +41,12 @@ namespace Orbital
 		private SoundEffect healthPickUp;//plays when HealhtPower is picked up by player
 		private SoundEffect firepowerPickUp; //plays when RateOfFirePower is picked up by player
 
+		#endregion
 
-        public Player()
+		/// <summary>
+		/// Constructor for the player
+		/// </summary>
+		public Player()
 		{
 			this.color = Color.White;
 			this.scale = 1;
@@ -57,24 +56,30 @@ namespace Orbital
 			this.speed = 200;
 		}
 
+		#region Methods
+
+		/// <summary>
+		/// Loads all sprites that is used by the player
+		/// </summary>
+		/// <param name="content"></param>
 		public override void LoadContent(ContentManager content)
 		{
-
-            for (int i = 0; i < exhaustSprites.Length; i++)
-            {
-                exhaustSprites[i] = content.Load<Texture2D>(i + 1 + "exhaust");
-            }
-			//loads all healthbars
-            for(int i = 0; i < healthBars.Length; i++)
-            {
-                healthBars[i] = content.Load<Texture2D>(i + 1 + "health");
-            }
-			//loads all speedbars
-			for(int i = 0; i < speedBars.Length; i++)
-            {
+			// Loads all exhaustSprites
+			for (int i = 0; i < exhaustSprites.Length; i++)
+			{
+				exhaustSprites[i] = content.Load<Texture2D>(i + 1 + "exhaust");
+			}
+			// Loads all healthbars
+			for (int i = 0; i < healthBars.Length; i++)
+			{
+				healthBars[i] = content.Load<Texture2D>(i + 1 + "health");
+			}
+			// Loads all speedbars
+			for (int i = 0; i < speedBars.Length; i++)
+			{
 				speedBars[i] = content.Load<Texture2D>(i + 1 + "speedbar");
-            }
-
+			}
+			// Loads all deathSprites
 			for (int i = 0; i < deathSprites.Length; i++)
 			{
 				deathSprites[i] = content.Load<Texture2D>(i + 1 + "PlayerExplosion");
@@ -88,19 +93,22 @@ namespace Orbital
 			healthPickUp = content.Load<SoundEffect>("healthpowerup_sound");
 			firepowerPickUp = content.Load<SoundEffect>("firePower_sound");
 
-			animationSprite = exhaustSprites[0];
-			sprite = content.Load<Texture2D>("Ship");
+			sprite = content.Load<Texture2D>("Ship"); // Sets the ship sprite
 
-			this.position = new Vector2(GameWorld.ScreenSize.X / 2, GameWorld.ScreenSize.Y / 2);
-			this.origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
-			exhaustPosition = new Vector2(sprite.Width / 2, (sprite.Height / 2) - 20);
-			shootingPoint = new Vector2((sprite.Width / 2) - 30, (sprite.Height / 2) - 15);
+			this.position = new Vector2(GameWorld.ScreenSize.X / 2, GameWorld.ScreenSize.Y / 2); // Sets the players start position to the middle of the screen
+			this.origin = new Vector2(sprite.Width / 2, sprite.Height / 2); // Sets the origin to the middle of the sprite
+			exhaustPosition = new Vector2(sprite.Width / 2, (sprite.Height / 2) - 20); // Sets the position for the exhaust to draw
+			shootingPoint = new Vector2((sprite.Width / 2) - 30, (sprite.Height / 2) - 15); // Sets the position of the laser to draw
 
 			this.offset.X = (-sprite.Width / 2); // Used to draw collisionBox
 			this.offset.Y = -sprite.Height / 2; // Used to draw collisionBox
 
 		}
 
+		/// <summary>
+		///  Handles everything that needs constant updating
+		/// </summary>
+		/// <param name="gameTime"></param>
 		public override void Update(GameTime gameTime)
 		{
 			HandleInput();
@@ -110,33 +118,41 @@ namespace Orbital
 			LookAtMouse();
 			Attack(gameTime);
 			ImpactDisable(gameTime);
-            UpdateHealth(gameTime);
+			UpdateHealth(gameTime);
 			UpdateSpeed(gameTime);
 			OnDeath(this.health);
+
+
 		}
 
-
+		/// <summary>
+		/// Makes the player rotate towards mouse
+		/// </summary>
 		private void LookAtMouse()
 		{
 			MouseState mouseState = Mouse.GetState(); // This records mouse clicks and mouse posisiton
-			Vector2 mousePosition = new Vector2(mouseState.X, mouseState.Y);
-			Vector2 targetedAngle = mousePosition - position;
-			rotation = (float)Math.Atan2(targetedAngle.Y, targetedAngle.X);
+			Vector2 mousePosition = new Vector2(mouseState.X, mouseState.Y); // Gets the X and Y posistions of the mouse and stores it in a vector2
+			Vector2 targetedAngle = mousePosition - position; // Gets the position at which we are aiming
+			rotation = (float)Math.Atan2(targetedAngle.Y, targetedAngle.X); // Returns the angle between 2 coordinates in radians
 		}
 
+		/// <summary>
+		/// Handles all player input making it possible to control the player
+		/// </summary>
 		private void HandleInput()
 		{
 			int screenOffset = 20; // Offset for the screen so the player cannot fly outside or half outside.
 			velocity = Vector2.Zero; // Variable for the start velocity
 			this.speed = 200;
 
-
-			if (this.health >= 1) 
+			//Disables input if the health is equal to or lower than 0
+			if (this.health >= 0)
 			{
 				//Get Keyboard input for moving the player up and down
 				if (Keyboard.GetState().IsKeyDown(Keys.W))
 				{
-					if (position.Y <= GameWorld.ScreenSize.X - GameWorld.ScreenSize.X) // ScreenHeight 
+					// Checks if the player position is less than 0 on the Y-Axis 
+					if (position.Y <= GameWorld.ScreenSize.Y - GameWorld.ScreenSize.Y)
 					{
 						velocity = Vector2.Zero;
 					}
@@ -145,6 +161,7 @@ namespace Orbital
 				}
 				else if (Keyboard.GetState().IsKeyDown(Keys.S))
 				{
+					// Checks if the player position is more than the screensize - a small offset on the 
 					if (position.Y >= GameWorld.ScreenSize.Y - screenOffset)
 					{
 						velocity = Vector2.Zero;
@@ -173,16 +190,19 @@ namespace Orbital
 				if (speedBar > 0 && Keyboard.GetState().IsKeyDown((Keys.LeftShift)))
 				{
 					this.speed = 400; //adjusts Players speed to 400
-					Console.WriteLine($"Using turbo: {this.speed}");
 					speedBar -= 0.5f; //subtracts from Players current amount of speed
 
-				} 
+				}
 			}
-			
+
 		}
 
+		/// <summary>
+		/// Warps the player on the X-Axis so he cannot fly out of the screen
+		/// </summary>
 		private void ScreenWarp()
 		{
+			// Checks if the player is outside the screen on the X-axis
 			if (position.X > GameWorld.ScreenSize.X)
 			{
 				position.X = 0;
@@ -197,16 +217,21 @@ namespace Orbital
 				velocity = Vector2.Zero;
 			}
 		}
-
+		/// <summary>
+		/// Makes the player not able to be hit twice in a row. But instead gives him a window of invulnerability 
+		/// </summary>
+		/// <param name="gameTime"></param>
 		public void ImpactDisable(GameTime gameTime)
 		{
-			Color playerTransparencyColor= new Color(255, 255, 255, 0); // Transparent color
+			Color playerTransparencyColor = new Color(255, 255, 255, 0); // Transparent color
 
+			// checks if the player has taken damage 
 			if (isInvincible)
 			{
-				timeSinceLastHit += (float) gameTime.ElapsedGameTime.TotalSeconds;
+				timeSinceLastHit += (float)gameTime.ElapsedGameTime.TotalSeconds;
 				this.color = playerTransparencyColor;
 
+				// Resets so the player can take damage again after 2 seconds
 				if (timeSinceLastHit > 2)
 				{
 					isInvincible = false;
@@ -218,19 +243,15 @@ namespace Orbital
 			}
 		}
 
+		/// <summary>
+		/// Decides what happends if the player collides with anything
+		/// </summary>
+		/// <param name="obj">The obj that the player collides with</param>
 		public override void OnCollision(GameObject obj)
 		{
 			if (obj is Asteroid && !isInvincible || obj is SmallAsteroid && !isInvincible)
 			{
 				this.health -= 20;
-				isInvincible = true;
-				playerHit.Play();
-			}
-			else if (obj is SmallAsteroid && !isInvincible)
-			{
-				Console.WriteLine(GetType().Name + " collided with smallAsteroid");
-				this.health -= 20;
-				Console.WriteLine("Current health is: " + this.health);
 				isInvincible = true;
 				playerHit.Play();
 			}
@@ -240,7 +261,7 @@ namespace Orbital
 				if (this.health < 100) // Check if the player is at full health
 				{
 					this.health += 20; //adds 20 to health
-					Destroy(obj); 
+					Destroy(obj);
 					healthPickUp.Play();
 				}
 				else Destroy(obj);
@@ -269,19 +290,23 @@ namespace Orbital
 			}
 
 			//When player is hit by enemyship attack
-            if (obj is EnemyAttack)
-            {
+			if (obj is EnemyAttack)
+			{
 				this.health -= 20;
 				isInvincible = true;
 				Destroy(obj);
-            }
+			}
 
 
 		}
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-	        spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
+		/// <summary>
+		/// Draws all our sprites that the player uses
+		/// </summary>
+		/// <param name="spriteBatch"></param>
+		public override void Draw(SpriteBatch spriteBatch)
+		{
+			spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
 
 			spriteBatch.Draw(animationSprite, position, null, color, rotation, exhaustPosition, 2, SpriteEffects.None, layerDepth);
 
@@ -293,65 +318,70 @@ namespace Orbital
 		/// Updates currentHealthBar according to damage/current health.
 		/// </summary>
 		/// <param name="gameTime"></param>
-        public void UpdateHealth(GameTime gameTime)
-        {
-            switch (this.health)
-            {
+		public void UpdateHealth(GameTime gameTime)
+		{
+			switch (this.health)
+			{
 				case 100:
-                    {
+					{
 						currentHealthBar = healthBars[0]; //sets current healthbar to 100% capacity
-                    }break;
-                case 80:
-                    {
+					}
+					break;
+				case 80:
+					{
 						currentHealthBar = healthBars[1]; //sets currentHealthbar to 80% capacity
-						
-                    }break;
-                case 60:
-                    {
+
+					}
+					break;
+				case 60:
+					{
 						currentHealthBar = healthBars[2];
-						
-                    }break;
-                case 40:
-                    {
+
+					}
+					break;
+				case 40:
+					{
 						currentHealthBar = healthBars[3];
-						
-                    }
-                    break;
-                case 20:
-                    {
+
+					}
+					break;
+				case 20:
+					{
 						currentHealthBar = healthBars[4];
-						
-                    }
-                    break;
-                case 0:
-                    {
+
+					}
+					break;
+				case 0:
+					{
 						currentHealthBar = healthBars[5]; //sets currentHealthBar to 0% capacity
 						sprite = deathSprite;
-                    }
-                    break;
-            }
+					}
+					break;
+			}
 
 
 
 
-        }
+		}
 
 		/// <summary>
 		/// updates currentspeedBar sprite according to current amount of speed
 		/// </summary>
 		/// <param name="gameTime">Reference to GameTime</param>
 		public void UpdateSpeed(GameTime gameTime)
-        {
-			switch(speedBar)
-            {
+		{
+			switch (speedBar)
+			{
 				case 100:
-                    {
+					{
 						currentSpeedBar = speedBars[0]; //sets currentspeedbar to 100% capacity
-                    }break;
+					}
+					break;
 				case 90:
-                    {
+					{
 						currentSpeedBar = speedBars[1]; //sets currentspeedbar to ca. 90% capacity
-                    }break;
+					}
+					break;
 				case 80:
 					{
 						currentSpeedBar = speedBars[3];
@@ -393,20 +423,21 @@ namespace Orbital
 					}
 					break;
 				case 0:
-                    {
+					{
 						currentSpeedBar = speedBars[15]; //sets currentSpeedBar to 0% capacity
-                    }break;
-            }
+					}
+					break;
+			}
 
-        }
+		}
 
 		/// <summary>
 		/// Method that makes the player shoot a laser
 		/// </summary>
 		/// <param name="gameTime">Reference to GameTime</param>
-        public override void Attack(GameTime gameTime)
-        {
-            MouseState mouseState = Mouse.GetState(); // This records mouse clicks and mouse posisiton
+		public override void Attack(GameTime gameTime)
+		{
+			MouseState mouseState = Mouse.GetState(); // This records mouse clicks and mouse posisiton
 
 			timeSinceLastShot += (float)gameTime.ElapsedGameTime.TotalSeconds; // Gets the game time in seconds (Framerate independent)
 
@@ -416,13 +447,17 @@ namespace Orbital
 				{
 					Instantiate(new Laser(position, shootingPoint, this.rotation, 1000));
 					laserSound.Play();
-					
+
 					timeSinceLastShot = 0;
 				}
 
 			}
 		}
 
+		/// <summary>
+		/// Logic that happends when the player dies
+		/// </summary>
+		/// <param name="playerHealth"></param>
 		private void OnDeath(int playerHealth)
 		{
 			if (Keyboard.GetState().IsKeyDown(Keys.G))
@@ -430,16 +465,18 @@ namespace Orbital
 				this.health = 0;
 			}
 
-			if (health <= 1)
+			// If health drops to 0 or less
+			if (health <= 0)
 			{
+				// if deathSprite is equal to deathSprites with index 9, we know the animation is done
 				if (deathSprite == deathSprites[9])
 				{
 					gameOverSound.Play();
 					Destroy(this);
-					myGameWorld.currentGameState = Gamestate.DeathScreen;
+					myGameWorld.currentGameState = Gamestate.DeathScreen; // Sets the GameState to DeathScreen
 				}
 			}
 		}
-
+		#endregion
 	}
 }
