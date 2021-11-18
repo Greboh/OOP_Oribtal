@@ -18,7 +18,7 @@ namespace Orbital
         private float timeSinceLastPower;
 
 		private float asteroidTimer = 1.5f; // How fast asteroids spawn
-		private float powerTimer = 5; // How fast powers spawn
+		private float powerTimer = 1; // How fast powers spawn
 
 		private int changeAsteroidDifficultyTimer = 2;
 		private int changePowerDifficultyTimer = 16;
@@ -46,14 +46,6 @@ namespace Orbital
 		}
             
            
-
-
-            
-				
-
-			
-		
-
 		public void SpawnEnemyShip(GameTime gameTime)
         {
 			
@@ -75,22 +67,15 @@ namespace Orbital
 
 		public void SpawnAsteroid(GameTime gameTime)
         {
-	        int randomAsteroidPos = myRandom.Next(1,4);
+	        int randomAsteroidPos = myRandom.Next(1,4); //used to determine which asteroid to spawn
 
 	        totalTimeElapsed = (float) gameTime.TotalGameTime.TotalSeconds;
 
 	        timeSinceLastAsteroid += (float) gameTime.ElapsedGameTime.TotalSeconds;
 
-            // [IDEA]
-            // Replace with if statement that decides in which of the four sides the asteroid should spawn using random.Next
-
-            // Maybe solved now on line 56 - 64
-            // Now it only spawns 1 asteroid at least
-
-            if (totalTimeElapsed > changeAsteroidDifficultyTimer)
+	        if (totalTimeElapsed > changeAsteroidDifficultyTimer)
             {
 	            changeAsteroidDifficultyTimer += 10;
-				Console.WriteLine("Timer for asteroid is: " + asteroidTimer);
 
 				if (asteroidTimer != 0.5f)
 				{
@@ -102,15 +87,17 @@ namespace Orbital
             if (timeSinceLastAsteroid >= asteroidTimer)
             {
 				
-				List<Asteroid> asteroids = new List<Asteroid>();
-				Asteroid yAsteroid = new Asteroid(new Vector2(0, myRandom.Next(0, (int)GameWorld.ScreenSize.Y)));
-				Asteroid xyAsteroid = new Asteroid(new Vector2((int)GameWorld.ScreenSize.X, myRandom.Next(0, (int)GameWorld.ScreenSize.Y)));
-				Asteroid xAsteroid = new Asteroid(new Vector2(myRandom.Next(0, (int)GameWorld.ScreenSize.X), 0));
+				List<Asteroid> asteroids = new List<Asteroid>();//list used to instantiate asteroids
+				Asteroid yAsteroid = new Asteroid(new Vector2(0, myRandom.Next(0, (int)GameWorld.ScreenSize.Y))); //asteroid spawns from the left side of the screen
+				Asteroid xyAsteroid = new Asteroid(new Vector2((int)GameWorld.ScreenSize.X, myRandom.Next(0, (int)GameWorld.ScreenSize.Y))); //asteroid spawns from the right side of the screen
+				Asteroid xAsteroid = new Asteroid(new Vector2(myRandom.Next(0, (int)GameWorld.ScreenSize.X), 0)); //asteroid spawns from the top of the screen
 
+				//add the three asteroids to the list
 				asteroids.Add(xAsteroid);
 				asteroids.Add(yAsteroid);
 				asteroids.Add(xyAsteroid);
 
+				//Spawns asteroid based on randomAsteroidPos random number.
 				if (randomAsteroidPos == 1) 
 				{
                     Instantiate(asteroids[0]);
@@ -120,12 +107,6 @@ namespace Orbital
 					Instantiate(asteroids[1]);
 				}
                 else Instantiate(asteroids[2]);
-
-
-				//foreach (Asteroid obj in asteroids)
-				//{
-				//	Instantiate(obj);
-				//}
 
 				timeSinceLastAsteroid = 0;
 
@@ -234,21 +215,12 @@ namespace Orbital
 
 		}
 
-
 		public override void OnCollision(GameObject obj)
         {
-            
         }
 		public override void Attack(GameTime gameTime)
 		{
 		}
 
-		private void OnDeath()
-		{
-			if (myGameWorld.currentGameState == Gamestate.DeathScreen)
-			{
-				Destroy(this);
-			}
-		}
 	}
 }

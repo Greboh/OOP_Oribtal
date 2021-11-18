@@ -16,16 +16,17 @@ namespace Orbital
         
 
         /// <summary>
-        /// Constructor uses position paramater to spawn asteroid on different axis and set movement accordingly
+        /// Constructor for Asteroid. Takes Position as parameter
         /// </summary>
         /// <param name="position"></param>
         public Asteroid(Vector2 position)
         {
-            this.position = position;
+            this.position = position; //spawn position for Asteroid
             this.color = Color.White;
-            this.scale = 1;
-            this.speed = myRandom.Next(200, 300);
+            this.scale = 1; //size of Asteroid
+            this.speed = myRandom.Next(200, 300); //random speed for Asteroid
 
+            //Sets direction of Asteroid movement in relation to its spawn position
             if (this.position.X == GameWorld.ScreenSize.X)
             {
                 this.velocity.X = -1;
@@ -44,20 +45,21 @@ namespace Orbital
         public override void LoadContent(ContentManager content)
         {
             
-            sprite = content.Load<Texture2D>("Meteor_0"+ myRandom.Next(5, 7));
-            asteroidDestruction = content.Load<SoundEffect>("Asterioid_destruction_sound");
+            sprite = content.Load<Texture2D>("Meteor_0"+ myRandom.Next(5, 7)); //loads a random asteroid sprite out of 2 possible asteroid sprites
+            asteroidDestruction = content.Load<SoundEffect>("Asterioid_destruction_sound"); //loads destruction sound for asteroid
            
         }
-
+        
         public override void Update(GameTime gameTime)
         {
-            HandleMovement(gameTime);
-            ScreenBound();
+            HandleMovement(gameTime); //updates movement of Asteroid
+            ScreenBound(); // implements screendeath for Asterod
         }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             
-            spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(sprite, position, null, color, rotation, origin, scale, SpriteEffects.None, 0);//draw asteroid
         }
 
         /// <summary>
@@ -69,13 +71,15 @@ namespace Orbital
         {
             if (obj is Laser)
             {
-                ScoreManager.UpdateScore(100);
-                Destroy(this);
-                Destroy(obj);
-                asteroidDestruction.Play();
+                ScoreManager.UpdateScore(100); //adds 100 to score when asteroid is hit by laser
+                Destroy(this); //destroys asteroid
+                Destroy(obj);//destroys object
+                asteroidDestruction.Play(); // plays sound when asteroid is hit by laser
+
+                //Spawns 4 smallAsteroids when asteroid is destroyed
                 for (int i = 0; i < 4; i++)
                 {
-                    Instantiate(new SmallAsteroid(this.position, this.scale, this.sprite));
+                    Instantiate(new SmallAsteroid(this.position, this.scale, this.sprite)); //spawns smallasteroid at position
                 }
             }
         }
@@ -86,12 +90,13 @@ namespace Orbital
 		}
 
         /// <summary>
-        /// Destroys Asteroid when the asteroid position exceed X-axis maximum.
-        /// Move asteroid to oppesite side of the Y-axis max/min they've reached.
+        /// Destroys Asteroid when the asteroid position exceeds any screensize
+        /// 
         /// </summary>
         private void ScreenBound()
 
         {
+            //If asteroid position exceeds the screensize it is destroyed. No matter which side(x,y) it exceeds
             if (position.Y > GameWorld.ScreenSize.Y)
             {
                 Destroy(this);
