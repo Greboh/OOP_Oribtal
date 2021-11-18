@@ -87,16 +87,9 @@ namespace Orbital
 
 	        timeSinceLastAsteroid += (float) gameTime.ElapsedGameTime.TotalSeconds;
 
-            // [IDEA]
-            // Replace with if statement that decides in which of the four sides the asteroid should spawn using random.Next
-
-            // Maybe solved now on line 56 - 64
-            // Now it only spawns 1 asteroid at least
-
-            if (totalTimeElapsed > changeAsteroidDifficultyTimer)
+	        if (totalTimeElapsed > changeAsteroidDifficultyTimer)
             {
 	            changeAsteroidDifficultyTimer += 10;
-				Console.WriteLine("Timer for asteroid is: " + asteroidTimer);
 
 				if (asteroidTimer != 0.5f)
 				{
@@ -126,12 +119,6 @@ namespace Orbital
 					Instantiate(asteroids[1]);
 				}
                 else Instantiate(asteroids[2]);
-
-
-				//foreach (Asteroid obj in asteroids)
-				//{
-				//	Instantiate(obj);
-				//}
 
 				timeSinceLastAsteroid = 0;
 
@@ -240,21 +227,12 @@ namespace Orbital
 
 		}
 
-
 		public override void OnCollision(GameObject obj)
         {
-            
         }
 		public override void Attack(GameTime gameTime)
 		{
 		}
 
-		private void OnDeath()
-		{
-			if (myGameWorld.currentGameState == Gamestate.DeathScreen)
-			{
-				Destroy(this);
-			}
-		}
 	}
 }
