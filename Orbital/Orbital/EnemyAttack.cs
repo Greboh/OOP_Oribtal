@@ -25,6 +25,11 @@ namespace Orbital
             this.color = Color.White;
         }
 
+
+        /// <summary>
+        /// Handles movement of enemy laser, and makes sure to remove them when the go off screen
+        /// </summary>
+        /// <param name="content"></param>
         public override void Update(GameTime gametime)
         {
             Animate(gametime);
@@ -40,6 +45,10 @@ namespace Orbital
 
         }
 
+        /// <summary>
+        /// Loads animated sprites for enemy laser shots
+        /// </summary>
+        /// <param name="content"></param>
         public override void LoadContent(ContentManager content)
         {
             for (int i = 0; i < exhaustSprites.Length; i++)
