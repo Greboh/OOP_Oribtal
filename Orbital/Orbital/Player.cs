@@ -243,6 +243,7 @@ namespace Orbital
 					Destroy(obj);
 					healthPickUp.Play();
 				}
+				else Destroy(obj);
 			}
 			else if (obj is SpeedPower)
 			{

@@ -37,7 +37,7 @@ namespace Orbital
 		
 
 		private static int score;
-		private int highScore;
+		private int highScore = ScoreManager.ReadTxt();
 		private SpriteFont text;
 		private SpriteFont highScoreFont;
 		public Gamestate currentGameState;
@@ -64,6 +64,7 @@ namespace Orbital
 			myGraphics.ApplyChanges();
 
 			ScreenSize = new Vector2(myGraphics.PreferredBackBufferWidth, myGraphics.PreferredBackBufferHeight);
+			Console.WriteLine(ScoreManager.filePath);
 
 
 		}
@@ -75,6 +76,8 @@ namespace Orbital
 
 			base.Initialize();
 			currentGameState = Gamestate.Menu;
+			ScoreManager.ReadTxt();
+
 		}
 
 		protected override void LoadContent()
@@ -114,6 +117,15 @@ namespace Orbital
 
 			if (currentGameState == Gamestate.Menu)
 			{
+				if (ScoreManager.ListOfScores.Count != 0 && ScoreManager.ListOfScores.Max() != highScore)
+				{
+					if (ScoreManager.ListOfScores.Max() > highScore)
+					{
+						highScore = ScoreManager.ListOfScores.Max();
+					}
+
+				}
+
 				mySpriteBatch.Draw(menu, new Rectangle(0, -10, (0 + (int) ScreenSize.X), (35 + (int)ScreenSize.Y)), Color.White);
 				mySpriteBatch.DrawString(highScoreFont, highScore.ToString(), new Vector2(450, 650), scoreColor);
 
@@ -136,11 +148,8 @@ namespace Orbital
 			}
 			else if (currentGameState == Gamestate.DeathScreen)
 			{
-				//TODO Show Highscore
-
 				ScoreManager.SaveScore(score);
 
-				highScore = ScoreManager.ListOfScores.Max();
 
 				mySpriteBatch.Draw(deathScreen, new Rectangle(0, 0, 1200, 900), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
 				mySpriteBatch.DrawString(text, score.ToString(), new Vector2(285, 645), scoreColor, 0, Vector2.Zero, 2.5f, SpriteEffects.None, 1);
@@ -215,6 +224,7 @@ namespace Orbital
 		{
 			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
 			{
+				ScoreManager.SaveToTxt();
 				Exit();
 			}
 			else if (Keyboard.GetState().IsKeyDown(Keys.Space) && currentGameState == Gamestate.Menu)
