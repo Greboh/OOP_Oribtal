@@ -25,7 +25,7 @@ namespace Orbital
             this.color = Color.White;
         }
 
-        #region
+        #region Methods
         /// <summary>
         /// Handles movement of enemy laser, and makes sure to remove them when the go off screen
         /// </summary>
