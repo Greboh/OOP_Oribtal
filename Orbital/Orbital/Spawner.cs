@@ -24,9 +24,9 @@ namespace Orbital
 		private int changePowerDifficultyTimer = 16;
 
 	
-		private int scoreThreshold = 200;
-		private int scoreThresholdMultiplier = 200;
-		private int waveNumber = 1;
+		private int scoreThreshold = 500;				// start score amount needed to spawn enemy
+		private int scoreThresholdMultiplier = 500;		// amount added onto scoreThreshold whenever a enemy dies
+		private int waveNumber = 1;						// keeps track of how many waves there have been
 
 
 		public override void Draw(SpriteBatch spriteBatch)
@@ -50,21 +50,15 @@ namespace Orbital
         {
 			
 			Enemy spawnedEnemy = new Enemy();
-
-			/*
-			Ny enemy bliver spawned hvis playerens score overstiger værdien i scoreThreshold,
-			og når en ny enemy bliver spawned så stiger scoreThreshold med værdien fra scoreThreshold
-			*/
-
-
+			
+			// if the score amount reached is above the threshold and the amount of enemies onscreen is lower than the total amount of enemies.
 			if (GameWorld.Score > scoreThreshold && amountOfEnemies < waveNumber)
 			{
-				Instantiate(spawnedEnemy);
-				amountOfEnemies++;
-				waveNumber++;
-				scoreThreshold += scoreThresholdMultiplier;
+				Instantiate(spawnedEnemy);					// spawns enemy
+				amountOfEnemies++;							// keeps track of how many enemies is on screen
+				waveNumber++;								// adds to total amount of enemies spawned
+				scoreThreshold += scoreThresholdMultiplier; // adds the multiplier onto the next score threshold
 
-				Console.WriteLine(amountOfEnemies);
 			}
 			
 		}
