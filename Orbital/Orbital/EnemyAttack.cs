@@ -65,15 +65,7 @@ namespace Orbital
         public override void OnCollision(GameObject obj)
         {
 
-            if (obj is Player)
-            {
-                // Lower player health here
-
-                Console.WriteLine("Player is hit");
-                //Destroy(this);
-                //Destroy(obj);
-
-            }
+           
 
         }
 
