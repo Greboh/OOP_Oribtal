@@ -10,8 +10,8 @@ namespace Orbital
 {
 	public abstract class GameObject
 	{
-
-		protected Texture2D sprite;
+        #region Fields
+        protected Texture2D sprite;
 		protected Texture2D animationSprite;
 		protected Texture2D deathSprite;
 		protected Texture2D[] exhaustSprites = new Texture2D[4];
@@ -43,10 +43,10 @@ namespace Orbital
 		protected GameWorld myGameWorld;
 
 		protected Random myRandom = new Random();
+        #endregion
 
-		
 
-		public Rectangle Collision
+        public Rectangle Collision
 		{
 			get
 			{
