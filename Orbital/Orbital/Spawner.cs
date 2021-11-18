@@ -72,7 +72,6 @@ namespace Orbital
 				waveNumber++;
 				scoreThreshold += scoreThresholdMultiplier;
 
-				Console.WriteLine(amountOfEnemies);
 			}
 			
 		}
