@@ -110,14 +110,12 @@ namespace Orbital
             {
                 //Sprite starts moving right adding to position with speed
                 position.X += speed;
-                shipFlip = SpriteEffects.None;
 
             }
             else
             {
                 //When the sprite reaches end of width, the sprite is flipped and it starts subtracting speed from 
                 position.X -= speed;
-                shipFlip = SpriteEffects.FlipHorizontally;
             }
             if (position.X > GameWorld.ScreenSize.X - this.sprite.Width || position.X < 0)
             {

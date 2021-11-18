@@ -55,8 +55,7 @@ namespace Orbital
 
         public static int ReadTxt()
         {
-	        string createPlaceholderHighScoreTxt = "0";
-	        int highScore = GameWorld.Score;
+	        int highScore;
 
 	        if (!File.Exists(fileName))
 	        {

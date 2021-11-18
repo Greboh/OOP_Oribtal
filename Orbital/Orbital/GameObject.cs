@@ -38,6 +38,7 @@ namespace Orbital
 
 		//Int
 		protected int health; // Stores the health of the GameObject
+		protected int amountOfEnemies; // Stores the number of enemies currently present
 		private int exhaustCurrentIndex; // Stores the value of animationFps * exhaustTimeElapsed used to draw a new sprite at a specific time
 		private int deathCurrentIndex; // Stores the value of animationFps * deahtTimeElapsed used to draw a new sprite at a specific time
 

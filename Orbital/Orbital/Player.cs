@@ -26,9 +26,6 @@ namespace Orbital
 		private float lowestRateOfFire = 0.2f; // How fast the player is able to fire at lowest
 		private float subtractRateOfFire = 0.2f; // How much the rate of fire decreases after each pickup
 
-		private Gamestate currenGamestate;
-
-		
 		// Fields for health and taking damage
 		private bool isInvincible = false;
 		private float timeSinceLastHit = 0f; // Timer for invincibility
@@ -41,7 +38,7 @@ namespace Orbital
 		private Texture2D currentSpeedBar;
 		private float speedBar = 0;
 
-		//Fields for soundeffects
+		//Fields for Sound Effects
 		private SoundEffect gameOverSound;
 		private SoundEffect LaserSound;
 		private SoundEffect playerHit;
