@@ -16,7 +16,6 @@ namespace Orbital
 		private float totalTimeElapsed;
 		private float timeSinceLastAsteroid;
         private float timeSinceLastPower;
-		private float timeElapsedEnemy;
 
 		private float asteroidTimer = 1.5f; // How fast asteroids spawn
 		private float powerTimer = 5; // How fast powers spawn
@@ -24,13 +23,16 @@ namespace Orbital
 		private int changeAsteroidDifficultyTimer = 2;
 		private int changePowerDifficultyTimer = 16;
 
-		private int enemyWave1 = 1000;
-		private int enemyWave2 = 2000;
-		private int enemyWave3 = 4000;
-		private int enemyWave4 = 6000;
-		private int enemyWave5 = 8000;
-		private int enemyWave6 = 10000;
+		//private int enemyWave1 = 1000;
+		//private int enemyWave2 = 2000;
+		//private int enemyWave3 = 4000;
+		//private int enemyWave4 = 6000;
+		//private int enemyWave5 = 8000;
+		//private int enemyWave6 = 10000;
 
+		private int scoreThreshold = 200;
+		private int scoreThresholdMulitiplier = 200;
+		private int waveNumber = 1;
 
 
 		public override void Draw(SpriteBatch spriteBatch)
@@ -60,49 +62,53 @@ namespace Orbital
 
 		public void SpawnEnemyShip(GameTime gameTime)
         {
-			totalTimeElapsed = (float)gameTime.TotalGameTime.TotalSeconds;
-			timeElapsedEnemy += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
+			
 			Enemy spawnedEnemy = new Enemy();
 
+			// Tjekker hvis playerens score er over værdien som er sat i enemyWave fields
+			// wave 1 = 1000
+			// wave 1 = 1000
 
-			// hardcoded speghetti code
-			if (GameWorld.Score > enemyWave1 && amountOfEnemies < 1)
+
+			if (GameWorld.Score > scoreThreshold && amountOfEnemies < waveNumber)
 			{
 				Instantiate(spawnedEnemy);
 				amountOfEnemies++;
+				waveNumber++;
+				scoreThreshold += scoreThresholdMulitiplier;
+
 				Console.WriteLine(amountOfEnemies);
 			}
-			if (GameWorld.Score > enemyWave2 && amountOfEnemies < 2)
-			{
-				Instantiate(spawnedEnemy);
-				amountOfEnemies++;
-				Console.WriteLine(amountOfEnemies);
-			}
-			if (GameWorld.Score > enemyWave3 && amountOfEnemies < 3)
-			{
-				Instantiate(spawnedEnemy);
-				amountOfEnemies++;
-				Console.WriteLine(amountOfEnemies);
-			}
-			if (GameWorld.Score > enemyWave4 && amountOfEnemies < 4)
-			{
-				Instantiate(spawnedEnemy);
-				amountOfEnemies++;
-				Console.WriteLine(amountOfEnemies);
-			}
-			if (GameWorld.Score > enemyWave5 && amountOfEnemies < 5)
-			{
-				Instantiate(spawnedEnemy);
-				amountOfEnemies++;
-				Console.WriteLine(amountOfEnemies);
-			}
-			if (GameWorld.Score > enemyWave6 && amountOfEnemies < 6)
-			{
-				Instantiate(spawnedEnemy);
-				amountOfEnemies++;
-				Console.WriteLine(amountOfEnemies);
-			}
+			//if (GameWorld.Score > enemyWave2 && amountOfEnemies < 2)
+			//{
+			//	Instantiate(spawnedEnemy);
+			//	amountOfEnemies++;
+			//	Console.WriteLine(amountOfEnemies);
+			//}
+			//if (GameWorld.Score > enemyWave3 && amountOfEnemies < 3)
+			//{
+			//	Instantiate(spawnedEnemy);
+			//	amountOfEnemies++;
+			//	Console.WriteLine(amountOfEnemies);
+			//}
+			//if (GameWorld.Score > enemyWave4 && amountOfEnemies < 4)
+			//{
+			//	Instantiate(spawnedEnemy);
+			//	amountOfEnemies++;
+			//	Console.WriteLine(amountOfEnemies);
+			//}
+			//if (GameWorld.Score > enemyWave5 && amountOfEnemies < 5)
+			//{
+			//	Instantiate(spawnedEnemy);
+			//	amountOfEnemies++;
+			//	Console.WriteLine(amountOfEnemies);
+			//}
+			//if (GameWorld.Score > enemyWave6 && amountOfEnemies < 6)
+			//{
+			//	Instantiate(spawnedEnemy);
+			//	amountOfEnemies++;
+			//	Console.WriteLine(amountOfEnemies);
+			//}
 		}
 
 
