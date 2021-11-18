@@ -13,15 +13,15 @@ namespace Orbital
     class Enemy : GameObject
     {
         //enemy movement and attacks
-        private bool movingRight = true;
+        private bool movingRight = true;        // bool for checking if enemy is moving right or left
         private float timeSinceLastShot = 0f;
         private Vector2 shootingPoint;          // Vector2 for storing our shooting point
         private Texture2D healthbar;            // red healthbar sprite
         private Texture2D healthbarBorder;      // black border for healthbar
-        private Rectangle healthRectangle;      
+        private Rectangle healthRectangle;      // used as a sprite "mask" when subtracting width
         private Rectangle borderRectangle;
-        private Vector2 healthbarOrigin;
-        private SoundEffect enemyDestruction;
+        private Vector2 healthbarOrigin;        // helps position the health bar below the enemy
+        private SoundEffect enemyDestruction;   
         private SoundEffect enemyLaserSound;
 
 
@@ -91,12 +91,12 @@ namespace Orbital
                 Destroy(obj);
                 if (this.health < 1)
                 {
-                    ScoreManager.UpdateScore(250);
-                    amountOfEnemies--;
+                    ScoreManager.UpdateScore(250); // updates score with set amount 
+                    amountOfEnemies--;                   // removes 1 from total of enemies spawned
                     enemyDestruction.Play();
                     Destroy(this);
                 }
-                Console.WriteLine("Enemy health: " + this.health);
+                Console.WriteLine("Enemy health: " + this.health);  // outputs current enemy health to console
 
             }
         }
@@ -135,8 +135,11 @@ namespace Orbital
         {
             timeSinceLastShot += (float)gameTime.ElapsedGameTime.TotalSeconds; // Gets the game time in seconds (Framerate independent)
 
-            if (timeSinceLastShot > 0.7) // 
+            //checks if enough time has passed
+            if (timeSinceLastShot > 0.7) 
             {
+                // checks if player i moving right and changes laser accordingly
+                // - not used, but can be used to change firerate, direction or amount depending on whitch way the ship is traveling.
                 if (movingRight)
                 {
                     Instantiate(new EnemyAttack(position, shootingPoint, this.rotation + 1.5f));
