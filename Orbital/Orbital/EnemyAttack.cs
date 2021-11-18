@@ -25,18 +25,19 @@ namespace Orbital
             this.color = Color.White;
         }
 
-
+        #region
         /// <summary>
         /// Handles movement of enemy laser, and makes sure to remove them when the go off screen
         /// </summary>
         /// <param name="content"></param>
         public override void Update(GameTime gametime)
         {
-            Animate(gametime);
+            Animate(gametime);         // animates the laser sprites
 
-            this.position += velocity;
-            HandleMovement(gametime);
+            this.position += velocity; // add velocity to position making it move downward
+            HandleMovement(gametime);  // handles movement of sprite 
 
+            // if the laser shot gets out of bounds, it removes it.
             if (position.X > GameWorld.ScreenSize.X || position.X < GameWorld.ScreenSize.X - GameWorld.ScreenSize.X ||
                 position.Y > GameWorld.ScreenSize.Y || position.Y < GameWorld.ScreenSize.Y - GameWorld.ScreenSize.Y)
             {
@@ -77,7 +78,7 @@ namespace Orbital
            
 
         }
-
+        #endregion
     }
 }
 

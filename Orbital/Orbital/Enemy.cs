@@ -12,6 +12,7 @@ namespace Orbital
 {
     class Enemy : GameObject
     {
+        #region Fields
         //enemy movement and attacks
         private bool movingRight = true;        // bool for checking if enemy is moving right or left
         private float timeSinceLastShot = 0f;
@@ -24,9 +25,7 @@ namespace Orbital
         private SoundEffect enemyDestruction;   
         private SoundEffect enemyLaserSound;
 
-
-
-
+        #endregion
 
         public Enemy()
         {
@@ -35,8 +34,9 @@ namespace Orbital
             this.speed = 3;
             this.animationFps = 5;
             this.health = 60;
-
         }
+
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
 
@@ -165,18 +165,9 @@ namespace Orbital
                     timeSinceLastShot = 0;
 
                 }
-
-
             }
-
-
-
-
         }
-
-       
-
-
+        #endregion
     }
 }
 

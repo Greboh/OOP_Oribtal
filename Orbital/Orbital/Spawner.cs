@@ -13,7 +13,9 @@ namespace Orbital
 {
 	class Spawner : GameObject
 	{
-		private float totalTimeElapsed;
+
+        #region Fields
+        private float totalTimeElapsed;
 		private float timeSinceLastAsteroid;
         private float timeSinceLastPower;
 
@@ -26,10 +28,11 @@ namespace Orbital
 	
 		private int scoreThreshold = 1000;				// start score amount needed to spawn enemy
 		private int scoreThresholdMultiplier = 1000;	// amount added onto scoreThreshold whenever a enemy dies
-		private int waveNumber = 1;						// keeps track of how many waves there have been
+		private int waveNumber = 1;                     // keeps track of how many waves there have been
+        #endregion
 
-
-		public override void Draw(SpriteBatch spriteBatch)
+        #region Methods
+        public override void Draw(SpriteBatch spriteBatch)
         {
             
         }
@@ -42,10 +45,8 @@ namespace Orbital
 			SpawnAsteroid(gameTime);
 			SpawnPower(gameTime);
 			SpawnEnemyShip(gameTime);
-
 		}
             
-           
 		public void SpawnEnemyShip(GameTime gameTime)
         {
 			
@@ -58,12 +59,8 @@ namespace Orbital
 				amountOfEnemies++;							// keeps track of how many enemies is on screen
 				waveNumber++;								// adds to total amount of enemies spawned
 				scoreThreshold += scoreThresholdMultiplier; // adds the multiplier onto the next score threshold
-
 			}
-			
 		}
-
-
 
 		public void SpawnAsteroid(GameTime gameTime)
         {
@@ -83,10 +80,8 @@ namespace Orbital
 				}
             }
 
-
             if (timeSinceLastAsteroid >= asteroidTimer)
             {
-				
 				List<Asteroid> asteroids = new List<Asteroid>();//list used to instantiate asteroids
 				Asteroid yAsteroid = new Asteroid(new Vector2(0, myRandom.Next(0, (int)GameWorld.ScreenSize.Y))); //asteroid spawns from the left side of the screen
 				Asteroid xyAsteroid = new Asteroid(new Vector2((int)GameWorld.ScreenSize.X, myRandom.Next(0, (int)GameWorld.ScreenSize.Y))); //asteroid spawns from the right side of the screen
@@ -111,9 +106,6 @@ namespace Orbital
 				timeSinceLastAsteroid = 0;
 
             }
-
-            
-
 		}
 
 		private void SpawnPower(GameTime gameTime)
@@ -221,6 +213,6 @@ namespace Orbital
 		public override void Attack(GameTime gameTime)
 		{
 		}
-
-	}
+        #endregion
+    }
 }
