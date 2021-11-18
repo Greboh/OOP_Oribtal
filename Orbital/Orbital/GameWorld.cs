@@ -5,6 +5,7 @@ using System.Windows.Forms.VisualStyles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace Orbital
 {
@@ -17,8 +18,6 @@ namespace Orbital
 
 	public class GameWorld : Game
 	{
-
-
 		private static GraphicsDeviceManager myGraphics;
 		private SpriteBatch mySpriteBatch;
 
@@ -34,6 +33,8 @@ namespace Orbital
 		private Texture2D background;
 		private Texture2D menu;
 		private Texture2D deathScreen;
+		private Song backgroundMusic;
+		
 
 		private static int score;
 		private int highScore = ScoreManager.ReadTxt();
@@ -63,6 +64,7 @@ namespace Orbital
 			myGraphics.ApplyChanges();
 
 			ScreenSize = new Vector2(myGraphics.PreferredBackBufferWidth, myGraphics.PreferredBackBufferHeight);
+			Console.WriteLine(ScoreManager.filePath);
 
 
 		}
@@ -90,6 +92,9 @@ namespace Orbital
 
 			text = Content.Load<SpriteFont>("File");
 			highScoreFont = Content.Load<SpriteFont>("HighScoreFont");
+
+			backgroundMusic = Content.Load<Song>("Orbital.Soundtrack");
+			MediaPlayer.Play(backgroundMusic);
 
 
 

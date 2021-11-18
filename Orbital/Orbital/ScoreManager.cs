@@ -11,7 +11,7 @@ namespace Orbital
      class ScoreManager
     {
 	    private static List<int> listOfScores = new List<int>();
-	    private static string filePath = Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location).FullName; // return the application.exe current folder
+	    public static string filePath = Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location).FullName; // return the application.exe current folder
 	    private static string fileName = Path.Combine(filePath, "OrbitalHighscores.txt");
 
 	    // Properties
@@ -50,6 +50,7 @@ namespace Orbital
 				}
 			}
 
+
         }
 
         public static int ReadTxt()
@@ -59,17 +60,15 @@ namespace Orbital
 
 	        if (!File.Exists(fileName))
 	        {
-		        File.WriteAllText(fileName, createPlaceholderHighScoreTxt);
-				highScore = Convert.ToInt32(createPlaceholderHighScoreTxt);
 
-			}
+		        highScore = GameWorld.Score;
+	        }
 	        else
 	        {
 				string readHighscoreTxt = File.ReadAllText(fileName);
 				highScore = Convert.ToInt32(readHighscoreTxt);
 
 	        }
-			Console.WriteLine(highScore);
 			return highScore;
         }
 
