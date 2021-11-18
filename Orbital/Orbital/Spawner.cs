@@ -24,8 +24,8 @@ namespace Orbital
 		private int changePowerDifficultyTimer = 16;
 
 	
-		private int scoreThreshold = 200;				// start score amount needed to spawn enemy
-		private int scoreThresholdMultiplier = 200;		// amount added onto scoreThreshold whenever a enemy dies
+		private int scoreThreshold = 500;				// start score amount needed to spawn enemy
+		private int scoreThresholdMultiplier = 500;		// amount added onto scoreThreshold whenever a enemy dies
 		private int waveNumber = 1;						// keeps track of how many waves there have been
 
 
