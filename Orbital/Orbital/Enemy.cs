@@ -78,7 +78,11 @@ namespace Orbital
         }
 
 
-
+        /// <summary>
+        /// Method for detecting collision and handling enemy damage taken and health bar
+        /// Enemy is destroyed is health reaches 0
+        /// </summary>
+        /// <param name="obj"></param>
         public override void OnCollision(GameObject obj)
         {
 
@@ -101,8 +105,10 @@ namespace Orbital
             }
         }
 
-      
 
+        /// <summary>
+        /// Method handles ship sprite movement from right to left when hitting window bounderies
+        /// </summary>
         private void ShipMovement()
         {
 
@@ -127,8 +133,11 @@ namespace Orbital
 
         }
 
-        
 
+        /// <summary>
+        /// Method handles the enemies firing the lasers with a set interval inbetween
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Attack(GameTime gameTime)
         {
             timeSinceLastShot += (float)gameTime.ElapsedGameTime.TotalSeconds; // Gets the game time in seconds (Framerate independent)
