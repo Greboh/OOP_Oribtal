@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Orbital
 {
+	/// <summary>
+	/// Enum used to define GameStates
+	/// </summary>
 	public enum Gamestate
 	{
 		Menu,
@@ -18,41 +21,43 @@ namespace Orbital
 
 	public class GameWorld : Game
 	{
+		#region Fields
+
 		private static GraphicsDeviceManager myGraphics;
 		private SpriteBatch mySpriteBatch;
+
+		private readonly List<GameObject> listOfCurrentObjects = new List<GameObject>(); // List of objects in the game
+		private readonly List<GameObject> listOfObjectsToAdd = new List<GameObject>(); // List of objects to add to the game
+		private readonly List<GameObject> listOfObjectsToDestroy = new List<GameObject>(); // List of objects to remove from the game
+
+		public Gamestate currentGameState; // Stores what GameState we are currently in
+
+		private Texture2D collisionTexture;
+		private Texture2D background; // Background for when you are ingame
+		private Texture2D menu; // Background for when you are in the menu
+		private Texture2D deathScreen; //B ackground for when you die
+		
+		private SpriteFont text; // Spritefont used for score text
+		private SpriteFont highScoreFont; // Spritefont used for the highscore text
+
+		private Song backgroundMusic; // Soundtrack for game
+
+		private Color scoreColor = new Color(169, 169, 169, 100); //Color used for all Text
+
+		private static int score; // Keeps track of the score
+		private int highScore = ScoreManager.ReadTxt(); // Keeps track of the highscore
 
 		private readonly int screenHeight = 900;
 		private readonly int screenWidth =1200;
 
+		#endregion
 
-		private readonly List<GameObject> listOfCurrentObjects = new List<GameObject>();
-		private readonly List<GameObject> listOfObjectsToAdd = new List<GameObject>();
-		private readonly List<GameObject> listOfObjectsToDestroy = new List<GameObject>();
+		#region Properties
+		public static Vector2 ScreenSize { get; set; } //Property for setting the ScreenSize for public use
+        public static int Score { get => score; set => score = value; } //Property for setting the score for public use
 
-		private Texture2D collisionTexture;
-		private Texture2D background;
-		private Texture2D menu;
-		private Texture2D deathScreen;
-		private Song backgroundMusic; //Soundtrack for game
-		
-
-		private static int score;
-		private int highScore = ScoreManager.ReadTxt();
-		private SpriteFont text;
-		private SpriteFont highScoreFont;
-		public Gamestate currentGameState;
-
-		private Color scoreColor = new Color(169, 169, 169, 100);
-
-		// Properties
-
-		public static Vector2 ScreenSize { get; set; }
-        public static int Score { get => score; set => score = value; }
-
-
-
-
-        public GameWorld()
+		#endregion
+		public GameWorld()
 		{
 			myGraphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
@@ -63,12 +68,10 @@ namespace Orbital
 			myGraphics.IsFullScreen = false;
 			myGraphics.ApplyChanges();
 
-			ScreenSize = new Vector2(myGraphics.PreferredBackBufferWidth, myGraphics.PreferredBackBufferHeight);
-			Console.WriteLine(ScoreManager.filePath);
-
-
+			ScreenSize = new Vector2(myGraphics.PreferredBackBufferWidth, myGraphics.PreferredBackBufferHeight); // Saves the Screensize
 		}
 
+		#region Methods
 		protected override void Initialize()
 		{
 			Instantiate(new Player());
@@ -79,7 +82,6 @@ namespace Orbital
 			ScoreManager.ReadTxt();
 
 		}
-
 		protected override void LoadContent()
 		{
 			mySpriteBatch = new SpriteBatch(GraphicsDevice);
@@ -100,7 +102,6 @@ namespace Orbital
 
 			// TODO: use this.Content to load your game content here
 		}
-
 		protected override void Update(GameTime gameTime)
 		{
 			MenuControls();
@@ -109,21 +110,17 @@ namespace Orbital
 			CallInstantiate();
 			CallDestroy();
 		}
-
-
 		protected override void Draw(GameTime gameTime)
 		{
-			mySpriteBatch.Begin(SpriteSortMode.FrontToBack);
+			mySpriteBatch.Begin(SpriteSortMode.FrontToBack); //Makes sure it uses the layerDepth
 
 			if (currentGameState == Gamestate.Menu)
 			{
-				if (ScoreManager.ListOfScores.Count != 0 && ScoreManager.ListOfScores.Max() != highScore)
+				// Makes sure that the the array of scores has something in it
+				// Makes sure that the max value in the array is not lower than the highscore
+				if (ScoreManager.ListOfScores.Count != 0 && ScoreManager.ListOfScores.Max() > highScore)
 				{
-					if (ScoreManager.ListOfScores.Max() > highScore)
-					{
-						highScore = ScoreManager.ListOfScores.Max();
-					}
-
+					highScore = ScoreManager.ListOfScores.Max(); // Sets the highscore to the max value in the array
 				}
 
 				mySpriteBatch.Draw(menu, new Rectangle(0, -10, (0 + (int) ScreenSize.X), (35 + (int)ScreenSize.Y)), Color.White);
@@ -136,62 +133,46 @@ namespace Orbital
 				mySpriteBatch.Draw(background, new Rectangle(0, 0, 2000, 2000), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
 				mySpriteBatch.DrawString(text, "SCORE: " + score, new Vector2(0, 0), scoreColor);
 
+				// Runs through our entire list of currentObjects 
 				foreach (GameObject obj in listOfCurrentObjects)
 				{
 					obj.Draw(mySpriteBatch);
-
-#if DEBUG
+					#if DEBUG
 					DrawCollisionBox(obj);
-#endif
-
+					#endif
 				}
 			}
 			else if (currentGameState == Gamestate.DeathScreen)
 			{
-				ScoreManager.SaveScore(score);
-
+				ScoreManager.SaveScore(score); // Adds our current score to the array of scores
 
 				mySpriteBatch.Draw(deathScreen, new Rectangle(0, 0, 1200, 900), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
 				mySpriteBatch.DrawString(text, score.ToString(), new Vector2(285, 645), scoreColor, 0, Vector2.Zero, 2.5f, SpriteEffects.None, 1);
 				mySpriteBatch.DrawString(text, highScore.ToString(), new Vector2(990, 645), scoreColor, 0, Vector2.Zero, 2.5f, SpriteEffects.None, 1);
-
-
-				if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-				{
-					score = 0;
-					listOfCurrentObjects.Clear();
-					Instantiate(new Player());
-					Instantiate(new Spawner());
-					currentGameState = Gamestate.Menu;
-
-				}
 			}
-
 
 			mySpriteBatch.End();
 			
-
 			base.Draw(gameTime);
 		}
 
 		/// <summary>
 		/// Moves our GameObject to our list of objects to add
 		/// </summary>
-		/// <param name="gameObject"></param>
+		/// <param name="gameObject">The object we want to instantiate</param>
 		public void Instantiate(GameObject gameObject)
 		{
-			gameObject.SetGameWorld(this);
-			listOfObjectsToAdd.Add(gameObject);
+			gameObject.SetGameWorld(this); // Sets our GameWorld to this GameWorld
+			listOfObjectsToAdd.Add(gameObject); // Adds the GameObject to the list
 		}
 
 		/// <summary>
 		/// Moves our Gameobjects to our list of objects to destroy
 		/// </summary>
-		/// <param name="gameObject"></param>
-		/// 
+		/// <param name="gameObject">The object we want to destroy</param>
 		public void DestroyGameObject(GameObject gameObject)
 		{
-			listOfObjectsToDestroy.Add(gameObject);
+			listOfObjectsToDestroy.Add(gameObject); // Adds the GameObject to the list
 		}
 
 		/// <summary>
@@ -202,12 +183,15 @@ namespace Orbital
 		{
 			if (currentGameState == Gamestate.Ingame)
 			{
+				// Updates all all of the GameObjects in the list of current objects
 				foreach (GameObject obj in listOfCurrentObjects)
 				{
 					obj.Update(gameTime);
-
+					
+					// Checks for collision in all the objects in the list of current objects
 					foreach (GameObject other in listOfCurrentObjects)
 					{
+						// if the our GameObject is not equal to the collision object 
 						if (obj != other)
 						{
 							obj.CheckCollision(other);
@@ -218,19 +202,29 @@ namespace Orbital
 		}
 
 		/// <summary>
-		/// Checks for user input to navigate the menu
+		/// Enables the user to navigate the menu
 		/// </summary>
 		private void MenuControls()
 		{
 			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
 			{
-				ScoreManager.SaveToTxt();
-				Exit();
+				ScoreManager.SaveToTxt(); // Save the highscore to a txt file
+				Exit(); // Exit the game
 			}
 			else if (Keyboard.GetState().IsKeyDown(Keys.Space) && currentGameState == Gamestate.Menu)
 			{
 				currentGameState = Gamestate.Ingame;
 			}
+
+			if (Keyboard.GetState().IsKeyDown(Keys.Enter) && currentGameState == Gamestate.DeathScreen)
+			{
+				score = 0; // Resets the score
+				listOfCurrentObjects.Clear(); // Clears our list of current objects 
+				Instantiate(new Player()); // Spawn a new player
+				Instantiate(new Spawner()); // Spawn a new spawner
+				currentGameState = Gamestate.Menu;
+			}
+
 		}
 
 		/// <summary>
@@ -243,8 +237,8 @@ namespace Orbital
 			{
 				foreach (GameObject addObj in listOfObjectsToAdd)
 				{
-					addObj.LoadContent(Content);
-					listOfCurrentObjects.Add(addObj);
+					addObj.LoadContent(Content); // Loads the content we wish to spawn in the game
+					listOfCurrentObjects.Add(addObj); // Adds them to the list of current objects in the game
 				}
 
 				listOfObjectsToAdd.Clear();
@@ -257,19 +251,21 @@ namespace Orbital
 		/// </summary>
 		private void CallDestroy()
 		{
-			
 			if(listOfObjectsToDestroy.Count > 0)
 			{
 				foreach (GameObject destroyObj in listOfObjectsToDestroy)
 				{
-					listOfCurrentObjects.Remove(destroyObj);
+					listOfCurrentObjects.Remove(destroyObj); // Remove the objects we wish to remove from the game
 				}
 			}
 		}
 
+		/// <summary>
+		/// Draws a collision Box
+		/// </summary>
+		/// <param name="gameObject">The Gameobject we wish to draw a collision box around</param>
 		private void DrawCollisionBox(GameObject gameObject)
 		{
-
 			Rectangle topLine = new Rectangle(gameObject.Collision.X, gameObject.Collision.Y, gameObject.Collision.Width, 1);
 			Rectangle bottomLine = new Rectangle(gameObject.Collision.X, gameObject.Collision.Y + gameObject.Collision.Height, gameObject.Collision.Width, 1);
 			Rectangle rightLine = new Rectangle(gameObject.Collision.X + gameObject.Collision.Width, gameObject.Collision.Y, 1, gameObject.Collision.Height);
@@ -281,7 +277,6 @@ namespace Orbital
 			mySpriteBatch.Draw(collisionTexture, leftLine, Color.Red);
 		}
 
-
-
+		#endregion
 	}
 }

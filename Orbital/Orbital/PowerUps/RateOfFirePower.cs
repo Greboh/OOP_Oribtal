@@ -9,6 +9,7 @@ namespace Orbital.PowerUps
 {
 	class RateOfFirePower : GameObject
 	{
+		#region Methods
 		public RateOfFirePower(Vector2 position)
 		{
 			this.position = position;
@@ -28,10 +29,6 @@ namespace Orbital.PowerUps
 
 		}
 
-		public override void Attack(GameTime gameTime)
-		{
-		}
-
 		public override void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(this.sprite, position, null, color, 0, Vector2.Zero, scale, SpriteEffects.None, 1);
@@ -40,6 +37,10 @@ namespace Orbital.PowerUps
 		public override void LoadContent(ContentManager content)
 		{
 			this.sprite = content.Load<Texture2D>("RateOfFirePower");
+		}
+
+		public override void Attack(GameTime gameTime)
+		{
 		}
 
 		public override void OnCollision(GameObject obj)
@@ -51,5 +52,7 @@ namespace Orbital.PowerUps
 		{
 			HandleMovement(gameTime);
 		}
+
+		#endregion
 	}
 }

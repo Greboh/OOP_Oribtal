@@ -10,8 +10,12 @@ namespace Orbital
 {
     class SmallAsteroid : GameObject
     {
+	    #region Fields
+
         private SoundEffect asteroidDestruction;
-        
+
+        #endregion
+
         /// <summary>
         /// construcer for SmallAsteroid that takes 3 parameters. 
         /// </summary>
@@ -33,10 +37,11 @@ namespace Orbital
                 velocity = new Vector2(1, 0);
             }
         }
+       
+        #region Methods
 
         public override void Attack(GameTime gameTime)
         {
-            throw new NotImplementedException();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -60,8 +65,8 @@ namespace Orbital
                 asteroidDestruction.Play(); // plays sound when SmallAsteroid is hit by laser
                 
             }
-
         }
+
         /// <summary>
         /// Destroys Asteroid when the asteroid position exceeds any screensize
         /// </summary>
@@ -83,5 +88,7 @@ namespace Orbital
             HandleMovement(gametime); //updates movement of SmallAsteroid
             ScreenBound(); //implements screendeath for SmallAsteroid
         }
+
+        #endregion
     }
 }

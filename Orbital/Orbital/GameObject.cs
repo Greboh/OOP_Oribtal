@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Orbital
 {
@@ -47,46 +44,75 @@ namespace Orbital
 		protected GameWorld myGameWorld; // Stores the GameWorld in a variable for easier access
 
 		protected Random myRandom = new Random(); // Creates a variable which is used for getting a random number between x and y
-        #endregion
+		#endregion
 
-		// Creates a rectange that gets the sprite and checks its width and height and stores it in a new rectangle
-        public Rectangle Collision
+		#region Properties
+
+		/// <summary>
+		/// Creates a rectange that gets the sprite and checks its width and height and stores it in a new rectangle
+		/// </summary>
+		public Rectangle Collision
 		{
 			get
 			{
 				return new Rectangle
-					(
+				(
 					(int)(position.X + offset.Y), // GameObjects position + GameObjects offset on the Y-Axis
 					(int)(position.Y + offset.X), // GameObjects position + Gameobjects offset on the X-Axis
 					sprite != null ? sprite.Width : 0, // If the sprite is not null then get the sprite witdh otherwise the width is set to 0
 					sprite != null ? sprite.Height : 0 // If the sprite is not null then get the sprite height otherwise the height is set to 0
-					);
+				);
 			}
 		}
 
-		// Used to load content in all subclasses. Abstract since we only need to use it in the subclasses
+		#endregion
+
+		#region Methods
+
+		/// <summary>
+		/// Used to load content in all subclasses. Abstract since we only need to use it in the subclasses
+		/// </summary>
+		/// <param name="content"></param>
 		public abstract void LoadContent(ContentManager content);
 
-		// Used to update in all subclasses. Abstract since we only need to use it in the subclasses
+		/// <summary>
+		/// Used to update in all subclasses. Abstract since we only need to use it in the subclasses
+		/// </summary>
+		/// <param name="gameTime"></param>
 		public abstract void Update(GameTime gameTime);
 
-		// Used to Attack in all subclasses. Abstract since we only need to use it in the subclasses
+		/// <summary>
+		/// Used to Attack in all subclasses. Abstract since we only need to use it in the subclasses
+		/// </summary>
+		/// <param name="gameTime"></param>
 		public abstract void Attack(GameTime gameTime);
 
-		// Used to Draw in all subclasses. Abstract since we only need to use it in the subclasses
+		/// <summary>
+		/// Used to Draw in all subclasses. Abstract since we only need to use it in the subclasses
+		/// </summary>
+		/// <param name="spriteBatch"></param>
 		public abstract void Draw(SpriteBatch spriteBatch);
 
-		// Used to tell what happends when the GameObjects collides. Abstract since we only need to use it in the subclasses
+		/// <summary>
+		/// Used to tell what happends when the GameObjects collides. Abstract since we only need to use it in the subclasses
+		/// </summary>
+		/// <param name="obj"></param>
 		public abstract void OnCollision(GameObject obj);
 
-		// Used to move the GameObjects. Uses the GameObject's velocity and speed
+		/// <summary>
+		/// Used to move the GameObjects. Uses the GameObject's velocity and speed
+		/// </summary>
+		/// <param name="gameTime"></param>
 		protected void HandleMovement(GameTime gameTime)
 		{
 			float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds; // Gets the GameTime in whole seconds
 			position += ((velocity * speed) * deltaTime); // Makes the GameObject's move by manipulating their position
 		}
 
-		// Used to Animate our sprites
+		/// <summary>
+		/// Used to Animate our sprites
+		/// </summary>
+		/// <param name="gameTime"></param>
 		protected void Animate(GameTime gameTime)
 		{
 			exhaustTimeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds; // Gets the time in total seconds used to animate exhaust
@@ -113,7 +139,10 @@ namespace Orbital
 
 		}
 
-		// Used to check if a GameObject collides with anything
+		/// <summary>
+		/// Used to check if a GameObject collides with anything
+		/// </summary>
+		/// <param name="obj"></param>
 		public void CheckCollision(GameObject obj)
 		{
 			if (Collision.Intersects(obj.Collision))
@@ -122,28 +151,34 @@ namespace Orbital
 			}
 		}
 
-		// Used to set our gameworld in the GameWorld class
+		/// <summary>
+		/// Used to set our gameworld in the GameWorld class
+		/// </summary>
+		/// <param name="gameWorld"></param>
 		public void SetGameWorld(GameWorld gameWorld)
 		{
 			myGameWorld = gameWorld; // Takes our variable myGameWorld and applies it to the method parameter
 		}
 
-		// Used to instantiate an object into our Gameworld
-		// In reality it adds them to our list of objects to add in the GameWorld Class
+		/// <summary>
+		/// Used to instantiate an object into our Gameworld
+		/// In reality it adds them to our list of objects to add in the GameWorld Class
+		/// </summary>
+		/// <param name="gameObject"></param>
 		public void Instantiate(GameObject gameObject)
 		{
 			myGameWorld.Instantiate(gameObject);
 		}
 
-		// Used to destroy an object in our GameWorld
-		// In reality it adds them to our list of objects to destroy in the GameWorld Class
+		/// <summary>
+		/// Used to destroy an object in our GameWorld
+		/// In reality it adds them to our list of objects to destroy in the GameWorld Class
+		/// </summary>
 		public void Destroy(GameObject gameObject)
 		{
 			myGameWorld.DestroyGameObject(gameObject);
 		}
 
-
-		
-
+		#endregion
 	}
 }
