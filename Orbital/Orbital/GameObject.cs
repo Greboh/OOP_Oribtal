@@ -35,7 +35,6 @@ namespace Orbital
 		private int exhaustCurrentIndex;
 		private int deathCurrentIndex;
 		protected int amountOfEnemies;
-		private int currentIndex;
 
 		protected float timeElapsed;
 		protected float scale;
