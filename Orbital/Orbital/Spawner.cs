@@ -59,8 +59,11 @@ namespace Orbital
 			
 			Enemy spawnedEnemy = new Enemy();
 
-			// Tjekker hvis playerens score er over værdien som er sat i enemyWave fields
-			
+			/*
+			Ny enemy bliver spawned hvis playerens score overstiger værdien i scoreThreshold,
+			og når en ny enemy bliver spawned så stiger scoreThreshold med værdien fra scoreThreshold
+			*/
+
 
 			if (GameWorld.Score > scoreThreshold && amountOfEnemies < waveNumber)
 			{
