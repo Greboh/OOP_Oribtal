@@ -10,9 +10,14 @@ namespace Orbital
 {
     public class EnemyAttack : GameObject
     {
-	    public EnemyAttack(Vector2 position, Vector2 shootingPoint, float rotation)
+        /// <summary>
+		/// Constructor for enemy laser
+		/// </summary>
+		/// <param name="position">The position of our enemy</param>
+		/// <param name="shootingPoint">The origin point we want to shoot from</param>
+		/// <param name="rotation">Helps pointing the laser in the correct direction</param>
+        public EnemyAttack(Vector2 position, Vector2 shootingPoint, float rotation)
         {
-
             velocity = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation));
             this.speed = 500; // Too low and it will cause a bug!
             this.position = position;
