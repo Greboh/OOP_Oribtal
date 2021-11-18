@@ -46,14 +46,6 @@ namespace Orbital
 		}
             
            
-
-
-            
-				
-
-			
-		
-
 		public void SpawnEnemyShip(GameTime gameTime)
         {
 			
